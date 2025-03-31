@@ -4,7 +4,7 @@
 ?>
         <video autoplay loop muted playsinline>
             <source src="resources/background-video/bmw.mp4" type="video/mp4">
-            Trình duyệt không hỗ trợ video.
+            Trình duyệt không hỗ trợ Video.
         </video>
     </header>
 <?php 
