@@ -29,7 +29,7 @@
                     <li><a href="#">Yêu cầu tư vấn</a></li>
                     <li><a href="#">Đăng ký lái thử</a></li>
                     <li><a href="#">Tìm Nhà phân phối gần nhất</a></li>
-                    <li><a href="#">Triệu hồi</a></li>
+                    <li><a href="#">Liên hệ</a></li>
                 </ul>
             </div>
             <div>
