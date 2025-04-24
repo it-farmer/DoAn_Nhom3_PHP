@@ -11,6 +11,15 @@
     <script src="https://kit.fontawesome.com/cdbcf8b89b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="resources/css/styles.css">
     <script src="resources/js/script.js"></script>
+
+    <!-- thêm cho dropdown -->
+    <script>
+            $(document).ready(function(){
+        $('.dropdown-menu li').hover(function(){
+            $(this).children('.sub-menu').slideToggle();
+        });
+    });
+    </script>
 </head>
 <body>
     <header class="header">
@@ -18,7 +27,23 @@
             <ul>
                 <li><a href="index.php">Logo</a></li>
                 <li><a href="index.php">Trang chủ</a></li>
-                <li><a href="#">Hãng xe <i class="fa-solid fa-angle-down"></i></a></li>
+                <li>
+                    <ul class="dropdown-menu">
+                        <li style="width: 100px;">
+                            <a href="#">Hãng xe<i class="fa-solid fa-angle-down"></i></a>
+                            <ul class="sub-menu">
+                                <li><a href="sanpham.php">Tất cả hãng</a></li>
+                                <li><a href="#">BMW</a></li>
+                                <li><a href="#">Porsche</a></li>
+                                <li><a href="#">Lamborghini</a></li>
+                                <li><a href="#">Audi</a></li>
+                                <li><a href="#">Mercedes-Benz</a></li>
+                                <li><a href="#">Roll Royce</a></li>
+                                <li><a href="#">Ferrari</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
                 <li><input style="width: 250px; height: 30px; border-radius: 10px; padding-left: 10px" type="text" placeholder="Tìm kiếm"></li>
                 <li><a href="#">Dịch vụ</a></li>
                 <li><a href="#">Liên hệ</a></li>
