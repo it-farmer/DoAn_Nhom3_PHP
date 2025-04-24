@@ -1,3 +1,42 @@
+/* ----------------------- Thy bổ sung thêm nha --------------- */
+.dropdown-menu {
+  list-style: none;
+  padding: 10px;
+}
+
+.dropdown-menu .sub-menu {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5); /* Nền mờ cho submenu */
+  padding: 10px; /* Padding cho submenu */
+  margin: 0; /* Loại bỏ margin */
+  border-radius: 5px; /* Bo góc cho submenu */
+  width: 150px;
+}
+
+.dropdown-menu li {
+  position: relative; /* Để submenu có thể hiển thị đúng */
+}
+
+.dropdown-menu li:hover .sub-menu {
+  display: block; /* Hiển thị submenu khi hover */
+}
+
+.sub-menu li {
+  margin: 5px 0; /* Tạo khoảng cách giữa các mục */
+}
+
+.sub-menu li a {
+  color: white; /* Màu chữ cho các liên kết */
+  text-decoration: none; /* Xóa gạch chân */
+  padding: 5px 10px; /* Padding cho các liên kết */
+  display: block; /* Làm cho toàn bộ khu vực có thể click */
+}
+
+.sub-menu li a:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Hiệu ứng hover cho các liên kết */
+}
+
 /* ----------------------Default---------------------- */
 *{
     margin: 0;
