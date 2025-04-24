@@ -92,33 +92,105 @@ VALUES
 ('KH06', 'Vũ Văn Linh', '2003-03-20', '0956789013', 'vvl@gmail.com', 'TP.HCM'),
 ('KH07', 'Lê Văn Phụng', '2004-06-30', '0990123457', 'lvp@gmail.com', 'TP.HCM');
 
-INSERT INTO HangXe (MaHX, TenHX, DiaChiHX, SoDienThoaiHX, EmailHX)
-VALUES 
-('HX01', 'Honda', 'Số 1, Đường 1, TP.HCM', '02823456789', 'honda@gmail.com'),
-('HX02', 'Toyota', 'Số 2, Đường 2, TP.HCM', '02834567890', 'toyota@gmail.com'),
-('HX03', 'Hyundai', 'Số 3, Đường 3, TP.HCM', '06487627164', 'hyundai@gmail.com'),
-('HX04', 'Nissan', 'Số 4, Đường 5, TP.HCM', '02456823757', 'nissan@gmail.com'),
-('HX05', 'Vinfast', 'Số 5, Đường 5, TP.HCM', '09736256235', 'vinfast@gmail.com');
+INSERT INTO HangXe (MaHX, TenHX, DiaChiHX, SoDienThoaiHX, EmailHX) VALUES
+('HX01', 'BMW', 'BMW AG, Petuelring 130, 80788 München, Đức', '+49 89 1250 1600', 'contact@bmw.com'),
+('HX02', 'Porsche', 'Porsche AG, Porschestrasse 1, 73614 Zuffenhausen, Đức', '+49 711 911 0', 'info@porsche.com'),
+('HX03', 'Lamborghini', 'Automobili Lamborghini S.p.A., Via Modena, 12, 40019 Sant\Agata Bolognese BO, Ý', '+39 051 681 7611', 'info@lamborghini.com'),
+('HX04', 'Audi', 'Audi AG, Auto-Union-Straße 1, 85057 Ingolstadt, Đức', '+49 841 89 0', 'info@audi.com'),
+('HX05', 'Mercedes-Benz', 'Mercedes-Benz AG, Mercedesstraße 120, 70372 Stuttgart, Đức', '+49 711 17 0', 'info@mercedes-benz.com'),
+('HX06', 'Roll-Royce', 'Rolls-Royce Motor Cars Limited, The Drive, Goodwood, Chichester, West Sussex PO18 0SH, Vương quốc Anh', '+44 1243 525700', 'info@rolls-royce.com'),
+('HX07', 'Ferrari', 'Ferrari N.V., Via Abetone Inferiore, 4, 41053 Maranello MO, Ý', '+39 0536 949111', 'info@ferrari.com');
 
-INSERT INTO XeHoi (MaXe, AnhXe, TenXe, MaHX, MauXe, CongNghe, Gia, SoLuongTonKho)
-VALUES 
-('XE01', 'XE001.png', 'Vinfast Fadil', 'HX05', 'Xám', 'Sạc điện thoại - Đồng hồ kỹ thuật số', 90000000, 50),
-('XE02', 'XE002.png', 'Vinfast Lux SA2.0', 'HX05', 'Xanh', 'ABS - Đồng hồ cơ', 40000000, 45),
-('XE03', 'XE003.jpg', 'Hyundai Grand i10', 'HX03', 'Đen', 'ABS - Đồng hồ kỹ thuật số', 62000000, 30),
-('XE04', 'XE004.jpg', 'Hyundai SantaFe', 'HX03', 'Xanh rêu', 'ABS - Smart Key', 70000000, 20),
-('XE05', 'XE005.jpg', 'Nissan Leaf (EV)', 'HX04', 'Đỏ', 'Sạc điện thoại - Đồng hồ kỹ thuật số', 32000000, 35),
-('XE06', 'XE006.png', 'Toyota Vios', 'HX02', 'Đen', 'Smart Key - ABS', 40000000, 40),
-('XE07', 'XE007.png', 'Vinfast Lux A2.0', 'HX05', 'Đỏ', 'ABS - Đồng hồ kỹ thuật số', 27000000, 25),
-('XE08', 'XE008.png', 'Hyundai Grand i10', 'HX03', 'Đỏ', 'Smart Key - Đồng hồ cơ', 60000000, 15),
-('XE09', 'XE009.png', 'Honda Accord', 'HX02', 'Kem', 'Smart Key - Đồng hồ kỹ thuật số', 42000000, 10),
-('XE10', 'XE0010.png', 'Nissan Qashqai', 'HX04', 'Xanh rêu', 'Smart Key - ABS', 23000000, 5),
-('XE11', 'XE0011.png', 'Hyundai Grand i10', 'HX03', 'Xanh', 'ABS - Đồng hồ kỹ thuật số', 30000000, 8),
-('XE12', 'XE0012.png', 'Nissan Z (Sport Car)', 'HX04', 'Xám', 'ABS - Smart Key', 60000000, 2),
-('XE13', 'XE0013.jpg', 'Toyota Camry', 'HX02', 'Xanh', 'Sạc điện thoại - Đồng hồ cơ', 30000000, 60),
-('XE14', 'XE0014.jpg', 'Hyundai Elantra', 'HX03', 'Trắng', 'Smart Key - ABS', 37000000, 12),
-('XE15', 'XE0015.png', 'Honda HR-V', 'HX02', 'Xanh', 'Smart Key - ABS', 120000000, 20),
-('XE16', 'XE0016.png', 'Honda Civic', 'HX02', 'Xanh', 'Smart Key - ABS', 150000000, 25),
-('XE17', 'XE0017.png', 'Vinfast President', 'HX05', 'Xanh', 'Smart Key - ABS', 700000000, 21);
+INSERT INTO XeHoi (MaXe, AnhXe, TenXe, MaHX, MauXe, CongNghe, Gia, SoLuongTonKho) VALUES
+('XE01', 'xe01.jpg', 'BMW M3', 'HX01', 'Đen', 'Công nghệ lái tự động', 150000000, 10),
+('XE02', 'xe02.jpg', 'BMW X5', 'HX01', 'Trắng', 'Công nghệ Hybrid', 200000000, 8),
+('XE03', 'xe03.jpg', 'BMW 7 Series', 'HX01', 'Bạc', 'Công nghệ chống va chạm', 250000000, 5),
+('XE04', 'xe04.jpg', 'BMW Z4', 'HX01', 'Đỏ', 'Công nghệ động cơ điện', 180000000, 6),
+('XE05', 'xe05.jpg', 'BMW i8', 'HX01', 'Xanh', 'Công nghệ tiết kiệm nhiên liệu', 300000000, 3),
+('XE06', 'xe06.jpg', 'BMW M4', 'HX01', 'Xám', 'Công nghệ an toàn cao', 220000000, 4),
+('XE07', 'xe07.jpg', 'BMW X3', 'HX01', 'Đen', 'Công nghệ thông minh', 160000000, 12),
+('XE08', 'xe08.jpg', 'Lamborghini Urus', 'HX01', 'Trắng', 'Công nghệ lái tự động', 140000000, 9),
+('XE09', 'xe09.jpg', 'BMW M5', 'HX01', 'Bạc', 'Công nghệ điều khiển từ xa', 260000000, 7),
+('XE10', 'xe10.jpg', 'BMW 3 Series', 'HX01', 'Đỏ', 'Công nghệ âm thanh 3D', 175000000, 11),
+
+-- Porsche
+('XE11', 'xe11.jpg', 'Porsche 911', 'HX02', 'Xanh', 'Công nghệ turbo', 300000000, 5),
+('XE12', 'xe12.jpg', 'Porsche Cayenne', 'HX02', 'Đen', 'Công nghệ hybrid', 200000000, 7),
+('XE13', 'xe13.jpg', 'Porsche Macan', 'HX02', 'Bạc', 'Công nghệ điều khiển thông minh', 180000000, 4),
+('XE14', 'xe14.jpg', 'Porsche Panamera', 'HX02', 'Trắng', 'Công nghệ an toàn', 350000000, 2),
+('XE15', 'xe15.jpg', 'Porsche Taycan', 'HX02', 'Đỏ', 'Công nghệ điện', 400000000, 3),
+('XE16', 'xe16.jpg', 'Porsche 718', 'HX02', 'Xám', 'Công nghệ hiệu suất cao', 250000000, 6),
+('XE17', 'xe17.jpg', 'Porsche Boxster', 'HX02', 'Xanh dương', 'Công nghệ turbo', 220000000, 5),
+('XE18', 'xe18.jpg', 'Porsche 356', 'HX02', 'Bạc', 'Công nghệ cổ điển', 300000000, 2),
+('XE19', 'xe19.jpg', 'Porsche 904', 'HX02', 'Đỏ', 'Công nghệ thể thao', 400000000, 1),
+('XE20', 'xe20.jpg', 'Porsche 918', 'HX02', 'Vàng', 'Công nghệ hybrid cao cấp', 450000000, 1),
+
+-- Lamborghini
+('XE21', 'xe21.jpg', 'Lamborghini Huracan', 'HX03', 'Đen', 'Công nghệ V10', 400000000, 3),
+('XE22', 'xe22.jpg', 'Lamborghini Aventador', 'HX03', 'Đỏ', 'Công nghệ động cơ V12', 600000000, 2),
+('XE23', 'xe23.jpg', 'Lamborghini Urus', 'HX03', 'Vàng', 'Công nghệ SUV', 500000000, 4),
+('XE24', 'xe24.jpg', 'Lamborghini Gallardo', 'HX03', 'Xanh', 'Công nghệ thể thao', 450000000, 2),
+('XE25', 'xe25.jpg', 'Lamborghini Sián', 'HX03', 'Bạc', 'Công nghệ hybrid', 700000000, 1),
+('XE26', 'xe26.jpg', 'Lamborghini Centenario', 'HX03', 'Đen', 'Công nghệ giới hạn', 800000000, 1),
+('XE27', 'xe27.jpg', 'Lamborghini Huracan EVO', 'HX03', 'Trắng', 'Công nghệ mới nhất', 450000000, 3),
+('XE28', 'xe28.jpg', 'Lamborghini Murcielago', 'HX03', 'Xanh dương', 'Công nghệ cổ điển', 550000000, 1),
+('XE29', 'xe29.jpg', 'Lamborghini Reventon', 'HX03', 'Đỏ', 'Công nghệ độc quyền', 1000000000, 1),
+
+-- Audi
+('XE30', 'xe30.jpg', 'Audi A4', 'HX04', 'Đen', 'Công nghệ quattro', 180000000, 10),
+('XE31', 'xe31.jpg', 'Audi A6', 'HX04', 'Bạc', 'Công nghệ tự động', 250000000, 8),
+('XE32', 'xe32.jpg', 'Audi Q5', 'HX04', 'Trắng', 'Công nghệ SUV', 220000000, 6),
+('XE33', 'xe33.jpg', 'Audi Q7', 'HX04', 'Đỏ', 'Công nghệ an toàn', 300000000, 5),
+('XE34', 'xe34.jpg', 'Audi A8', 'HX04', 'Xanh', 'Công nghệ sang trọng', 400000000, 4),
+('XE35', 'xe35.jpg', 'Audi TT', 'HX04', 'Xám', 'Công nghệ thể thao', 350000000, 3),
+('XE36', 'xe36.jpg', 'Audi R8', 'HX04', 'Xanh dương', 'Công nghệ hiệu suất cao', 600000000, 2),
+('XE37', 'xe37.jpg', 'Audi Q8', 'HX04', 'Vàng', 'Công nghệ SUV cao cấp', 550000000, 1),
+('XE38', 'xe38.jpg', 'Audi e-tron', 'HX04', 'Trắng', 'Công nghệ điện', 700000000, 1),
+('XE39', 'xe39.jpg', 'Audi Q3', 'HX04', 'Đen', 'Công nghệ nhỏ gọn', 160000000, 7),
+
+-- Mercedes-Benz
+('XE40', 'xe40.jpg', 'Mercedes-Benz C-Class', 'HX05', 'Đen', 'Công nghệ an toàn', 200000000, 10),
+('XE41', 'xe41.jpg', 'Mercedes-Benz E-Class', 'HX05', 'Bạc', 'Công nghệ tự động', 250000000, 8),
+('XE42', 'xe42.jpg', 'Mercedes-Benz S-Class', 'HX05', 'Trắng', 'Công nghệ sang trọng', 400000000, 5),
+('XE43', 'xe43.jpg', 'Mercedes-Benz GLE', 'HX05', 'Đỏ', 'Công nghệ SUV', 300000000, 6),
+('XE44', 'xe44.jpg', 'Mercedes-Benz GLC', 'HX05', 'Xanh', 'Công nghệ hiệu suất cao', 280000000, 4),
+('XE45', 'xe45.jpg', 'Mercedes-Benz A-Class', 'HX05', 'Xám', 'Công nghệ nhỏ gọn', 180000000, 7),
+('XE46', 'xe46.jpg', 'Mercedes-Benz CLA', 'HX05', 'Vàng', 'Công nghệ thể thao', 220000000, 3),
+('XE47', 'xe47.jpg', 'Mercedes-Benz EQC', 'HX05', 'Đen', 'Công nghệ điện', 600000000, 2),
+('XE48', 'xe48.jpg', 'Mercedes-Benz G-Class', 'HX05', 'Bạc', 'Công nghệ SUV cao cấp', 700000000, 1),
+('XE49', 'xe49.jpg', 'Mercedes-Benz SL-Class', 'HX05', 'Trắng', 'Công nghệ thể thao', 800000000, 1),
+('XE50', 'xe50.jpg', 'Mercedes-Benz GLS', 'HX05', 'Đỏ', 'Công nghệ SUV', 750000000, 1),
+('XE51', 'xe51.jpg', 'Mercedes-Benz GLA', 'HX05', 'Xanh', 'Công nghệ nhỏ gọn', 650000000, 1),
+('XE52', 'xe52.jpg', 'Mercedes-Benz EQS', 'HX05', 'Vàng', 'Công nghệ điện', 950000000, 1),
+('XE53', 'xe53.jpg', 'Mercedes-Benz Citan', 'HX05', 'Đen', 'Công nghệ hiệu suất cao', 550000000, 1),
+('XE54', 'xe54.jpg', 'Mercedes-Benz V-Class', 'HX05', 'Bạc', 'Công nghệ sang trọng', 750000000, 1),
+
+-- Roll-Royce
+('XE55', 'xe55.jpg', 'Roll-Royce Phantom', 'HX06', 'Trắng', 'Công nghệ sang trọng', 1000000000, 3),
+('XE56', 'xe56.jpg', 'Roll-Royce Cullinan', 'HX06', 'Đen', 'Công nghệ SUV cao cấp', 1200000000, 2),
+('XE57', 'xe57.jpg', 'Roll-Royce Ghost', 'HX06', 'Bạc', 'Công nghệ đẳng cấp', 1300000000, 1),
+('XE58', 'xe58.jpg', 'Roll-Royce Wraith', 'HX06', 'Đỏ', 'Công nghệ thể thao', 1500000000, 1),
+('XE59', 'xe59.jpg', 'Roll-Royce Dawn', 'HX06', 'Xanh', 'Công nghệ mui trần', 1400000000, 1),
+('XE60', 'xe60.jpg', 'Roll-Royce Silver Ghost', 'HX06', 'Xanh dương', 'Công nghệ cổ điển', 1600000000, 1),
+('XE61', 'xe61.jpg', 'Roll-Royce Sweptail', 'HX06', 'Vàng', 'Công nghệ độc quyền', 2000000000, 1),
+('XE62', 'xe62.jpg', 'Roll-Royce Black Badge', 'HX06', 'Xám', 'Công nghệ giới hạn', 1700000000, 1),
+('XE63', 'xe63.jpg', 'Roll-Royce Phantom II', 'HX06', 'Trắng', 'Công nghệ sang trọng', 1800000000, 1),
+('XE64', 'xe64.jpg', 'Roll-Royce Dawn Black Badge', 'HX06', 'Đen', 'Công nghệ độc quyền', 1900000000, 1),
+
+-- Ferrari
+('XE65', 'xe65.jpg', 'Ferrari 488', 'HX07', 'Đen', 'Công nghệ V8', 2500000000, 5),
+('XE66', 'xe66.jpg', 'Ferrari F8', 'HX07', 'Đỏ', 'Công nghệ thể thao', 3000000000, 3),
+('XE67', 'xe67.jpg', 'Ferrari Roma', 'HX07', 'Trắng', 'Công nghệ mới', 2800000000, 4),
+('XE68', 'xe68.jpg', 'Ferrari SF90', 'HX07', 'Xanh', 'Công nghệ hybrid', 3500000000, 2),
+('XE69', 'xe69.jpg', 'Ferrari LaFerrari', 'HX07', 'Xám', 'Công nghệ hiệu suất cao', 4000000000, 1),
+('XE70', 'xe70.jpg', 'Ferrari Portofino', 'HX07', 'Vàng', 'Công nghệ mui trần', 3200000000, 2),
+('XE71', 'xe71.jpg', 'Ferrari 812', 'HX07', 'Đen', 'Công nghệ động cơ V12', 4500000000, 2),
+('XE72', 'xe72.jpg', 'Ferrari F12', 'HX07', 'Bạc', 'Công nghệ thể thao', 4800000000, 1),
+('XE73', 'xe73.jpg', 'Ferrari 348', 'HX07', 'Đỏ', 'Công nghệ cổ điển', 1500000000, 1),
+('XE74', 'xe74.jpg', 'Ferrari 599', 'HX07', 'Xanh dương', 'Công nghệ thể thao', 1700000000, 1),
+('XE75', 'xe75.jpg', 'Ferrari 458', 'HX07', 'Trắng', 'Công nghệ hiệu suất cao', 4300000000, 1),
+('XE76', 'xe76.jpg', 'Ferrari California', 'HX07', 'Đen', 'Công nghệ mui trần', 2500000000, 1);
+
 
 INSERT INTO HoaDon (MaHD, MaKH, MaNV, NgayLap, TongTien)
 VALUES 
