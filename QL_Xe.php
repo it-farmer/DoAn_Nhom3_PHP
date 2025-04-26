@@ -215,13 +215,8 @@ if (isset($_GET['edit'])) {
 <body>
 
 <script>
-function clearForm() {
-    document.getElementById("lammoiform").reset(); // Đặt lại form
-}
-
-
 function resetForm() {
-    <?php $message = null ?>
+    
     const form = document.getElementById("lammoiform");
     
     // Duyệt qua tất cả các phần tử trong form
@@ -324,8 +319,11 @@ function resetForm() {
     </form>
 
     <form method="POST" style="margin-top: 20px;">
+        <!-- <div class="form-group"> -->
         <input type="text" name="search_term" placeholder="Tìm kiếm sản phẩm xe" required class="nhap_timkiem">
         <button type="submit" name="search" class="btn">Tìm kiếm</button>
+        <!-- </div> -->
+        
     </form>
 
     <table>
