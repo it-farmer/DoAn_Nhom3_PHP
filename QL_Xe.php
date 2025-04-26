@@ -46,7 +46,7 @@ if (isset($_POST['add'])) {
 
     // Xử lý upload ảnh
     $anhXe = $_FILES['anhXe']['name'];
-    $target_dir = "HinhAnh/";
+    $target_dir = "HInhAnh/Xe/";
     $target_file = $target_dir . basename($anhXe);
     move_uploaded_file($_FILES['anhXe']['tmp_name'], $target_file);
 
@@ -245,7 +245,7 @@ function resetForm() {
         currentImageLabel.style.display = 'none'; // Ẩn nhãn ảnh hiện tại
     }
 
-    const currentImage = document.querySelector('img[src*="HinhAnh/"]');
+    const currentImage = document.querySelector('img[src*="HInhAnh/Xe/"]');
     if (currentImage) {
         currentImage.style.display = 'none'; // Ẩn ảnh hiện tại
     }
@@ -310,7 +310,7 @@ function resetForm() {
         <div class="form-group file-input">
             <?php if (isset($product)): ?>
                 <label>Ảnh hiện tại:</label>
-                <img src="HinhAnh/<?php echo htmlspecialchars($product['AnhXe']); ?>" alt="Ảnh hiện tại" style="max-width: 200px; margin-bottom: 10px;">
+                <img src="HInhAnh/Xe/<?php echo htmlspecialchars($product['AnhXe']); ?>" alt="Ảnh hiện tại" style="max-width: 200px; margin-bottom: 10px;">
             <?php endif; ?>
         </div>
         <button type="submit" name="add" class="btn">Thêm Sản phẩm Xe</button>
