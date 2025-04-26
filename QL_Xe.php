@@ -74,7 +74,7 @@ if (isset($_POST['edit'])) {
     // Xử lý upload ảnh
     if (!empty($_FILES['anhXe']['name'])) {
         $anhXe = $_FILES['anhXe']['name'];
-        $target_dir = "uploads/";
+        $target_dir = "HinhAnh/Xe/";
         $target_file = $target_dir . basename($anhXe);
         move_uploaded_file($_FILES['anhXe']['tmp_name'], $target_file);
     } else {
