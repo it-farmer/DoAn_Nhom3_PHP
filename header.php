@@ -45,8 +45,8 @@
                     </ul>
                 </li>
                 <li><input style="width: 250px; height: 30px; border-radius: 10px; padding-left: 10px" type="text" placeholder="Tìm kiếm"></li>
-                <li><a href="#">Dịch vụ</a></li>
-                <li><a href="#">Liên hệ</a></li>
+                <li><a href="services.php">Dịch vụ</a></li>
+                <li><a href="contact.php">Liên hệ</a></li>
                 <li><a href="about_us.php">Về chúng tôi</a></li>
                 <li><a onclick="showLogin()" href="#">Đăng nhập / Đăng ký</a></li>
             </ul>
@@ -101,4 +101,6 @@
                 </div>
             </div>
         </div>
+        
+        
     </header>
