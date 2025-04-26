@@ -157,7 +157,7 @@ echo '<div class="container">';
 if ($low_price_result->num_rows > 0) {
     while($row = $low_price_result->fetch_assoc()) {
         echo '<div class="card" onclick="showDetails(\'' . $row['MaXe'] . '\')">';
-        echo '<img src="HinhAnh/' . $row['AnhXe'] . '" class="card-img-top" alt="' . $row['TenXe'] . '">';
+        echo '<img src="HInhAnh/Xe/' . $row['AnhXe'] . '" class="card-img-top" alt="' . $row['TenXe'] . '">';
         echo '<div class="card-body">';
         echo '<h4 class="card-title">' . $row['TenXe'] . '</h4>';
         echo '<p class="card-text">Giá: ' . number_format($row['Gia'], 0, ',', '.') . ' VNĐ</p>';
@@ -175,7 +175,7 @@ echo '<div class="product-container">';
 if ($high_price_result->num_rows > 0) {
     while($row = $high_price_result->fetch_assoc()) {
         echo '<div class="card" onclick="showDetails(\'' . $row['MaXe'] . '\')">';
-        echo '<img src="HinhAnh/' . $row['AnhXe'] . '" class="card-img-top" alt="' . $row['TenXe'] . '">';
+        echo '<img src="HInhAnh/Xe/' . $row['AnhXe'] . '" class="card-img-top" alt="' . $row['TenXe'] . '">';
         echo '<div class="card-body">';
         echo '<h3 class="card-title">' . $row['TenXe'] . '</h3>';
         echo '<p class="card-text">Giá: ' . number_format($row['Gia'], 0, ',', '.') . ' VNĐ</p>';
