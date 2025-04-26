@@ -32,14 +32,14 @@
                         <li style="width: 100px;">
                             <a href="#">Hãng xe<i class="fa-solid fa-angle-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="sanpham.php">Tất cả hãng</a></li>
-                                <li><a href="#">BMW</a></li>
-                                <li><a href="#">Porsche</a></li>
-                                <li><a href="#">Lamborghini</a></li>
-                                <li><a href="#">Audi</a></li>
-                                <li><a href="#">Mercedes-Benz</a></li>
-                                <li><a href="#">Roll Royce</a></li>
-                                <li><a href="#">Ferrari</a></li>
+                                <li><a href="TatCaHangXe.php">Tất cả hãng</a></li>
+                                <li><a href="TungHangXe.php?hangxe=HX01">BMW</a></li>
+                                <li><a href="TungHangXe.php?hangxe=HX02">Porsche</a></li>
+                                <li><a href="TungHangXe.php?hangxe=HX03">Lamborghini</a></li>
+                                <li><a href="TungHangXe.php?hangxe=HX04">Audi</a></li>
+                                <li><a href="TungHangXe.php?hangxe=HX05">Mercedes-Benz</a></li>
+                                <li><a href="TungHangXe.php?hangxe=HX06">Roll Royce</a></li>
+                                <li><a href="TungHangXe.php?hangxe=HX07">Ferrari</a></li>
                             </ul>
                         </li>
                     </ul>
