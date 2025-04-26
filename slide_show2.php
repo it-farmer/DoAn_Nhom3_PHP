@@ -103,32 +103,32 @@ img {
 <div class="container">
   <div class="mySlides">
     <div class="numbertext">1 / 6</div>
-    <img src="HinhAnh/xe69.jpg" style="width:100%">
+    <img src="HInhAnh/Xe/xe69.jpg" style="width:100%">
   </div>
 
   <div class="mySlides">
     <div class="numbertext">2 / 6</div>
-    <img src="HinhAnh/xe63.jpg" style="width:100%">
+    <img src="HInhAnh/Xe/xe63.jpg" style="width:100%">
   </div>
 
   <div class="mySlides">
     <div class="numbertext">3 / 6</div>
-    <img src="HinhAnh/xe12.jpg" style="width:100%">
+    <img src="HInhAnh/Xe/xe12.jpg" style="width:100%">
   </div>
     
   <div class="mySlides">
     <div class="numbertext">4 / 6</div>
-    <img src="HinhAnh/xe46.jpg" style="width:100%">
+    <img src="HInhAnh/Xe/xe46.jpg" style="width:100%">
   </div>
 
   <div class="mySlides">
     <div class="numbertext">5 / 6</div>
-    <img src="HinhAnh/xe75.jpg" style="width:100%">
+    <img src="HInhAnh/Xe/xe75.jpg" style="width:100%">
   </div>
     
   <div class="mySlides">
     <div class="numbertext">6 / 6</div>
-    <img src="HinhAnh/xe08.jpg" style="width:100%">
+    <img src="HInhAnh/Xe/xe08.jpg" style="width:100%">
   </div>
     
   <a class="prev" onclick="plusSlides(-1)">❮</a>
@@ -140,22 +140,22 @@ img {
 
   <div class="row">
     <div class="column">
-      <img class="demo cursor" src="HinhAnh/xe69.jpg" style="width:100%" onclick="currentSlide(1)" alt="Ferrari LaFerrari">
+      <img class="demo cursor" src="HInhAnh/Xe/xe69.jpg" style="width:100%" onclick="currentSlide(1)" alt="Ferrari LaFerrari">
     </div>
     <div class="column">
-      <img class="demo cursor" src="HinhAnh/xe63.jpg" style="width:100%" onclick="currentSlide(2)" alt="Roll-Royce Phantom II">
+      <img class="demo cursor" src="HInhAnh/Xe/xe63.jpg" style="width:100%" onclick="currentSlide(2)" alt="Roll-Royce Phantom II">
     </div>
     <div class="column">
-      <img class="demo cursor" src="HinhAnh/xe12.jpg" style="width:100%" onclick="currentSlide(3)" alt="Porsche Cayenne">
+      <img class="demo cursor" src="HInhAnh/Xe/xe12.jpg" style="width:100%" onclick="currentSlide(3)" alt="Porsche Cayenne">
     </div>
     <div class="column">
-      <img class="demo cursor" src="HinhAnh/xe46.jpg" style="width:100%" onclick="currentSlide(4)" alt="Mercedes-Benz CLA">
+      <img class="demo cursor" src="HInhAnh/Xe/xe46.jpg" style="width:100%" onclick="currentSlide(4)" alt="Mercedes-Benz CLA">
     </div>
     <div class="column">
-      <img class="demo cursor" src="HinhAnh/xe75.jpg" style="width:100%" onclick="currentSlide(5)" alt="Ferrari 458">
+      <img class="demo cursor" src="HInhAnh/Xe/xe75.jpg" style="width:100%" onclick="currentSlide(5)" alt="Ferrari 458">
     </div>    
     <div class="column">
-      <img class="demo cursor" src="HinhAnh/xe08.jpg" style="width:100%" onclick="currentSlide(6)" alt="Lamborghini Urus">
+      <img class="demo cursor" src="HInhAnh/Xe/xe08.jpg" style="width:100%" onclick="currentSlide(6)" alt="Lamborghini Urus">
     </div>
   </div>
 </div>
