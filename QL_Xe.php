@@ -130,15 +130,17 @@ if (isset($_GET['edit'])) {
             margin-bottom: 15px;
         }
         .form-group input, .form-group select {
-            width: 100%;
+            width: 95%;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
         .nhap_timkiem {
-            width: 200px;
-            height: 35px;
-            border-radius: 10px;
+            width: 50%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
         .btn {
             background-color: #ff69b4;
