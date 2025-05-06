@@ -16,6 +16,7 @@ include 'header.php';
         background-color: #f9f9f9;
         border-radius: 10px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        opacity: 0.8;
     }
 
     .contact-title {
@@ -59,6 +60,9 @@ include 'header.php';
         text-align: center;
         color: green;
         margin-top: 20px;
+    }
+    body{
+        background-image: url('https://www.mercedes-benz.com.vn/content/dam/vietnam/passengercars/mercedes-benz-cars/stage/Q4-2023-promotion-landing-page-stage-banner.jpg/1740039456357.jpg?im=Crop,rect=(287,0,1726,767);Resize=(2730)')
     }
 </style>
 <div class="content-container">

@@ -1,4 +1,4 @@
-CREATE DATABASE QL_XeHoi;
+
 USE QL_XeHoi;
 
 CREATE TABLE QuyenTruyCap (
