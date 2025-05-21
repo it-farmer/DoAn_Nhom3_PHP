@@ -1,0 +1,599 @@
+/* ----------------------- Thy bổ sung thêm nha --------------- */
+.dropdown-menu {
+  list-style: none;
+  padding: 10px;
+}
+
+.dropdown-menu .sub-menu {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5); /* Nền mờ cho submenu */
+  padding: 10px; /* Padding cho submenu */
+  top: 100%;
+  margin: 0; /* Loại bỏ margin */
+  border-radius: 5px; /* Bo góc cho submenu */
+  width: 150px;
+}
+
+.dropdown-menu li {
+  position: relative; /* Để submenu có thể hiển thị đúng */
+}
+
+.dropdown-menu li:hover .sub-menu {
+  display: block; /* Hiển thị submenu khi hover */
+}
+
+.sub-menu li {
+  margin: 5px 0; /* Tạo khoảng cách giữa các mục */
+}
+
+.sub-menu li a {
+  color: white; /* Màu chữ cho các liên kết */
+  text-decoration: none; /* Xóa gạch chân */
+  padding: 5px 10px; /*Padding cho các liên kết*/
+  display: block; /*Làm cho toàn bộ khu vực có thể click */
+}
+
+.sub-menu li a::before {
+  content: '';
+  display: block;
+  height: 2px;
+  background-color: white;
+  position: absolute;
+  bottom: 1%;
+  left: 0%;
+  width: 0%;
+  transition: all ease-in-out 250ms;
+}
+
+.sub-menu li a:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Hiệu ứng hover cho các liên kết */
+}
+
+/* ----------------------Default---------------------- */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html{
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+    scroll-behavior: smooth;
+    position: relative;
+  }
+
+  /* font chữ dự phòng */
+
+   /* <weight>: Use a value from 100 to 900 */
+  .montserrat {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  /* <weight>: Use a value from 300 to 900 */
+  .merriweather {
+    font-family: "Merriweather", serif;
+    font-optical-sizing: auto;
+    font-weight: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+  }
+
+  /* <weight>: Use a value from 400 to 900 */
+  .playfair-display {
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: auto;
+    font-style: normal;
+  }
+  
+  body{
+    background-color: #ededed !important;
+    font-family: "Roboto", sans-serif !important;
+    max-height: 100%;
+    min-height: 100%;
+    height: 100%;
+  }  
+
+/* ----------------------Reuseable------------------------ */
+a{
+  text-decoration: none;
+  color: white;
+}
+
+.line-throught{
+  border: 1px solid white;
+  width: 87%;
+  margin: 0px auto;
+}
+
+/* ----------------------Header--------------------------- */
+header{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.header video{  
+  height: 100vh;
+}
+
+.nav{
+    width: 100%;
+    height: 50px;
+    position:fixed;
+    z-index: 200; /* Đặt navbar phía trên video */
+    background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+.nav_ul{
+  height: 100%;
+}
+
+.nav ul{
+  margin: 0 auto;
+  padding: 10px;
+  text-align: center;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+  
+.nav li{
+  list-style: none;
+  display: inline-block;
+  position: relative;
+}
+
+.nav a::before {
+  content: '';
+  display: block;
+  height: 2px;
+  background-color: white;
+  position: absolute;
+  bottom: -5px;
+  width: 0%;
+  transition: all ease-in-out 250ms;
+}
+
+.nav a:hover::before {
+  width: 100%;
+}
+
+.nav input{
+  border: none;
+  outline: none;
+}
+
+.nav input:focus{
+  box-shadow: 0 0 10px white;
+}
+
+header video{
+  width: 100%;
+  height: 100%;
+  position: relative;  
+  top: 0;
+  left: 0;
+  /* overflow: hidden; */
+  z-index: -1;
+  object-fit: cover;
+}
+
+/* ----------------------Footer------------------ */
+footer{
+  background-color: black;
+  position: relative;
+}
+
+.footer-links, .footer-links-2{
+  display: flex;
+  width: 100%;
+  padding: 50px 100px;
+}
+
+.footer-links h3{
+  color: white;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.footer-links ul{
+  margin-right: 40px;
+}
+
+.footer-links li{
+  padding: 10px 0;
+  font-size: 13px;
+  display: block;
+  width: fit-content;
+  position: relative;
+}
+
+.footer-links a::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background-color: white;
+  position: absolute;
+  bottom: 0px;
+  width: 0%;
+  transition: all ease-in-out 250ms;
+}
+
+.footer-links a:hover::before {
+  width: 100%;
+}
+
+.footer-links-2{
+  justify-content: space-between;
+}
+
+.footer-links-2 ul li{
+  display: inline-block;
+  margin-right: 40px;
+}
+
+.footer-links-2 i
+{
+  color: white;
+  font-size: 30px;
+}
+
+/* ---------------------------About us------------------------------- */
+
+.about-us{
+  height: 50vh;
+  padding: 100px;
+  padding-top: 150px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;  
+  background-color: white;
+  text-align: center;
+}
+
+.about-us .line-throught{
+  width: 40%;
+  border: 1px solid black;
+}
+
+.about-us p{
+  font-size: 18px;
+}
+
+/* ----------------------------- Login --------------------------------- */
+.login-container{
+  display: none;
+  width: 60%;
+  height: fit-content;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  background-color: #2C2638;
+  position: fixed;
+  top: 10%;
+  left: 20%;
+  z-index: 200;
+  /* display: flex; */
+  flex-wrap: wrap;
+  animation: slideIn 0.3s ease-out;
+}
+
+.ani_out{
+  animation: slideOut 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateY(-50px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+      transform: translateY(0);
+      opacity: 1;
+  }
+  to {
+      transform: translateY(-50px);
+      opacity: 0;
+  }
+}
+
+.form_control{
+  position: relative;
+  width: 50%;
+  height: 500px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.slide_s_login{
+  width: 50%;
+  height: 100%;
+  border-radius: 10px;
+  position: relative;
+}
+
+.slide_s_login img{
+  width: 100%;
+  height: 500px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.slide_s_login button{
+  position: absolute;
+  height: 25px;
+  right: 5%;
+  top: 0%;
+  width: 25%;
+  font-size: 13px;
+  border-radius: 20px;
+  background-color: #655AA1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  cursor: pointer;
+}
+
+.slide_s_login i{
+  padding-top: 2%;
+  padding-left: 4%;
+}
+
+.login_main{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 50px;
+  position: absolute;
+  left: 0;
+  transition: all 0.5s;
+}
+
+.login_main#reg_form{
+  left: 500px;
+}
+
+.login_main h2{
+  margin-bottom: 10%;
+}
+
+.login_main#reg_form h2{
+  margin-bottom: 5%;
+}
+
+.login_main input[type="text"],[type="password"], .login_main button{
+  width: 100%;
+  height: 40px;
+  margin: 10px 0;
+  padding: 5px;
+  padding-left: 15px;
+  border-radius: 5px;
+  color: white;
+  background-color: #3C364C;
+  outline: none;
+  border: none;
+}
+
+.login_main button{
+  background-color: #6D54B5;
+}
+
+.login_main input[type="text"]:focus,[type="password"]:focus{
+  box-shadow: 0 0 5px white;
+}
+
+.login_main input[type="checkbox"]{
+  accent-color: white;
+  width: 15px;
+  height: 15px;
+}
+
+.login_main p{
+  font-size: 13px;
+  margin: 10px 0;
+}
+
+.login_main p span{
+  text-decoration: underline;
+  color: #6D54B5;
+  cursor: pointer;
+}
+
+.or_login{
+  position: relative;
+  margin-top: 15%;
+  margin-bottom: 5%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  color: #898592;
+}
+
+#reg_form .or_login{
+  margin-top: 5% !important;
+  margin-bottom: 5% !important;
+}
+
+.or_login hr{
+  width: 25%;
+  height: 1px;
+}
+
+.or_login span{
+  font-size: 13px;
+}
+
+.or_login_2{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.or_login_2 img{
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 50px;
+}
+
+.or_login_2 button{
+  width: 150px;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  padding-left: 0;
+  /* color: #898592; */
+  background-color: transparent;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+/* ---------------------------------------Product Detail-------------------------------------------- */
+.product-detail{
+  width: 100%;
+  background-color: white;
+}
+
+.slide-show-product-detail{
+  height: 80vh;
+  position: relative;
+}
+
+.slide-show-product-detail img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info_product{
+  width: 40%;
+  position: relative;
+  z-index: 100;
+  color: white;
+  padding: 6% 10%;
+}
+
+.info_product h1{
+  font-size: 40px;
+  font-weight: 100;
+  margin-bottom: 20px;
+}
+
+.info_product p{
+  margin-bottom: 20px;
+}
+
+.info_product .btn_add_cart{
+  width: 100%;
+  height: 50px;
+  background-color: #1C69D4;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 5%;
+}
+
+.info_product .btn_add_cart:hover{
+  background-color: #1f539b;
+}
+
+.info_product .btn_buy_now{
+  width: 100%;
+  height: 50px;
+  background-color: #F2F2F2;
+  color: black;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 10%;
+}
+
+.info_product .btn_buy_now:hover{
+  background-color: #b5aaaa;
+}
+
+.info_product table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.info_product table th{
+  font-size: 26px !important;
+  text-align: left;
+}
+
+.info_product table td{
+  font-size: 20px !important;
+}
+
+.info_product table td, .info_product table th{
+  font-weight: 100;
+  margin-right: 5%;
+  padding-bottom: 5%;
+  margin-bottom: 5%;
+}
+
+.specifications-product{
+  width: 100%;
+  padding: 50px 100px;
+  display: flex;
+}
+
+.specifications-product h1{
+  width: 30%;
+  text-align: center;
+  padding-top: 10%;
+}
+
+.specifications-product ul{
+  width: 70%;
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+.specifications-product ul li{
+  text-decoration: none !important;
+  width: 50%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.specifications-product strong, .specifications-product span{
+  display: block;
+  margin-bottom: 3%;
+}

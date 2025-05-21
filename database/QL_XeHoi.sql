@@ -1,12 +1,12 @@
-
+CREATE DATABASE IF NOT EXISTS QL_XeHoi;
 USE QL_XeHoi;
 
-CREATE TABLE QuyenTruyCap (
+CREATE TABLE IF NOT EXISTS QuyenTruyCap (
     QuyenID INT PRIMARY KEY AUTO_INCREMENT,
     TenQuyen VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE NhanVien (
+CREATE TABLE IF NOT EXISTS NhanVien (
     MaNV VARCHAR(10) PRIMARY KEY,
     HoTenNV VARCHAR(100),
     QueQuan VARCHAR(100),
@@ -20,16 +20,18 @@ CREATE TABLE NhanVien (
     FOREIGN KEY (QuyenID) REFERENCES QuyenTruyCap(QuyenID)
 );
 
-CREATE TABLE KhachHang (
+CREATE TABLE IF NOT EXISTS KhachHang (
     MaKH VARCHAR(10) PRIMARY KEY, 
     HoTenKH VARCHAR(100),
     NgaySinhKH DATE,
     SoDienThoaiKH VARCHAR(20),
     EmailKH VARCHAR(100),
-    DiaChi VARCHAR(250)
+    DiaChi VARCHAR(250),
+    TenDangNhap VARCHAR(100),
+    MatKhau VARCHAR(100)
 );
 
-CREATE TABLE HangXe (
+CREATE TABLE IF NOT EXISTS HangXe (
     MaHX VARCHAR(10) PRIMARY KEY, 
     TenHX VARCHAR(100),
     DiaChiHX VARCHAR(255),
@@ -37,7 +39,7 @@ CREATE TABLE HangXe (
     EmailHX VARCHAR(100)
 );
 
-CREATE TABLE XeHoi (
+CREATE TABLE IF NOT EXISTS XeHoi (
     MaXe VARCHAR(10) PRIMARY KEY, 
     AnhXe VARCHAR(200),
     TenXe VARCHAR(100),
@@ -46,10 +48,59 @@ CREATE TABLE XeHoi (
     MauXe VARCHAR(50),
     CongNghe VARCHAR(200),
     Gia FLOAT,
-    SoLuongTonKho INT
+    SoLuongTonKho INT,
+    MoTa TEXT,
+    ThoiGianBaoHanh VARCHAR(50)
 );
 
-CREATE TABLE HoaDon (
+CREATE TABLE IF NOT EXISTS ThongSoKyThuat (
+    MaXe VARCHAR(10) PRIMARY KEY,
+    FOREIGN KEY (MaXe) REFERENCES XeHoi(MaXe) ON DELETE CASCADE,
+    MauNgoaiThat VARCHAR(50),
+    MauNoiThat VARCHAR(100),
+    SoXiLanh INT,
+    DungTich VARCHAR(50),
+    ChieuDai VARCHAR(50),
+    ChieuRong VARCHAR(50),
+    ChieuCao VARCHAR(50),
+    KhoiLuong VARCHAR(50),
+    TrongLuongToiDa VARCHAR(50),
+    TocDoToiDa VARCHAR(50),
+    SoCua INT,
+    SoChoNgoi INT,
+    HopSo VARCHAR(50),
+    NamSanXuat INT,
+    DongCo VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS HinhAnhXe (
+    MaHinh INT AUTO_INCREMENT PRIMARY KEY,
+    MaXe VARCHAR(10),
+    FOREIGN KEY (MaXe) REFERENCES XeHoi(MaXe) ON DELETE CASCADE,
+    TenHinh VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS DanhGiaBinhLuan (
+    MaDanhGia INT AUTO_INCREMENT PRIMARY KEY,
+    MaKH VARCHAR(10),
+    MaXe VARCHAR(10),
+    FOREIGN KEY (MaKH) REFERENCES KhachHang(MaKH) ON DELETE CASCADE,
+    FOREIGN KEY (MaXe) REFERENCES XeHoi(MaXe) ON DELETE CASCADE,
+    NoiDung TEXT,
+    SoSao INT,
+    NgayDanhGia DATETIME
+);
+
+CREATE TABLE IF NOT EXISTS GioHang (
+    MaGH INT AUTO_INCREMENT PRIMARY KEY,
+    MaKH VARCHAR(10),
+    MaXe VARCHAR(10),
+    SoLuong INT,
+    FOREIGN KEY (MaKH) REFERENCES KhachHang(MaKH) ON DELETE CASCADE,
+    FOREIGN KEY (MaXe) REFERENCES XeHoi(MaXe) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS HoaDon (
     MaHD VARCHAR(10) PRIMARY KEY,
     MaKH VARCHAR(10),
     FOREIGN KEY (MaKH) REFERENCES KhachHang(MaKH) ON DELETE CASCADE,
@@ -59,7 +110,7 @@ CREATE TABLE HoaDon (
     TongTien FLOAT
 );
 
-CREATE TABLE ChiTietHoaDon (
+CREATE TABLE IF NOT EXISTS ChiTietHoaDon (
     MaHD VARCHAR(10) NOT NULL,
     FOREIGN KEY (MaHD) REFERENCES HoaDon(MaHD) ON DELETE CASCADE,
     MaXe VARCHAR(10) NOT NULL,
@@ -72,25 +123,25 @@ CREATE TABLE ChiTietHoaDon (
 INSERT INTO QuyenTruyCap (TenQuyen)
 VALUES 
 ('Quản lý'),
-('Nhân viên bán hàng'),
-('Nhân viên thu ngân');
+('Nhân viên bán hàng');
 
 INSERT INTO NhanVien (MaNV, HoTenNV, QueQuan, NgaySinhNV, SoDienThoaiNV, GioiTinh, EmailNV, TaiKhoan, MatKhau, QuyenID)
 VALUES 
 ('NV01', 'Lê Hà Ngọc Thy', 'TP HCM', '2004-11-24', '0912345678', 'Nam', 'nv1@gmail.com', 'nv01', '123', 1),
 ('NV02', 'Đỗ Trung Dũng', 'Hà Nội', '2004-06-20', '0987654321', 'Nữ', 'nv2@gmail.com', 'nv02', '123', 2),
 ('NV03', 'Nguyễn Thế Anh', 'Long An', '2004-03-10', '0934567890', 'Nữ', 'nv3@gmail.com', 'nv03', '123', 1),
-('NV04', 'Hồ Quế Trân', 'Yên Bái', '2003-03-10', '0934567890', 'Nữ', 'nv4@gmail.com', 'nv04', '123', 3);
+('NV04', 'Hồ Quế Trân', 'Yên Bái', '2003-03-10', '0934567890', 'Nữ', 'nv4@gmail.com', 'nv04', '123', 2);
 
-INSERT INTO KhachHang (MaKH, HoTenKH, NgaySinhKH, SoDienThoaiKH, EmailKH, DiaChi)
+-- Sửa INSERT cho bảng KhachHang, bổ sung TenDangNhap và MatKhau
+INSERT INTO KhachHang (MaKH, HoTenKH, NgaySinhKH, SoDienThoaiKH, EmailKH, DiaChi, TenDangNhap, MatKhau)
 VALUES 
-('KH01', 'Nguyễn Thị Giang', '1999-05-12', '0909876543', 'ntg@gmail.com', 'TP.HCM'),
-('KH02', 'Trần Văn Hiệp', '2005-02-25', '0912345679', 'tvh@gmail.com', 'Bến Tre'),
-('KH03', 'Lê Thị Ái Quyên', '2005-08-30', '0923456780', 'lti@gmail.com', 'TP.HCM'),
-('KH04', 'Ngô Văn Phú', '2001-10-15', '0934567891', 'nvj@gmail.com', 'TP.HCM'),
-('KH05', 'Phạm Thị Khánh Huyền', '2002-12-05', '0945678902', 'ptk@gmail.com', 'TP.HCM'),
-('KH06', 'Vũ Văn Linh', '2003-03-20', '0956789013', 'vvl@gmail.com', 'TP.HCM'),
-('KH07', 'Lê Văn Phụng', '2004-06-30', '0990123457', 'lvp@gmail.com', 'TP.HCM');
+('KH01', 'Nguyễn Thị Giang', '1999-05-12', '0909876543', 'ntg@gmail.com', 'TP.HCM', 'kh01', '123'),
+('KH02', 'Trần Văn Hiệp', '2005-02-25', '0912345679', 'tvh@gmail.com', 'Bến Tre', 'kh02', '123'),
+('KH03', 'Lê Thị Ái Quyên', '2005-08-30', '0923456780', 'lti@gmail.com', 'TP.HCM', 'kh03', '123'),
+('KH04', 'Ngô Văn Phú', '2001-10-15', '0934567891', 'nvj@gmail.com', 'TP.HCM', 'kh04', '123'),
+('KH05', 'Phạm Thị Khánh Huyền', '2002-12-05', '0945678902', 'ptk@gmail.com', 'TP.HCM', 'kh05', '123'),
+('KH06', 'Vũ Văn Linh', '2003-03-20', '0956789013', 'vvl@gmail.com', 'TP.HCM', 'kh06', '123'),
+('KH07', 'Lê Văn Phụng', '2004-06-30', '0990123457', 'lvp@gmail.com', 'TP.HCM', 'kh07', '123');
 
 INSERT INTO HangXe (MaHX, TenHX, DiaChiHX, SoDienThoaiHX, EmailHX) VALUES
 ('HX01', 'BMW', 'BMW AG, Petuelring 130, 80788 München, Đức', '+49 89 1250 1600', 'contact@bmw.com'),
@@ -191,24 +242,135 @@ INSERT INTO XeHoi (MaXe, AnhXe, TenXe, MaHX, MauXe, CongNghe, Gia, SoLuongTonKho
 ('XE75', 'xe75.jpg', 'Ferrari 458', 'HX07', 'Trắng', 'Công nghệ hiệu suất cao', 4300000000, 1),
 ('XE76', 'xe76.jpg', 'Ferrari California', 'HX07', 'Đen', 'Công nghệ mui trần', 2500000000, 1);
 
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-- VÌ MÔ TẢ CHIẾM KHÁ NHIỀU DÒNG DỮ LIỆU NÊN KHÔNG INSERT Ở ĐÂY! 
+-- CHẠY FILE database/Insert_MoTa_BH.PHP ĐỂ THÊM DỮ LIỆU MÔ TẢ VÀ THỜI GIAN BẢO HÀNH CHO CÁC XE TRÊN
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+
+
+INSERT INTO ThongSoKyThuat (MaXe, MauNgoaiThat, MauNoiThat, SoXiLanh, DungTich, ChieuDai, ChieuRong, ChieuCao, KhoiLuong, TrongLuongToiDa, TocDoToiDa, SoCua, SoChoNgoi, HopSo, NamSanXuat, DongCo)
+VALUES
+('XE01', 'Đen', 'Đen', 6, '3.0L', '4794 mm', '1903 mm', '1432 mm', '1725 kg', '2245 kg', '280 km/h', 4, 5, 'Tự động', 2023, 'Xăng'),  -- BMW M3
+('XE02', 'Trắng', 'Nâu', 6, '3.0L', '4922 mm', '2004 mm', '1745 mm', '2135 kg', '2860 kg', '243 km/h', 5, 5, 'Tự động', 2023, 'Xăng'),  -- BMW X5
+('XE03', 'Bạc', 'Đen', 8, '4.4L', '5260 mm', '1902 mm', '1479 mm', '2180 kg', '2740 kg', '250 km/h', 4, 5, 'Tự động', 2023, 'Xăng'),  -- BMW 7 Series
+('XE04', 'Đỏ', 'Đen', 4, '2.0L', '4324 mm', '1864 mm', '1304 mm', '1490 kg', '1860 kg', '250 km/h', 2, 2, 'Tự động', 2023, 'Xăng'),  -- BMW Z4
+('XE05', 'Xanh', 'Trắng', 3, '1.5L', '4689 mm', '1942 mm', '1291 mm', '1595 kg', '1920 kg', '250 km/h', 2, 4, 'Tự động', 2023, 'Hybrid'),  -- BMW i8
+('XE06', 'Xám', 'Đen', 6, '3.0L', '4794 mm', '1887 mm', '1393 mm', '1725 kg', '2155 kg', '290 km/h', 2, 4, 'Tự động', 2023, 'Xăng'),  -- BMW M4
+('XE07', 'Đen', 'Nâu', 4, '2.0L', '4708 mm', '1891 mm', '1676 mm', '1790 kg', '2400 kg', '235 km/h', 5, 5, 'Tự động', 2023, 'Xăng'),  -- BMW X3
+('XE08', 'Trắng', 'Đen', 8, '4.0L', '5112 mm', '2016 mm', '1638 mm', '2200 kg', '2750 kg', '305 km/h', 5, 5, 'Tự động', 2023, 'Xăng'),  -- Lamborghini Urus
+('XE09', 'Bạc', 'Đen', 8, '4.4L', '4983 mm', '1903 mm', '1473 mm', '1970 kg', '2440 kg', '305 km/h', 4, 5, 'Tự động', 2023, 'Xăng'),  -- BMW M5
+('XE10', 'Đỏ', 'Đen', 4, '2.0L', '4709 mm', '1827 mm', '1442 mm', '1545 kg', '2050 kg', '250 km/h', 4, 5, 'Tự động', 2023, 'Xăng'),  -- BMW 3 Series
+('XE11', 'Đen', 'Đen', 6, '3.0L', '4794 mm', '1903 mm', '1432 mm', '1725 kg', '2245 kg', '280 km/h', 4, 5, 'Sàn', 2021, 'Xăng'),  
+('XE12', 'Trắng', 'Nâu', 6, '3.0L', '4922 mm', '2004 mm', '1745 mm', '2135 kg', '2860 kg', '243 km/h', 5, 5, 'Tự động', 2022, 'Xăng'),  
+('XE13', 'Bạc', 'Đen', 8, '4.4L', '5260 mm', '1902 mm', '1479 mm', '2180 kg', '2740 kg', '250 km/h', 4, 5, 'Sàn', 2020, 'Xăng'),  
+('XE14', 'Đỏ', 'Đen', 4, '2.0L', '4324 mm', '1864 mm', '1304 mm', '1490 kg', '1860 kg', '250 km/h', 2, 2, 'Tự động', 2023, 'Xăng'),  
+('XE15', 'Xanh', 'Trắng', 3, '1.5L', '4689 mm', '1942 mm', '1291 mm', '1595 kg', '1920 kg', '250 km/h', 2, 4, 'Tự động', 2022, 'Hybrid'),  
+('XE16', 'Xám', 'Đen', 6, '3.0L', '4794 mm', '1887 mm', '1393 mm', '1725 kg', '2155 kg', '290 km/h', 2, 4, 'Sàn', 2021, 'Xăng'),  
+('XE17', 'Đen', 'Nâu', 4, '2.0L', '4708 mm', '1891 mm', '1676 mm', '1790 kg', '2400 kg', '235 km/h', 5, 5, 'Tự động', 2020, 'Xăng'),  
+('XE18', 'Trắng', 'Đen', 8, '4.0L', '5112 mm', '2016 mm', '1638 mm', '2200 kg', '2750 kg', '305 km/h', 5, 5, 'Sàn', 2023, 'Xăng'),  
+('XE19', 'Bạc', 'Đen', 8, '4.4L', '4983 mm', '1903 mm', '1473 mm', '1970 kg', '2440 kg', '305 km/h', 4, 5, 'Tự động', 2021, 'Xăng'),  
+('XE20', 'Đỏ', 'Đen', 4, '2.0L', '4709 mm', '1827 mm', '1442 mm', '1545 kg', '2050 kg', '250 km/h', 4, 5, 'Sàn', 2022, 'Xăng'),  
+('XE21', 'Đen', 'Đen', 6, '3.0L', '4794 mm', '1903 mm', '1432 mm', '1725 kg', '2245 kg', '280 km/h', 4, 5, 'Tự động', 2023, 'Xăng'),  
+('XE22', 'Trắng', 'Nâu', 6, '3.0L', '4922 mm', '2004 mm', '1745 mm', '2135 kg', '2860 kg', '243 km/h', 5, 5, 'Sàn', 2020, 'Xăng'),  
+('XE23', 'Bạc', 'Đen', 8, '4.4L', '5260 mm', '1902 mm', '1479 mm', '2180 kg', '2740 kg', '250 km/h', 4, 5, 'Tự động', 2021, 'Xăng'),  
+('XE24', 'Đỏ', 'Đen', 4, '2.0L', '4324 mm', '1864 mm', '1304 mm', '1490 kg', '1860 kg', '250 km/h', 2, 2, 'Sàn', 2022, 'Xăng'),  
+('XE25', 'Xanh', 'Trắng', 3, '1.5L', '4689 mm', '1942 mm', '1291 mm', '1595 kg', '1920 kg', '250 km/h', 2, 4, 'Tự động', 2023, 'Hybrid'),  
+('XE26', 'Xám', 'Đen', 6, '3.0L', '4794 mm', '1887 mm', '1393 mm', '1725 kg', '2155 kg', '290 km/h', 2, 4, 'Sàn', 2020, 'Xăng'),  
+('XE27', 'Đen', 'Nâu', 4, '2.0L', '4708 mm', '1891 mm', '1676 mm', '1790 kg', '2400 kg', '235 km/h', 5, 5, 'Tự động', 2021, 'Xăng'),  
+('XE28', 'Trắng', 'Đen', 8, '4.0L', '5112 mm', '2016 mm', '1638 mm', '2200 kg', '2750 kg', '305 km/h', 5, 5, 'Sàn', 2022, 'Xăng'),  
+('XE29', 'Bạc', 'Đen', 8, '4.4L', '4983 mm', '1903 mm', '1473 mm', '1970 kg', '2440 kg', '305 km/h', 4, 5, 'Tự động', 2023, 'Xăng'),  
+('XE30', 'Đỏ', 'Đen', 4, '2.0L', '4709 mm', '1827 mm', '1442 mm', '1545 kg', '2050 kg', '250 km/h', 4, 5, 'Sàn', 2020, 'Xăng'),  
+('XE31', 'Đen', 'Đen', 6, '3.0L', '4794 mm', '1903 mm', '1432 mm', '1725 kg', '2245 kg', '280 km/h', 4, 5, 'Tự động', 2021, 'Xăng'),  
+('XE32', 'Trắng', 'Nâu', 6, '3.0L', '4922 mm', '2004 mm', '1745 mm', '2135 kg', '2860 kg', '243 km/h', 5, 5, 'Sàn', 2022, 'Xăng'),  
+('XE33', 'Bạc', 'Đen', 8, '4.4L', '5260 mm', '1902 mm', '1479 mm', '2180 kg', '2740 kg', '250 km/h', 4, 5, 'Tự động', 2023, 'Xăng'),  
+('XE34', 'Đỏ', 'Đen', 4, '2.0L', '4324 mm', '1864 mm', '1304 mm', '1490 kg', '1860 kg', '250 km/h', 2, 2, 'Sàn', 2020, 'Xăng'),  
+('XE35', 'Xanh', 'Trắng', 3, '1.5L', '4689 mm', '1942 mm', '1291 mm', '1595 kg', '1920 kg', '250 km/h', 2, 4, 'Tự động', 2021, 'Hybrid'),  
+('XE36', 'Xám', 'Đen', 6, '3.0L', '4794 mm', '1887 mm', '1393 mm', '1725 kg', '2155 kg', '290 km/h', 2, 4, 'Sàn', 2022, 'Xăng'),  
+('XE37', 'Đen', 'Nâu', 4, '2.0L', '4708 mm', '1891 mm', '1676 mm', '1790 kg', '2400 kg', '235 km/h', 5, 5, 'Tự động', 2023, 'Xăng'),  
+('XE38', 'Trắng', 'Đen', 8, '4.0L', '5112 mm', '2016 mm', '1638 mm', '2200 kg', '2750 kg', '305 km/h', 5, 5, 'Sàn', 2020, 'Xăng'),  
+('XE39', 'Bạc', 'Đen', 8, '4.4L', '4983 mm', '1903 mm', '1473 mm', '1970 kg', '2440 kg', '305 km/h', 4, 5, 'Tự động', 2021, 'Xăng'),  
+('XE40', 'Đỏ', 'Đen', 4, '2.0L', '4709 mm', '1827 mm', '1442 mm', '1545 kg', '2050 kg', '250 km/h', 4, 5, 'Sàn', 2022, 'Xăng'),  
+('XE41', 'Đen', 'Đen', 6, '3.0L', '4794 mm', '1903 mm', '1432 mm', '1725 kg', '2245 kg', '280 km/h', 4, 5, 'Tự động', 2023, 'Xăng'),  
+('XE42', 'Trắng', 'Nâu', 6, '3.0L', '4922 mm', '2004 mm', '1745 mm', '2135 kg', '2860 kg', '243 km/h', 5, 5, 'Sàn', 2020, 'Xăng'),  
+('XE43', 'Bạc', 'Đen', 8, '4.4L', '5260 mm', '1902 mm', '1479 mm', '2180 kg', '2740 kg', '250 km/h', 4, 5, 'Tự động', 2021, 'Xăng'),  
+('XE44', 'Đỏ', 'Đen', 4, '2.0L', '4324 mm', '1864 mm', '1304 mm', '1490 kg', '1860 kg', '250 km/h', 2, 2, 'Sàn', 2022, 'Xăng'),  
+('XE45', 'Xanh', 'Trắng', 3, '1.5L', '4689 mm', '1942 mm', '1291 mm', '1595 kg', '1920 kg', '250 km/h', 2, 4, 'Tự động', 2023, 'Hybrid'),  
+('XE46', 'Xám', 'Đen', 6, '3.0L', '4794 mm', '1887 mm', '1393 mm', '1725 kg', '2155 kg', '290 km/h', 2, 4, 'Sàn', 2020, 'Xăng'),  
+('XE47', 'Đen', 'Nâu', 4, '2.0L', '4708 mm', '1891 mm', '1676 mm', '1790 kg', '2400 kg', '235 km/h', 5, 5, 'Tự động', 2021, 'Xăng'),  
+('XE48', 'Trắng', 'Đen', 8, '4.0L', '5112 mm', '2016 mm', '1638 mm', '2200 kg', '2750 kg', '305 km/h', 5, 5, 'Sàn', 2022, 'Xăng'),  
+('XE49', 'Bạc', 'Đen', 8, '4.4L', '4983 mm', '1903 mm', '1473 mm', '1970 kg', '2440 kg', '305 km/h', 4, 5, 'Tự động', 2023, 'Xăng'),  
+('XE50', 'Đỏ', 'Đen', 4, '2.0L', '4709 mm', '1827 mm', '1442 mm', '1545 kg', '2050 kg', '250 km/h', 4, 5, 'Sàn', 2020, 'Xăng'),  
+('XE51', 'Đen', 'Đen', 6, '3.0L', '4794 mm', '1903 mm', '1432 mm', '1725 kg', '2245 kg', '280 km/h', 4, 5, 'Tự động', 2021, 'Xăng'),  
+('XE52', 'Trắng', 'Nâu', 6, '3.0L', '4922 mm', '2004 mm', '1745 mm', '2135 kg', '2860 kg', '243 km/h', 5, 5, 'Sàn', 2022, 'Xăng'),  
+('XE53', 'Bạc', 'Đen', 8, '4.4L', '5260 mm', '1902 mm', '1479 mm', '2180 kg', '2740 kg', '250 km/h', 4, 5, 'Tự động', 2023, 'Xăng'),  
+('XE54', 'Đỏ', 'Đen', 4, '2.0L', '4324 mm', '1864 mm', '1304 mm', '1490 kg', '1860 kg', '250 km/h', 2, 2, 'Sàn', 2020, 'Xăng'),  
+('XE55', 'Xanh', 'Trắng', 3, '1.5L', '4689 mm', '1942 mm', '1291 mm', '1595 kg', '1920 kg', '250 km/h', 2, 4, 'Tự động', 2021, 'Hybrid'),  
+('XE56', 'Xám', 'Đen', 6, '3.0L', '4794 mm', '1887 mm', '1393 mm', '1725 kg', '2155 kg', '290 km/h', 2, 4, 'Sàn', 2022, 'Xăng'),  
+('XE57', 'Đen', 'Nâu', 4, '2.0L', '4708 mm', '1891 mm', '1676 mm', '1790 kg', '2400 kg', '235 km/h', 5, 5, 'Tự động', 2023, 'Xăng'),  
+('XE58', 'Trắng', 'Đen', 8, '4.0L', '5112 mm', '2016 mm', '1638 mm', '2200 kg', '2750 kg', '305 km/h', 5, 5, 'Sàn', 2020, 'Xăng'),  
+('XE59', 'Bạc', 'Đen', 8, '4.4L', '4983 mm', '1903 mm', '1473 mm', '1970 kg', '2440 kg', '305 km/h', 4, 5, 'Tự động', 2021, 'Xăng'),  
+('XE60', 'Đỏ', 'Đen', 4, '2.0L', '4709 mm', '1827 mm', '1442 mm', '1545 kg', '2050 kg', '250 km/h', 4, 5, 'Sàn', 2022, 'Xăng'),  
+('XE61', 'Đen', 'Đen', 6, '3.0L', '4794 mm', '1903 mm', '1432 mm', '1725 kg', '2245 kg', '280 km/h', 4, 5, 'Tự động', 2023, 'Xăng'),  
+('XE62', 'Trắng', 'Nâu', 6, '3.0L', '4922 mm', '2004 mm', '1745 mm', '2135 kg', '2860 kg', '243 km/h', 5, 5, 'Sàn', 2020, 'Xăng'),  
+('XE63', 'Bạc', 'Đen', 8, '4.4L', '5260 mm', '1902 mm', '1479 mm', '2180 kg', '2740 kg', '250 km/h', 4, 5, 'Tự động', 2021, 'Xăng'),  
+('XE64', 'Đỏ', 'Đen', 4, '2.0L', '4324 mm', '1864 mm', '1304 mm', '1490 kg', '1860 kg', '250 km/h', 2, 2, 'Sàn', 2022, 'Xăng'),  
+('XE65', 'Xanh', 'Trắng', 3, '1.5L', '4689 mm', '1942 mm', '1291 mm', '1595 kg', '1920 kg', '250 km/h', 2, 4, 'Tự động', 2023, 'Hybrid'),  
+('XE66', 'Xám', 'Đen', 6, '3.0L', '4794 mm', '1887 mm', '1393 mm', '1725 kg', '2155 kg', '290 km/h', 2, 4, 'Sàn', 2020, 'Xăng'),  
+('XE67', 'Đen', 'Nâu', 4, '2.0L', '4708 mm', '1891 mm', '1676 mm', '1790 kg', '2400 kg', '235 km/h', 5, 5, 'Tự động', 2021, 'Xăng'),  
+('XE68', 'Trắng', 'Đen', 8, '4.0L', '5112 mm', '2016 mm', '1638 mm', '2200 kg', '2750 kg', '305 km/h', 5, 5, 'Sàn', 2022, 'Xăng'),  
+('XE69', 'Bạc', 'Đen', 8, '4.4L', '4983 mm', '1903 mm', '1473 mm', '1970 kg', '2440 kg', '305 km/h', 4, 5, 'Tự động', 2023, 'Xăng'),  
+('XE70', 'Đỏ', 'Đen', 4, '2.0L', '4709 mm', '1827 mm', '1442 mm', '1545 kg', '2050 kg', '250 km/h', 4, 5, 'Sàn', 2020, 'Xăng'),  
+('XE71', 'Đen', 'Đen', 6, '3.0L', '4794 mm', '1903 mm', '1432 mm', '1725 kg', '2245 kg', '280 km/h', 4, 5, 'Tự động', 2021, 'Xăng'),  
+('XE72', 'Trắng', 'Nâu', 6, '3.0L', '4922 mm', '2004 mm', '1745 mm', '2135 kg', '2860 kg', '243 km/h', 5, 5, 'Sàn', 2022, 'Xăng'),  
+('XE73', 'Bạc', 'Đen', 8, '4.4L', '5260 mm', '1902 mm', '1479 mm', '2180 kg', '2740 kg', '250 km/h', 4, 5, 'Tự động', 2023, 'Xăng'),  
+('XE74', 'Đỏ', 'Đen', 4, '2.0L', '4324 mm', '1864 mm', '1304 mm', '1490 kg', '1860 kg', '250 km/h', 2, 2, 'Sàn', 2020, 'Xăng'),  
+('XE75', 'Xanh', 'Trắng', 3, '1.5L', '4689 mm', '1942 mm', '1291 mm', '1595 kg', '1920 kg', '250 km/h', 2, 4, 'Tự động', 2021, 'Hybrid'),  
+('XE76', 'Xám', 'Đen', 6, '3.0L', '4794 mm', '1887 mm', '1393 mm', '1725 kg', '2155 kg', '290 km/h', 2, 4, 'Sàn', 2022, 'Xăng');
+
+-- INSERT cho bảng HinhAnhXe (hình ảnh phụ cho xe)
+INSERT INTO HinhAnhXe (MaXe, TenHinh)
+VALUES
+('XE01', 'xe01_02.jpg'), -- BMW M3
+('XE01', 'xe01_03.jpg'),
+('XE02', 'xe02_02.jpg'), -- BMW X5
+('XE02', 'xe02_03.jpg'),
+('XE21', 'xe21_02.jpg'); -- Lamborghini Huracan
+
+-- INSERT cho bảng DanhGiaBinhLuan
+INSERT INTO DanhGiaBinhLuan (MaKH, MaXe, NoiDung, SoSao, NgayDanhGia)
+VALUES
+('KH01', 'XE01', 'Xe mạnh mẽ, thiết kế đẹp!', 5, '2024-09-20 10:00:00'),
+('KH02', 'XE02', 'Rất phù hợp cho gia đình, nhưng giá hơi cao.', 4, '2024-09-21 15:30:00'),
+('KH03', 'XE21', 'Trải nghiệm lái tuyệt vời, siêu xe đáng mơ ước!', 5, '2024-09-22 09:15:00');
+
+-- INSERT cho bảng GioHang (giỏ hàng mẫu)
+INSERT INTO GioHang (MaKH, MaXe, SoLuong)
+VALUES
+('KH01', 'XE03', 1), -- KH01 thêm BMW 7 Series
+('KH04', 'XE11', 1), -- KH04 thêm Porsche 911
+('KH05', 'XE38', 2); -- KH05 thêm 2 Audi e-tron
 
 INSERT INTO HoaDon (MaHD, MaKH, MaNV, NgayLap, TongTien)
 VALUES 
-('HD01', 'KH01', 'NV02', '2024-09-15', 90000000),
-('HD02', 'KH02', 'NV02', '2024-09-16', 32000000),
-('HD03', 'KH03', 'NV03', '2024-09-17', 62000000),
-('HD04', 'KH04', 'NV04', '2024-05-18', 80000000),
-('HD05', 'KH05', 'NV03', '2024-09-01', 102000000),
-('HD06', 'KH06', 'NV02', '2024-02-18', 42000000),
-('HD07', 'KH07', 'NV02', '2024-09-12', 42000000);
+('HD01', 'KH01', 'NV02', '2024-09-15', 150000000),
+('HD02', 'KH02', 'NV02', '2024-09-16', 300000000),
+('HD03', 'KH03', 'NV03', '2024-09-17', 250000000),
+('HD04', 'KH04', 'NV04', '2024-05-18', 440000000),
+('HD05', 'KH05', 'NV03', '2024-09-01', 520000000),
+('HD06', 'KH06', 'NV02', '2024-02-18', 175000000),
+('HD07', 'KH07', 'NV02', '2024-09-12', 260000000);
 
 INSERT INTO ChiTietHoaDon (MaHD, MaXe, SoLuong, GiaBan)
 VALUES 
-('HD01', 'XE01', 1, 20000000),
-('HD02', 'XE05', 1, 32000000),
-('HD03', 'XE03', 1, 88000000),
-('HD04', 'XE06', 2, 40000000),
-('HD05', 'XE08', 1, 60000000),
-('HD05', 'XE09', 2, 42000000),
-('HD06', 'XE10', 1, 42000000),
-('HD07', 'XE09', 1, 42000000);
+('HD01', 'XE01', 1, 150000000),
+('HD02', 'XE05', 1, 300000000),
+('HD03', 'XE03', 1, 250000000),
+('HD04', 'XE06', 2, 220000000),
+('HD05', 'XE08', 1, 140000000),
+('HD05', 'XE09', 2, 260000000),
+('HD06', 'XE10', 1, 175000000),
+('HD07', 'XE09', 1, 260000000);
