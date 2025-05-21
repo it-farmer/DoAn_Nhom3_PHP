@@ -55,7 +55,7 @@
 
 <br><br>
 <video class="bg-services" style="height: 100vh; width: 100%; object-fit: cover;" autoplay loop muted playsinline>
-        <source src="resources/background-video/original.mp4" type="video/mp4">
+        <source src="assets/background-video/original.mp4" type="video/mp4">
         Trình duyệt không hỗ trợ Video.
     </video>
 <div class="main-content">

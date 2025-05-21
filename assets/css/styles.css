@@ -345,10 +345,11 @@ footer{
 .slide_s_login button{
   position: absolute;
   height: 25px;
-  right: 5%;
-  top: 0%;
+  right: 3%;
+  top: 1%;
   width: 25%;
   font-size: 13px;
+  border: 0;
   border-radius: 20px;
   background-color: #655AA1;
   display: flex;

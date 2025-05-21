@@ -6,7 +6,7 @@
 <div class="nen">
     <?php
 
-    include("ConnectDatabase.php");
+    include("models/ConnectDatabase.php");
 
 
     // Xác định số bản ghi mỗi trang
@@ -28,7 +28,7 @@
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo '<div class="card" onclick="showDetails(\'' . $row['MaXe'] . '\')">'; // Thay đổi để hiển thị chi tiết
-            echo '<img src="HinhAnh/Xe/' . $row['AnhXe'] . '" class="card-img-top" alt="' . $row['TenXe'] . '">';
+            echo '<img src="assets/img/Xe/' . $row['AnhXe'] . '" class="card-img-top" alt="' . $row['TenXe'] . '">';
             echo '<div class="card-body">';
             echo '<h4 class="card-title">' . $row['TenXe'] . '</h4>';
             echo '<p class="card-text">Giá: ' . number_format($row['Gia'], 0, ',', '.') . ' VNĐ</p>';

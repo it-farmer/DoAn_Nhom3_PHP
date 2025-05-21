@@ -1,5 +1,5 @@
 <?php
-    include("ConnectDatabase.php");
+    include("models/ConnectDatabase.php");
      
     // Nhận mã hãng xe từ URL
     $hangxe = isset($_GET['hangxe']) ? $_GET['hangxe'] : '';

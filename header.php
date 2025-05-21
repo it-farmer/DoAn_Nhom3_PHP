@@ -8,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/cdbcf8b89b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="resources/css/styles.css?v=<?php echo time(); ?>">
-    <script src="resources/js/script.js"></script>
+    <link rel="stylesheet" href="assets/css/styles.css?v=<?php echo time(); ?>">
+    <script src="assets/js/script.js"></script>
 
     <!-- thêm cho dropdown -->
     <script>
@@ -53,7 +53,7 @@
         <!-- Đăng nhập / Đăng ký -->
         <div id="login" class="login-container">
             <div class="slide_s_login">
-                <img src="resources/img/brand/Audi/Audi A6/OutSide/A6_3.avif" alt="granturismo-trofeo-red-right-view-desktop.jpg">
+                <img src="assets/img/Xe/A6_3.avif" alt="assets/img/Xe/A6_3.avif">
                 <button onclick="closeLogin()" class="montserrat"><span>Trang chủ</span>  <i class="fa-solid fa-angle-right"></i></button>
             </div>
             <div class="form_control">
@@ -73,8 +73,8 @@
                         <hr>
                     </div>
                     <div class="or_login_2">
-                        <button><img src="resources/img/icons/google-logo.png" alt="gg_logo">Google</button>
-                        <button><img src="resources/img/icons/github-logo.png" alt="git_logo">Github</button>
+                        <button><img src="assets/img/icons/google-logo.png" alt="gg_logo">Google</button>
+                        <button><img src="assets/img/icons/github-logo.png" alt="git_logo">Github</button>
                     </div>
                 </div>
                 <div id="reg_form"  class="login_main">
@@ -94,8 +94,8 @@
                         <hr>
                     </div>
                     <div class="or_login_2">
-                        <button><img src="resources/img/icons/google-logo.png" alt="gg_logo">Google</button>
-                        <button><img src="resources/img/icons/github-logo.png" alt="git_logo">Github</button>
+                        <button><img src="assets/img/icons/google-logo.png" alt="gg_logo">Google</button>
+                        <button><img src="assets/img/icons/github-logo.png" alt="git_logo">Github</button>
                     </div>
                 </div>
             </div>

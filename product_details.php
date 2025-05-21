@@ -1,5 +1,5 @@
 <?php
-    include("ConnectDatabase_PDO.php");
+    include("models/ConnectDatabase_PDO.php");
      
     // Nhận mã xe từ URL
     $maxe = isset($_GET['maXe']) ? $_GET['maXe'] : '';
@@ -30,7 +30,7 @@
 ?>
     <section class="product-detail">
         <div class="slide-show-product-detail">
-            <img src="HinhAnh/Xe/<?php echo $row->AnhXe ?>" alt="<?php echo $row->TenXe ?>">
+            <img src="assets/img/Xe/<?php echo $row->AnhXe ?>" alt="<?php echo $row->TenXe ?>">
             <div class="info_product merriweather">
                 <h1><?php echo $tenxe; ?></h1>
                 <p style="text-align: left;"><?php echo $row->CongNghe; ?></p>
@@ -132,6 +132,7 @@
             <h1>Mô Tả Sản Phẩm</h1>
             <p><?php echo $row->MoTa ?></p>
         </div>
+        
     </section>
 <?php 
     include("footer.php");

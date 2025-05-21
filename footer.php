@@ -26,29 +26,29 @@
             <div>
                 <h3>Tư vấn mua xe</h3>
                 <ul>
-                    <li><a href="#">Yêu cầu tư vấn</a></li>
-                    <li><a href="#">Đăng ký lái thử</a></li>
-                    <li><a href="#">Tìm Nhà phân phối gần nhất</a></li>
-                    <li><a href="#">Liên hệ</a></li>
+                    <li><a href="contact.ph">Yêu cầu tư vấn</a></li>
+                    <li><a href="contact.ph">Đăng ký lái thử</a></li>
+                    <li><a href="contact.ph">Tìm Nhà phân phối gần nhất</a></li>
+                    <li><a href="contact.php">Liên hệ</a></li>
                 </ul>
             </div>
             <div>
             <h3>Dịch vụ</h3>
                 <ul>
-                    <li><a href="#">Ưu đãi dịch vụ</a></li>
-                    <li><a href="#">Đặt hẹn dịch vụ</a></li>
-                    <li><a href="#">Hướng dẫn sử dụng dành cho chủ sở hữu xe</a></li>
-                    <li><a href="#">Phụ kiện chính hãng</a></li>
+                    <li><a href="services.php">Ưu đãi dịch vụ</a></li>
+                    <li><a href="contact.php">Đặt hẹn dịch vụ</a></li>
+                    <li><a href="contact.ph">Hướng dẫn sử dụng dành cho chủ sở hữu xe</a></li>
+                    <li><a href="contact.ph">Phụ kiện chính hãng</a></li>
                     <li><a href="#">Bộ sưu tập</a></li>
                 </ul>
             </div>
             <div>
                 <h3>Khám phá</h3>
                 <ul>
-                    <li><a href="#">Về chúng tôi</a></li>
-                    <li><a href="#">Cơ hội việc làm</a></li>
-                    <li><a href="#">Liên hệ</a></li>
-                    <li><a href="#">Quyền riêng tư</a></li>
+                    <li><a href="about_us.php">Về chúng tôi</a></li>
+                    <li><a href="contact.ph">Cơ hội việc làm</a></li>
+                    <li><a href="contact.php">Liên hệ</a></li>
+                    <li><a href="services.php">Quyền riêng tư</a></li>
                 </ul>
             </div>
         </div>
@@ -57,7 +57,7 @@
             <ul>
                 <li><a href="#">Bản quyền nội dung</a></li>
                 <li><a href="#">Cài đặt</a></li>
-                <li><a href="#">Quyền riêng tư</a></li>
+                <li><a href="services.php">Quyền riêng tư</a></li>
                 <li><a href="#">Thông tin pháp lý</a></li>
             </ul>
             <ul>

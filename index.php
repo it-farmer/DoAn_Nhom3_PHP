@@ -3,7 +3,7 @@
     include("header.php");
 ?>
     <video style="height: 90vh; width: 100%; object-fit: cover;" autoplay loop muted playsinline>
-        <source src="resources/background-video/bmw.mp4" type="video/mp4">
+        <source src="assets/background-video/bmw.mp4" type="video/mp4">
         Trình duyệt không hỗ trợ Video.
     </video>
 <?php 
