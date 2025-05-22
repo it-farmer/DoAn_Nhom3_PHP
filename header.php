@@ -8,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/cdbcf8b89b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="assets/css/styles.css?v=<?php echo time(); ?>">
-    <script src="assets/js/script.js"></script>
+    <link rel="stylesheet" href="./assets/css/styles.css?v=<?php echo time(); ?>">
+    <script src="./assets/js/script.js"></script>
 
     <!-- thêm cho dropdown -->
     <script>
@@ -22,10 +22,11 @@
 </head>
 <body>
     <header class="header">
+        <a name="header"></a>
         <div class="nav"> 
             <ul>
                 <li><a href="index.php">Logo</a></li>
-                <li><a href="index.php">Trang chủ</a></li>
+                <li><a href="./index.php">Trang chủ</a></li>
                 <li>
                     <ul class="dropdown-menu">
                         <li style="width: 100px;">
@@ -50,6 +51,10 @@
                 <li><a onclick="showLogin()" href="#">Đăng nhập / Đăng ký</a></li>
             </ul>
         </div>
+        <!-- Nút quay trở lại đầu trang -->
+        <a href="#header">
+            <div id="btn_header_page"><i class="fa-solid fa-chevron-up"></i></div>
+        </a>
         <!-- Đăng nhập / Đăng ký -->
         <div id="login" class="login-container">
             <div class="slide_s_login">

@@ -76,7 +76,8 @@
     }
     .card-img-top {
         width: 100%;
-        height: auto;
+        height: 60%;
+        object-fit: cover;
         border-top-left-radius: 15px; /* Bo tròn góc trên trái */
         border-top-right-radius: 15px; /* Bo tròn góc trên phải */
     }
@@ -139,7 +140,7 @@
 <br>
 
 <?php
-include("models/ConnectDatabase.php");
+include("ConnectDatabase.php");
 
 // Lấy 15 sản phẩm có giá thấp nhất
 $low_price_sql = "SELECT * FROM XeHoi ORDER BY Gia ASC LIMIT 15";

@@ -11,7 +11,7 @@ include 'header.php';
     .content-container {
         margin-top: 200px;
         width: 80%;
-        margin: 0 auto;
+        margin: 5% auto;
         padding: 20px;
         background-color: #f9f9f9;
         border-radius: 10px;
@@ -62,7 +62,12 @@ include 'header.php';
         margin-top: 20px;
     }
     body{
-        background-image: url('https://www.mercedes-benz.com.vn/content/dam/vietnam/passengercars/mercedes-benz-cars/stage/Q4-2023-promotion-landing-page-stage-banner.jpg/1740039456357.jpg?im=Crop,rect=(287,0,1726,767);Resize=(2730)')
+        background-image: url('https://www.mercedes-benz.com.vn/content/dam/vietnam/passengercars/mercedes-benz-cars/stage/Q4-2023-promotion-landing-page-stage-banner.jpg/1740039456357.jpg?im=Crop,rect=(287,0,1726,767);Resize=(2730)');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        
     }
 </style>
 <div class="content-container">

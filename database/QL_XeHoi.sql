@@ -160,7 +160,7 @@ INSERT INTO XeHoi (MaXe, AnhXe, TenXe, MaHX, MauXe, CongNghe, Gia, SoLuongTonKho
 ('XE05', 'xe05.jpg', 'BMW i8', 'HX01', 'Xanh', 'Công nghệ tiết kiệm nhiên liệu', 300000000, 3),
 ('XE06', 'xe06.jpg', 'BMW M4', 'HX01', 'Xám', 'Công nghệ an toàn cao', 220000000, 4),
 ('XE07', 'xe07.jpg', 'BMW X3', 'HX01', 'Đen', 'Công nghệ thông minh', 160000000, 12),
-('XE08', 'xe08.jpg', 'Lamborghini Urus', 'HX01', 'Trắng', 'Công nghệ lái tự động', 140000000, 9),
+('XE08', 'xe08.jpg', 'BMW 320i', 'HX01', 'Trắng', 'Công nghệ lái tự động', 140000000, 9),
 ('XE09', 'xe09.jpg', 'BMW M5', 'HX01', 'Bạc', 'Công nghệ điều khiển từ xa', 260000000, 7),
 ('XE10', 'xe10.jpg', 'BMW 3 Series', 'HX01', 'Đỏ', 'Công nghệ âm thanh 3D', 175000000, 11),
 
@@ -242,14 +242,14 @@ INSERT INTO XeHoi (MaXe, AnhXe, TenXe, MaHX, MauXe, CongNghe, Gia, SoLuongTonKho
 ('XE75', 'xe75.jpg', 'Ferrari 458', 'HX07', 'Trắng', 'Công nghệ hiệu suất cao', 4300000000, 1),
 ('XE76', 'xe76.jpg', 'Ferrari California', 'HX07', 'Đen', 'Công nghệ mui trần', 2500000000, 1);
 
--------------------------------------------------
--------------------------------------------------
--------------------------------------------------
+-- -----------------------------------------------
+-- -----------------------------------------------
+-- -----------------------------------------------
 -- VÌ MÔ TẢ CHIẾM KHÁ NHIỀU DÒNG DỮ LIỆU NÊN KHÔNG INSERT Ở ĐÂY! 
 -- CHẠY FILE database/Insert_MoTa_BH.PHP ĐỂ THÊM DỮ LIỆU MÔ TẢ VÀ THỜI GIAN BẢO HÀNH CHO CÁC XE TRÊN
--------------------------------------------------
--------------------------------------------------
--------------------------------------------------
+-- -----------------------------------------------
+-- -----------------------------------------------
+-- -----------------------------------------------
 
 
 INSERT INTO ThongSoKyThuat (MaXe, MauNgoaiThat, MauNoiThat, SoXiLanh, DungTich, ChieuDai, ChieuRong, ChieuCao, KhoiLuong, TrongLuongToiDa, TocDoToiDa, SoCua, SoChoNgoi, HopSo, NamSanXuat, DongCo)
@@ -334,11 +334,67 @@ VALUES
 -- INSERT cho bảng HinhAnhXe (hình ảnh phụ cho xe)
 INSERT INTO HinhAnhXe (MaXe, TenHinh)
 VALUES
-('XE01', 'xe01_02.jpg'), -- BMW M3
-('XE01', 'xe01_03.jpg'),
-('XE02', 'xe02_02.jpg'), -- BMW X5
-('XE02', 'xe02_03.jpg'),
-('XE21', 'xe21_02.jpg'); -- Lamborghini Huracan
+('XE01', 'xe01_02.jpg'),('XE01', 'xe01_03.jpg'),('XE01', 'xe01_04.jpg'),('XE01', 'xe01_05.jpg'),
+('XE02', 'xe02_02.jpg'),('XE02', 'xe02_03.jpg'),('XE02', 'xe02_04.jpg'),('XE02', 'xe02_05.jpg'),('XE03', 'xe03_02.jpg'), 
+('XE03', 'xe03_03.jpg'),('XE03', 'xe03_04.jpg'),('XE03', 'xe03_05.jpg'),('XE04', 'xe04_02.jpg'),('XE04', 'xe04_03.jpg'),
+('XE04', 'xe04_04.jpg'),('XE04', 'xe04_05.jpg'),('XE05', 'xe05_02.jpg'),('XE05', 'xe05_03.jpg'),('XE05', 'xe05_04.jpg'),
+('XE05', 'xe05_05.jpg'),('XE06', 'xe06_02.jpg'),('XE06', 'xe06_03.jpg'),('XE06', 'xe06_04.jpg'),('XE06', 'xe06_05.jpg'),
+('XE07', 'xe07_02.jpg'),('XE07', 'xe07_03.jpg'),('XE07', 'xe07_04.jpg'),('XE07', 'xe07_05.jpg'),('XE08', 'xe08_02.jpg'), 
+('XE08', 'xe08_03.jpg'),('XE08', 'xe08_04.jpg'),('XE08', 'xe08_05.jpg'),('XE09', 'xe09_02.jpg'),('XE09', 'xe09_03.jpg'),
+('XE09', 'xe09_04.jpg'),('XE09', 'xe09_05.jpg'),('XE10', 'xe10_02.jpg'),('XE10', 'xe10_03.jpg'),('XE10', 'xe10_04.jpg'),
+('XE10', 'xe10_05.jpg'),('XE11', 'xe11_02.jpg'),('XE11', 'xe11_03.jpg'),('XE11', 'xe11_04.jpg'),('XE11', 'xe11_05.jpg'),
+('XE12', 'xe12_02.jpg'),('XE12', 'xe12_03.jpg'),('XE12', 'xe12_04.jpg'),('XE12', 'xe12_05.jpg'),('XE13', 'xe13_02.jpg'), 
+('XE13', 'xe13_03.jpg'),('XE13', 'xe13_04.jpg'),('XE13', 'xe13_05.jpg'),('XE14', 'xe14_02.jpg'),('XE14', 'xe14_03.jpg'),
+('XE14', 'xe14_04.jpg'),('XE14', 'xe14_05.jpg'),('XE15', 'xe15_02.jpg'),('XE15', 'xe15_03.jpg'),('XE15', 'xe15_04.jpg'),
+('XE15', 'xe15_05.jpg'),('XE16', 'xe16_02.jpg'),('XE16', 'xe16_03.jpg'),('XE16', 'xe16_04.jpg'),('XE16', 'xe16_05.jpg'),
+('XE17', 'xe17_02.jpg'),('XE17', 'xe17_03.jpg'),('XE17', 'xe17_04.jpg'),('XE17', 'xe17_05.jpg'),('XE18', 'xe18_02.jpg'), 
+('XE18', 'xe18_03.jpg'),('XE18', 'xe18_04.jpg'),('XE18', 'xe18_05.jpg'),('XE19', 'xe19_02.jpg'),('XE19', 'xe19_03.jpg'),
+('XE19', 'xe19_04.jpg'),('XE19', 'xe19_05.jpg'),('XE20', 'xe20_02.jpg'),('XE20', 'xe20_03.jpg'),('XE20', 'xe20_04.jpg'),
+('XE20', 'xe20_05.jpg'),('XE21', 'xe21_02.jpg'),('XE21', 'xe21_03.jpg'),('XE21', 'xe21_04.jpg'),('XE21', 'xe21_05.jpg'),
+('XE22', 'xe22_02.jpg'),('XE22', 'xe22_03.jpg'),('XE22', 'xe22_04.jpg'),('XE22', 'xe22_05.jpg'),('XE23', 'xe23_02.jpg'), 
+('XE23', 'xe23_03.jpg'),('XE23', 'xe23_04.jpg'),('XE23', 'xe23_05.jpg'),('XE24', 'xe24_02.jpg'),('XE24', 'xe24_03.jpg'),
+('XE24', 'xe24_04.jpg'),('XE24', 'xe24_05.jpg'),('XE25', 'xe25_02.jpg'),('XE25', 'xe25_03.jpg'),('XE25', 'xe25_04.jpg'),
+('XE25', 'xe25_05.jpg'),('XE26', 'xe26_02.jpg'),('XE26', 'xe26_03.jpg'),('XE26', 'xe26_04.jpg'),('XE26', 'xe26_05.jpg'),
+('XE27', 'xe27_02.jpg'),('XE27', 'xe27_03.jpg'),('XE27', 'xe27_04.jpg'),('XE27', 'xe27_05.jpg'),('XE28', 'xe28_02.jpg'),
+('XE28', 'xe28_03.jpg'),('XE28', 'xe28_04.jpg'),('XE28', 'xe28_05.jpg'),('XE29', 'xe29_02.jpg'),('XE29', 'xe29_03.jpg'),
+('XE29', 'xe29_04.jpg'),('XE29', 'xe29_05.jpg'),('XE30', 'xe30_02.jpg'),('XE30', 'xe30_03.jpg'),('XE30', 'xe30_04.jpg'),
+('XE30', 'xe30_05.jpg'),('XE31', 'xe31_02.jpg'),('XE31', 'xe31_03.jpg'),('XE31', 'xe31_04.jpg'),('XE31', 'xe31_05.jpg'),
+('XE32', 'xe32_02.jpg'),('XE32', 'xe32_03.jpg'),('XE32', 'xe32_04.jpg'),('XE32', 'xe32_05.jpg'),('XE33', 'xe33_02.jpg'), 
+('XE33', 'xe33_03.jpg'),('XE33', 'xe33_04.jpg'),('XE33', 'xe33_05.jpg'),('XE34', 'xe34_02.jpg'),('XE34', 'xe34_03.jpg'),
+('XE34', 'xe34_04.jpg'),('XE34', 'xe34_05.jpg'),('XE35', 'xe35_02.jpg'),('XE35', 'xe35_03.jpg'),('XE35', 'xe35_04.jpg'),
+('XE35', 'xe35_05.jpg'),('XE36', 'xe36_02.jpg'),('XE36', 'xe36_03.jpg'),('XE36', 'xe36_04.jpg'),('XE36', 'xe36_05.jpg'),
+('XE37', 'xe37_02.jpg'),('XE37', 'xe37_03.jpg'),('XE37', 'xe37_04.jpg'),('XE37', 'xe37_05.jpg'),('XE38', 'xe38_02.jpg'), 
+('XE38', 'xe38_03.jpg'),('XE38', 'xe38_04.jpg'),('XE38', 'xe38_05.jpg'),('XE39', 'xe39_02.jpg'),('XE39', 'xe39_03.jpg'),
+('XE39', 'xe39_04.jpg'),('XE39', 'xe39_05.jpg'),('XE40', 'xe40_02.jpg'),('XE40', 'xe40_03.jpg'),('XE40', 'xe40_04.jpg'),
+('XE40', 'xe40_05.jpg'),('XE41', 'xe41_02.jpg'),('XE41', 'xe41_03.jpg'),('XE41', 'xe41_04.jpg'),('XE41', 'xe41_05.jpg'),
+('XE42', 'xe42_02.jpg'),('XE42', 'xe42_03.jpg'),('XE42', 'xe42_04.jpg'),('XE42', 'xe42_05.jpg'),('XE43', 'xe43_02.jpg'), 
+('XE43', 'xe43_03.jpg'),('XE43', 'xe43_04.jpg'),('XE43', 'xe43_05.jpg'),('XE44', 'xe44_02.jpg'),('XE44', 'xe44_03.jpg'),
+('XE44', 'xe44_04.jpg'),('XE44', 'xe44_05.jpg'),('XE45', 'xe45_02.jpg'),('XE45', 'xe45_03.jpg'),('XE45', 'xe45_04.jpg'),
+('XE45', 'xe45_05.jpg'),('XE46', 'xe46_02.jpg'),('XE46', 'xe46_03.jpg'),('XE46', 'xe46_04.jpg'),('XE46', 'xe46_05.jpg'),
+('XE47', 'xe47_02.jpg'),('XE47', 'xe47_03.jpg'),('XE47', 'xe47_04.jpg'),('XE47', 'xe47_05.jpg'),('XE48', 'xe48_02.jpg'), 
+('XE48', 'xe48_03.jpg'),('XE48', 'xe48_04.jpg'),('XE48', 'xe48_05.jpg'),('XE49', 'xe49_02.jpg'),('XE49', 'xe49_03.jpg'),
+('XE49', 'xe49_04.jpg'),('XE49', 'xe49_05.jpg'),('XE50', 'xe50_02.jpg'),('XE50', 'xe50_03.jpg'),('XE50', 'xe50_04.jpg'),
+('XE50', 'xe50_05.jpg'),('XE51', 'xe51_02.jpg'),('XE51', 'xe51_03.jpg'),('XE51', 'xe51_04.jpg'),('XE51', 'xe51_05.jpg'),
+('XE52', 'xe52_02.jpg'),('XE52', 'xe52_03.jpg'),('XE52', 'xe52_04.jpg'),('XE52', 'xe52_05.jpg'),('XE53', 'xe53_02.jpg'), 
+('XE53', 'xe53_03.jpg'),('XE53', 'xe53_04.jpg'),('XE53', 'xe53_05.jpg'),('XE54', 'xe54_02.jpg'),('XE54', 'xe54_03.jpg'),
+('XE54', 'xe54_04.jpg'),('XE54', 'xe54_05.jpg'),('XE55', 'xe55_02.jpg'),('XE55', 'xe55_03.jpg'),('XE55', 'xe55_04.jpg'),
+('XE55', 'xe55_05.jpg'),('XE56', 'xe56_02.jpg'),('XE56', 'xe56_03.jpg'),('XE56', 'xe56_04.jpg'),('XE56', 'xe56_05.jpg'),
+('XE57', 'xe57_02.jpg'),('XE57', 'xe57_03.jpg'),('XE57', 'xe57_04.jpg'),('XE57', 'xe57_05.jpg'),('XE58', 'xe58_02.jpg'), 
+('XE58', 'xe58_03.jpg'),('XE58', 'xe58_04.jpg'),('XE58', 'xe58_05.jpg'),('XE59', 'xe59_02.jpg'),('XE59', 'xe59_03.jpg'),
+('XE59', 'xe59_04.jpg'),('XE59', 'xe59_05.jpg'),('XE60', 'xe60_02.jpg'),('XE60', 'xe60_03.jpg'),('XE60', 'xe60_04.jpg'),
+('XE60', 'xe60_05.jpg'),('XE61', 'xe61_02.jpg'),('XE61', 'xe61_03.jpg'),('XE61', 'xe61_04.jpg'),('XE61', 'xe61_05.jpg'),
+('XE62', 'xe62_02.jpg'),('XE62', 'xe62_03.jpg'),('XE62', 'xe62_04.jpg'),('XE62', 'xe62_05.jpg'),('XE63', 'xe63_02.jpg'), 
+('XE63', 'xe63_03.jpg'),('XE63', 'xe63_04.jpg'),('XE63', 'xe63_05.jpg'),('XE64', 'xe64_02.jpg'),('XE64', 'xe64_03.jpg'),
+('XE64', 'xe64_04.jpg'),('XE64', 'xe64_05.jpg'),('XE65', 'xe65_02.jpg'),('XE65', 'xe65_03.jpg'),('XE65', 'xe65_04.jpg'),
+('XE65', 'xe65_05.jpg'),('XE66', 'xe66_02.jpg'),('XE66', 'xe66_03.jpg'),('XE66', 'xe66_04.jpg'),('XE66', 'xe66_05.jpg'),
+('XE67', 'xe67_02.jpg'),('XE67', 'xe67_03.jpg'),('XE67', 'xe67_04.jpg'),('XE67', 'xe67_05.jpg'),('XE68', 'xe68_02.jpg'), 
+('XE68', 'xe68_03.jpg'),('XE68', 'xe68_04.jpg'),('XE68', 'xe68_05.jpg'),('XE69', 'xe69_02.jpg'),('XE69', 'xe69_03.jpg'),
+('XE69', 'xe69_04.jpg'),('XE69', 'xe69_05.jpg'),('XE70', 'xe70_02.jpg'),('XE70', 'xe70_03.jpg'),('XE70', 'xe70_04.jpg'),
+('XE70', 'xe70_05.jpg'),('XE71', 'xe71_02.jpg'),('XE71', 'xe71_03.jpg'),('XE71', 'xe71_04.jpg'),('XE71', 'xe71_05.jpg'),
+('XE72', 'xe72_02.jpg'),('XE72', 'xe72_03.jpg'),('XE72', 'xe72_04.jpg'),('XE72', 'xe72_05.jpg'),('XE73', 'xe73_02.jpg'),
+('XE73', 'xe73_03.jpg'),('XE73', 'xe73_04.jpg'),('XE73', 'xe73_05.jpg'),('XE74', 'xe74_02.jpg'),('XE74', 'xe74_03.jpg'),
+('XE74', 'xe74_04.jpg'),('XE74', 'xe74_05.jpg'),('XE75', 'xe75_02.jpg'),('XE75', 'xe75_03.jpg'),('XE75', 'xe75_04.jpg'),
+('XE75', 'xe75_05.jpg'),('XE76', 'xe76_02.jpg'),('XE76', 'xe76_03.jpg'),('XE76', 'xe76_04.jpg'),('XE76', 'xe76_05.jpg'); 
 
 -- INSERT cho bảng DanhGiaBinhLuan
 INSERT INTO DanhGiaBinhLuan (MaKH, MaXe, NoiDung, SoSao, NgayDanhGia)

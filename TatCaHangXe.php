@@ -6,7 +6,7 @@
 <div class="nen">
     <?php
 
-    include("models/ConnectDatabase.php");
+    include("ConnectDatabase.php");
 
 
     // Xác định số bản ghi mỗi trang

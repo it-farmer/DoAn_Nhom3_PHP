@@ -1,10 +1,10 @@
 <?php
-    include("models/ConnectDatabase_PDO.php");
+    include("ConnectDatabase_PDO.php");
      
     // Nhận mã xe từ URL
     $maxe = isset($_GET['maXe']) ? $_GET['maXe'] : '';
 
-    // Lấy tên xe
+    // Lấy tên và các thông tin xe
     $sta = $pdo->prepare("SELECT * FROM xehoi WHERE MaXe = ?");
     $sta->execute([$maxe]);
 
@@ -16,13 +16,24 @@
         echo "<script>alert('Không tìm thấy mã Ô Tô này!');</script>";
     }
 
-    // Lấy thông số của xe
+    // Lấy thông số xe
     $sta = $pdo->prepare("SELECT * FROM thongsokythuat WHERE MaXe = ?");
     $sta->execute([$maxe]);
     if($sta->rowCount() > 0) {
         $thongso = $sta->fetch(PDO::FETCH_OBJ);
     } else {
         echo "<script>alert('Không tìm thấy thông số kỹ thuật cho xe này');</script>";
+    }
+
+    // Lấy bình luận của khách hàng
+    $sta = $pdo->prepare("SELECT HoTenKH, NoiDung, SoSao, NgayDanhGia FROM danhgiabinhluan, khachhang WHERE danhgiabinhluan.MaKH = khachhang.MaKH AND danhgiabinhluan.MaXe = ?");
+    $sta->execute([$maxe]);
+    if($sta->rowCount() > 0) {
+        $all_binhluan = $sta->fetchAll(PDO::FETCH_OBJ);
+        $tong_binhluan = $sta->rowCount();
+    } else {
+        $all_binhluan = [];
+        $tong_binhluan = 0;
     }
     
     $title = $tenxe;
@@ -129,10 +140,48 @@
             </ul>
         </div>
         <div class="product-description">
-            <h1>Mô Tả Sản Phẩm</h1>
+            <h1 >Mô Tả Sản Phẩm</h1>
             <p><?php echo $row->MoTa ?></p>
         </div>
-        
+        <div class="rating">
+            <h2>Bình luận <span>(<?php echo $tong_binhluan ?>)</span></h2>
+            <div class="add-new-rate">
+
+            </div>
+            <?php
+                foreach ($all_binhluan as $binhluan) {
+            ?>
+                <div class="rating-item">
+                    <div class="rating-of-cus">
+                        <!-- cần cập nhật hình khachhang -->
+                        <img style="margin-right: 3%;" src="assets/img/nguoi/nguoi1.jpg" alt="<?php echo $binhluan->HoTenKH ?>">
+                        <div style="width: 80%;">
+                            <div class="flex" style="align-items: center;">
+                                <span style="margin-right: 3%;"><?php echo $binhluan->HoTenKH ?></span>
+                                <span style="width: 50%; font-size: 12px;"><i style="margin-right: 2%;" class="fa-solid fa-clock"></i><?php echo $binhluan->NgayDanhGia ?></span>
+                            </div>
+                            <br>
+                            <span style="font-size: 13px; display: flex; align-items: stretch;">
+                                <?php echo $binhluan->SoSao ?>  
+                                <?php
+                                    for($star = 1; $star <= 5; $star++) {
+                                        if($star <= $binhluan->SoSao) {
+                                            echo '<i class="fa-solid fa-star" style="color: #FFD43B;"></i>';
+                                        } else {
+                                            echo '<i class="fa-regular fa-star" style="color: #FFD43B;"></i>';
+                                        }
+                                    }
+                                ?>
+                            </span>
+                            <br>
+                            <p style="font-size: 13px;"><?php echo $binhluan->NoiDung ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php
+                }
+            ?>
+        </div>
     </section>
 <?php 
     include("footer.php");

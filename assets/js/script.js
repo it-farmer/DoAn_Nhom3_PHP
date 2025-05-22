@@ -31,3 +31,14 @@ function signin(){
     x.style.left="0px";
     y.style.left="500px";
 }
+
+//------------------BTN TO HEADER-----------------
+window.onscroll = function() {
+  var button = document.getElementById('btn_header_page');
+
+  if (document.documentElement.scrollTop > 500) {
+      button.style.opacity = 1;
+  } else {
+      button.style.opacity = 0;
+  }
+};

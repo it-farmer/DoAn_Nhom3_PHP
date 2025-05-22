@@ -1,5 +1,5 @@
 <?php
-    include("models/ConnectDatabase.php");
+    include("ConnectDatabase.php");
      
     // Nhận mã hãng xe từ URL
     $hangxe = isset($_GET['hangxe']) ? $_GET['hangxe'] : '';
@@ -45,7 +45,7 @@
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             echo '<div class="card" onclick="showDetails(\'' . $row['MaXe'] . '\')">';
-            echo '<img src="HinhAnh/Xe/' . htmlspecialchars($row['AnhXe']) . '" class="card-img-top" alt="' . htmlspecialchars($row['TenXe']) . '">';
+            echo '<img src="assets/img/Xe/' . htmlspecialchars($row['AnhXe']) . '" class="card-img-top" alt="' . htmlspecialchars($row['TenXe']) . '">';
             echo '<div class="card-body">';
             echo '<h4 class="card-title">' . htmlspecialchars($row['TenXe']) . '</h4>';
             echo '<p class="card-text">Giá: ' . number_format($row['Gia'], 0, ',', '.') . ' VNĐ</p>';
