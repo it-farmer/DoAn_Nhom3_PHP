@@ -44,7 +44,14 @@
                         </li>
                     </ul>
                 </li>
-                <li><input style="width: 250px; height: 30px; border-radius: 10px; padding-left: 10px" type="text" placeholder="Tìm kiếm"></li>
+                <li>
+                    <form action="index_TimKiem.php" method="get">
+                        <input style="width: 250px; height: 30px; border-radius: 10px; padding-left: 10px"
+                            type="text"
+                            placeholder="Tìm kiếm"
+                            name="keyword">
+                    </form>
+                </li>
                 <li><a href="services.php">Dịch vụ</a></li>
                 <li><a href="contact.php">Liên hệ</a></li>
                 <li><a href="about_us.php">Về chúng tôi</a></li>
