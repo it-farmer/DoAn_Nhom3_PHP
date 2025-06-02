@@ -45,7 +45,7 @@
                     </ul>
                 </li>
                 <li>
-                    <form action="index_TimKiem.php" method="get">
+                    <form action="TimKiem.php" method="get">
                         <input style="width: 250px; height: 30px; border-radius: 10px; padding-left: 10px"
                             type="text"
                             placeholder="Tìm kiếm"
