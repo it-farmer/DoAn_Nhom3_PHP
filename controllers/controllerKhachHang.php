@@ -1,5 +1,5 @@
 <?php
-include("../models/models.php");
+include("../models/modelsKhachHang.php");
 
 // Kết nối database (giả sử file ConnectDatabase.php định nghĩa biến $conn)
 include("../ConnectDatabase.php");
@@ -62,7 +62,7 @@ if (isset($_GET['edit_id'])) {
 }
 
 // Gọi view để hiển thị dữ liệu
-include("../views/views.php");
+include("../views/viewsKhachHang.php");
 
 $conn->close();
 ?>
