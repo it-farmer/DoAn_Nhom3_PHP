@@ -49,7 +49,61 @@
 .sub-menu li a:hover {
   background-color: rgba(255, 255, 255, 0.2); /* Hiệu ứng hover cho các liên kết */
 }
+    .filter-menu {
+        position: relative;
+        display: inline-block;
+    }
 
+    .filter-button {
+        /* background-color: #ff69b4; */
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* .filter-menu:hover .filter-dropdown {
+        display: block; 
+    } */
+    .filter-dropdown {
+        display: none;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        z-index: 500;
+        width: 250px;
+        padding: 10px;
+        left: -150px; /* Điều chỉnh giá trị này để lệch sang trái */
+        /* top: 40px; */
+    }
+
+    .filter-option {
+        margin: 5px 0;
+        cursor: pointer;
+    }
+
+    .submenu {
+        display: none;
+        margin-top: 5px;
+        background-color: #33333358;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    .submenu a {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        padding: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .submenu a:hover {
+        background-color: #403d3ed0;
+    }
 /* ----------------------Default---------------------- */
 *{
     margin: 0;
