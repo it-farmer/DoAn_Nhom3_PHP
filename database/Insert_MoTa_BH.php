@@ -1,5 +1,5 @@
 <?php
-    include("../models/ConnectDatabase_PDO.php");
+    include("../ConnectDatabase_PDO.php");
 
     try {
         for($i = 1; $i <= 76; $i++) {

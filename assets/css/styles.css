@@ -705,3 +705,7 @@ footer{
   height: 30px;
   border-radius: 50px;
 }
+/* Giỏ hàng */
+#empty_cart{
+  margin-top: 50px;
+}

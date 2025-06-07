@@ -56,6 +56,20 @@
                 <li><a href="contact.php">Liên hệ</a></li>
                 <li><a href="about_us.php">Về chúng tôi</a></li>
                 <li><a onclick="showLogin()" href="#">Đăng nhập / Đăng ký</a></li>
+                <li>
+                    <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+                    <div id="empty_cart">
+                        <div>
+                            <img src="assets/img/anothers/empty_cart.png" alt="Giỏ hàng">
+                        </div>
+                        <div>
+                            <span>Chưa có sản phẩm</span>
+                        </div>
+                        <span><a href=""><button>Mua Ngay</button></a></span>
+                    </div>
+            
+                </li>
+
             </ul>
         </div>
         <!-- Nút quay trở lại đầu trang -->
