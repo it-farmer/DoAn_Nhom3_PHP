@@ -68,6 +68,59 @@
                         <span><a href=""><button>Mua Ngay</button></a></span>
                     </div>
             
+
+                <li>
+                    <div class="filter-menu">
+                        <a href="#" class="filter-button">Lọc </a>
+                        <div class="filter-dropdown">
+                            <div class="filter-option" onmouseover="showSubMenu('price-submenu')" onmouseout="hideSubMenu('price-submenu')">
+                                Lọc Theo Giá
+                                <div class="submenu" id="price-submenu">
+                                    <a href="XuLyLoc.php?price=duoi_200">Dưới 200 triệu</a>
+                                    <a href="XuLyLoc.php?price=200_500">200 - 500 triệu</a>
+                                    <a href="XuLyLoc.php?price=500_1ty">500 triệu - 1 tỷ</a>
+                                    <a href="XuLyLoc.php?price=1ty_3ty">1 tỷ - 3 tỷ</a>
+                                    <a href="XuLyLoc.php?price=tren_3ty">Trên 3 tỷ</a>
+                                </div>
+                            </div>
+                            <div class="filter-option" onmouseover="showSubMenu('color-submenu')" onmouseout="hideSubMenu('color-submenu')">
+                                Lọc Theo Màu
+                                <div class="submenu" id="color-submenu">
+                                    <a href="XuLyLoc.php?color=den">Đen</a>
+                                    <a href="XuLyLoc.php?color=trang">Trắng</a>
+                                    <a href="XuLyLoc.php?color=bac">Bạc</a>
+                                    <a href="XuLyLoc.php?color=xam">Xám</a>
+                                    <a href="XuLyLoc.php?color=do">Đỏ</a>
+                                    <a href="XuLyLoc.php?color=xanh">Xanh</a>
+                                    <a href="XuLyLoc.php?color=vang">Vàng</a>
+                                </div>
+                            </div>
+                            <div class="filter-option" onmouseover="showSubMenu('year-submenu')" onmouseout="hideSubMenu('year-submenu')">
+                                Lọc Theo Năm Sản Xuất
+                                <div class="submenu" id="year-submenu">
+                                    <a href="XuLyLoc.php?year=duoi_2021">Dưới 2021</a>
+                                    <a href="XuLyLoc.php?year=2022">Năm 2022</a>
+                                    <a href="XuLyLoc.php?year=2023">Năm 2023</a>
+                                </div>
+                            </div>
+                            <div class="filter-option" onmouseover="showSubMenu('speed-submenu')" onmouseout="hideSubMenu('speed-submenu')">
+                                Lọc Theo Tốc Độ
+                                <div class="submenu" id="speed-submenu">
+                                    <a href="XuLyLoc.php?speed=duoi_250">Dưới 250 km/h</a>
+                                    <a href="XuLyLoc.php?speed=250_300">250 - 300 km/h</a>
+                                    <a href="XuLyLoc.php?speed=tren_300">Trên 300 km/h</a>
+                                </div>
+                            </div>
+                            <div class="filter-option" onmouseover="showSubMenu('engine-submenu')" onmouseout="hideSubMenu('engine-submenu')">
+                                Lọc Theo Động Cơ
+                                <div class="submenu" id="engine-submenu">
+                                    <a href="XuLyLoc.php?engine=xang">Xăng</a>
+                                    <a href="XuLyLoc.php?engine=hybrid">Hybrid</a>
+                                    <a href="XuLyLoc.php?engine=khac">Khác</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </li>
 
             </ul>
@@ -129,3 +182,28 @@
         
         
     </header>
+
+<script>
+    document.querySelector('.filter-button').addEventListener('click', function() {
+        const dropdown = document.querySelector('.filter-dropdown');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    function showSubMenu(submenuId) {
+        const submenu = document.getElementById(submenuId);
+        submenu.style.display = 'block';
+    }
+
+    function hideSubMenu(submenuId) {
+        const submenu = document.getElementById(submenuId);
+        submenu.style.display = 'none';
+    }
+
+    // Đóng dropdown khi nhấn ra ngoài
+    window.onclick = function(event) {
+        if (!event.target.matches('.filter-button')) {
+            const dropdown = document.querySelector('.filter-dropdown');
+            dropdown.style.display = 'none';
+        }
+    }
+</script>

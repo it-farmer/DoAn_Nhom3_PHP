@@ -155,6 +155,25 @@ $result = $conn->query("SELECT * FROM NhanVien WHERE HoTenNV LIKE '%$search%' LI
         tr:hover {
             background-color: #f1f1f1;
         }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            padding: 8px 12px;
+            margin: 0 5px;
+            background: #ff69b4;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .pagination a:hover {
+            background: #ff1493;
+        }
+        .pagination .active {
+            background: #dc143c;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
