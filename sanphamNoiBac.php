@@ -6,7 +6,7 @@
     }
     /* --------- CHỮ HIGHTLIGHT cho sp nổi bậc =) --------- */
     .highlighted-products {
-        margin: 20px;
+        margin: 3%;
         text-align: center;
     }
 
@@ -20,6 +20,7 @@
         position: relative; /* Để sử dụng cho hiệu ứng hover */
         padding: 10px 0; /* Khoảng cách trên và dưới */
         text-shadow: 2px 2px 5px rgba(255, 254, 254, 0.37); /* Đổ bóng cho chữ */
+        color: white;
     }
 
     .highlighted-products h2::before,
@@ -31,19 +32,23 @@
         height: 2px; /* Độ dày của đường kẻ */
         background-color:rgb(255, 254, 254); /* Màu đường kẻ */
         transition: width 0.3s ease; /* Hiệu ứng chuyển đổi khi hover */
+        color: black;
     }
 
     .highlighted-products h2::before {
         left: 0; /* Đường kẻ bên trái */
+        color: black;
     }
 
     .highlighted-products h2::after {
         right: 0; /* Đường kẻ bên phải */
+        color: black;
     }
 
     .highlighted-products h2:hover::before,
     .highlighted-products h2:hover::after {
         width: 30%; /* Mở rộng đường kẻ khi hover */
+        color: black;
     }
 /* ---------- Thẻ CARD ---------- */
     .container {

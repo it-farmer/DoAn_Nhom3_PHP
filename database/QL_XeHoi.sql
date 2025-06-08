@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS QL_XeHoi;
 CREATE DATABASE IF NOT EXISTS QL_XeHoi;
 USE QL_XeHoi;
 
@@ -205,7 +206,7 @@ INSERT INTO XeHoi (MaXe, AnhXe, TenXe, MaHX, MauXe, CongNghe, Gia, SoLuongTonKho
 ('XE42', 'xe42.jpg', 'Mercedes-Benz S-Class', 'HX05', 'Trắng', 'Công nghệ sang trọng', 400000000, 5),
 ('XE43', 'xe43.jpg', 'Mercedes-Benz GLE', 'HX05', 'Đỏ', 'Công nghệ SUV', 300000000, 6),
 ('XE44', 'xe44.jpg', 'Mercedes-Benz GLC', 'HX05', 'Xanh', 'Công nghệ hiệu suất cao', 280000000, 4),
-('XE45', 'xe45.jpg', 'Mercedes-Benz A-Class', 'HX05', 'Xám', 'Công nghệ nhỏ gọn', 180000000, 7),
+('XE45', 'xe45.jpg', 'Mercedes-Benz A-Class', 'HX05', 'Xám', 'Công nghệ nhỏ gọn', 280000000, 7),
 ('XE46', 'xe46.jpg', 'Mercedes-Benz CLA', 'HX05', 'Vàng', 'Công nghệ thể thao', 220000000, 3),
 ('XE47', 'xe47.jpg', 'Mercedes-Benz EQC', 'HX05', 'Đen', 'Công nghệ điện', 600000000, 2),
 ('XE48', 'xe48.jpg', 'Mercedes-Benz G-Class', 'HX05', 'Bạc', 'Công nghệ SUV cao cấp', 700000000, 1),
