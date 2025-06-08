@@ -59,6 +59,8 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                 $(this).children('.sub-menu').slideToggle();
             });
         });
+    
+
     </script>
 </head>
 
@@ -95,6 +97,53 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                 <li><a href="services.php">Dịch vụ</a></li>
                 <li><a href="contact.php">Liên hệ</a></li>
                 <li><a href="about_us.php">Về chúng tôi</a></li>
+                <!-- <li><a onclick="showLogin()" href="#">Đăng nhập / Đăng ký</a></li> -->
+                <!-- Giỏ hàng -->
+
+                <?php
+                require_once __DIR__ . '/models/M_XeHoi.php';
+                require_once __DIR__ . '/models/M_database.php';
+                require_once __DIR__ . '/models/M_GioHang.php';
+                // Hiển thị giỏ hàng theo Khách Hàng
+                
+                $maKH = isset($_SESSION['MaKH']) ? $_SESSION['MaKH'] : null;
+                $cart = [];
+                
+
+                if ($maKH) {
+                    $gioHangModel = new GioHangModel();
+                    $cart = $gioHangModel->getCartByMaKH($maKH);
+                }
+                ?>
+                <li class="cart-container">
+                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <div id="empty_cart" class="cart-dropdown">
+                        <?php if (empty($cart)): ?>
+                            <div>
+                                <img id="empty_cart_img" src="assets/img/anothers/empty_cart.png" alt="Giỏ hàng">
+                            </div>
+                            <div><span>Chưa có sản phẩm</span></div>
+                            <span>
+                                <a href="TatCaHangXe.php"><button>Mua Ngay</button></a>
+                            </span>
+                        <?php else: ?>
+                            <?php foreach ($cart as $item): ?>
+                                <div class="cart-item">
+                                    <img src="assets/img/Xe/<?php echo htmlspecialchars($item->AnhXe); ?>" width="120px" height="60px" alt="<?php echo htmlspecialchars($item->TenXe); ?>">
+                                    <span><?php echo htmlspecialchars($item->TenXe); ?></span>
+                                    <span><?php echo number_format($item->Gia, 0, ",", "."); ?> VNĐ</span>
+                                    <span>x<?php echo $item->SoLuong; ?></span>
+                                    <a href="controllers/Controller_Cart.php?action=delete&maXe=<?php echo $item->MaXe; ?>" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">
+                                        <button>Xóa</button>
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+                            <span>
+                                <a href="cart_detail.php"><button>Chi Tiết Giỏ Hàng</button></a>
+                            </span>
+                        <?php endif; ?>
+                    </div>
+                </li>
                 <?php
                 if (isset($_SESSION['HoTenNV']) || isset($_SESSION['HoTenKH'])) {
                     ?>
@@ -116,68 +165,8 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                     <li><a onclick="showLogin()" href="#">Đăng nhập / Đăng ký</a></li>
                     <?php
                 }
-                ?>
-
-
-                <li>
-                    <div class="filter-menu">
-                        <a href="#" class="filter-button">Lọc </a>
-                        <div class="filter-dropdown">
-                            <div class="filter-option" onmouseover="showSubMenu('price-submenu')"
-                                onmouseout="hideSubMenu('price-submenu')">
-                                Lọc Theo Giá
-                                <div class="submenu" id="price-submenu">
-                                    <a href="XuLyLoc.php?price=duoi_200">Dưới 200 triệu</a>
-                                    <a href="XuLyLoc.php?price=200_500">200 - 500 triệu</a>
-                                    <a href="XuLyLoc.php?price=500_1ty">500 triệu - 1 tỷ</a>
-                                    <a href="XuLyLoc.php?price=1ty_3ty">1 tỷ - 3 tỷ</a>
-                                    <a href="XuLyLoc.php?price=tren_3ty">Trên 3 tỷ</a>
-                                </div>
-                            </div>
-                            <div class="filter-option" onmouseover="showSubMenu('color-submenu')"
-                                onmouseout="hideSubMenu('color-submenu')">
-                                Lọc Theo Màu
-                                <div class="submenu" id="color-submenu">
-                                    <a href="XuLyLoc.php?color=den">Đen</a>
-                                    <a href="XuLyLoc.php?color=trang">Trắng</a>
-                                    <a href="XuLyLoc.php?color=bac">Bạc</a>
-                                    <a href="XuLyLoc.php?color=xam">Xám</a>
-                                    <a href="XuLyLoc.php?color=do">Đỏ</a>
-                                    <a href="XuLyLoc.php?color=xanh">Xanh</a>
-                                    <a href="XuLyLoc.php?color=vang">Vàng</a>
-                                </div>
-                            </div>
-                            <div class="filter-option" onmouseover="showSubMenu('year-submenu')"
-                                onmouseout="hideSubMenu('year-submenu')">
-                                Lọc Theo Năm Sản Xuất
-                                <div class="submenu" id="year-submenu">
-                                    <a href="XuLyLoc.php?year=duoi_2021">Dưới 2021</a>
-                                    <a href="XuLyLoc.php?year=2022">Năm 2022</a>
-                                    <a href="XuLyLoc.php?year=2023">Năm 2023</a>
-                                </div>
-                            </div>
-                            <div class="filter-option" onmouseover="showSubMenu('speed-submenu')"
-                                onmouseout="hideSubMenu('speed-submenu')">
-                                Lọc Theo Tốc Độ
-                                <div class="submenu" id="speed-submenu">
-                                    <a href="XuLyLoc.php?speed=duoi_250">Dưới 250 km/h</a>
-                                    <a href="XuLyLoc.php?speed=250_300">250 - 300 km/h</a>
-                                    <a href="XuLyLoc.php?speed=tren_300">Trên 300 km/h</a>
-                                </div>
-                            </div>
-                            <div class="filter-option" onmouseover="showSubMenu('engine-submenu')"
-                                onmouseout="hideSubMenu('engine-submenu')">
-                                Lọc Theo Động Cơ
-                                <div class="submenu" id="engine-submenu">
-                                    <a href="XuLyLoc.php?engine=xang">Xăng</a>
-                                    <a href="XuLyLoc.php?engine=hybrid">Hybrid</a>
-                                    <a href="XuLyLoc.php?engine=khac">Khác</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
+                ?>           
+                <li><a href="admin.php">Admin</a></li>
             </ul>
         </div>
         <!-- Nút quay trở lại đầu trang -->
@@ -256,6 +245,17 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
             const submenu = document.getElementById(submenuId);
             submenu.style.display = 'block';
         }
+    
+
+    //Kiểm tra đăng nhập khi thêm giỏ hàng
+     window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('showLogin') === '1') {
+            alert("Hãy đăng nhập để thêm sản phẩm vào giỏ hàng.");
+            showLogin();
+        }
+    }
+
 
         function hideSubMenu(submenuId) {
             const submenu = document.getElementById(submenuId);
@@ -269,4 +269,4 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                 dropdown.style.display = 'none';
             }
         }
-    </script>
+</script>

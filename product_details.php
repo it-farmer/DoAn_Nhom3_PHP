@@ -1,6 +1,8 @@
 <?php
     include("ConnectDatabase_PDO.php");
      
+    
+
     // Nhận mã xe từ URL
     $maxe = isset($_GET['maXe']) ? $_GET['maXe'] : '';
 
@@ -46,30 +48,23 @@
                 <h1><?php echo $tenxe; ?></h1>
                 <p style="text-align: left;"><?php echo $row->CongNghe; ?></p>
                 <p style="text-align: right;">Hỗ trợ bảo hành lên đến <span style="color: lightgreen; font-weight: bold;"><?php echo $row->ThoiGianBaoHanh; ?></span></p>
-                <form action="product_details.php" method="post">
-                    <input type="hidden" name="ma_xe" value="<?php echo $row->MaXe; ?>">
-                    <input type="hidden" name="ten_xe" value="<?php echo $row->TenXe; ?>">
-                    <input type="hidden" name="hinh_xe" value="<?php echo $row->AnhXe; ?>">
-                    <input type="hidden" name="gia_xe" value="<?php echo $row->Gia; ?>">
-                    <input type="hidden" name="hang_xe" value="<?php echo $row->MaHX; ?>">
+                <form action="controllers/Controller_Cart.php" method="get" style="display:inline;">
+                    <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="maXe" value="<?php echo $row->MaXe; ?>">
                     <button type="submit" class="btn_add_cart" name="cf_button">Thêm vào giỏ</button>
+                    <button type="submit" class="btn_add_cart btn_buy_now"  name="cf_button">Mua Ngay</button>
                 </form>
-                <form action="product_details.php" method="post">
-                    <input type="hidden" name="ma_xe" value="<?php echo $row->MaXe; ?>">
-                    <input type="hidden" name="ten_xe" value="<?php echo $row->TenXe; ?>">
-                    <input type="hidden" name="hinh_xe" value="<?php echo $row->AnhXe; ?>">
-                    <input type="hidden" name="gia_xe" value="<?php echo $row->Gia; ?>">
-                    <input type="hidden" name="hang_xe" value="<?php echo $row->MaHX; ?>">
-                    <button type="submit" class="btn_buy_now" name="cf_button">Mua ngay</button>
-                </form>
-                <table border="0">
+                
+                <table class="pro_table_count" border="0">
                     <tr>
                         <th>Giá</th>
                         <th>Màu</th>
+                        <th>Số Lượng</th>
                     </tr>
                     <tr>
                         <td><?php echo number_format($row->Gia, 0, ",", ".") ?> VNĐ</td>
                         <td><?php echo $row->MauXe; ?></td>
+                        <td><?php echo $row->SoLuongTonKho; ?></td>
                     </tr>
                 </table>
             </div>
