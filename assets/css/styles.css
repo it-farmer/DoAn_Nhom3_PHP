@@ -656,7 +656,6 @@ footer {
 }
 
 .info_product table {
-  width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
@@ -1372,4 +1371,7 @@ footer {
     font-size: 15px;
     margin: 0 8px;
     vertical-align: middle;
+}
+.pro_table_count {
+  width: 400px;
 }
