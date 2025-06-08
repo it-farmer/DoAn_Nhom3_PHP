@@ -315,7 +315,7 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
             showLogin();
         }
     }
-</script>
+
 
         function hideSubMenu(submenuId) {
             const submenu = document.getElementById(submenuId);
@@ -329,4 +329,4 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                 dropdown.style.display = 'none';
             }
         }
-    </script>
+</script>
