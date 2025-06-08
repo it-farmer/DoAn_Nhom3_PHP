@@ -98,17 +98,23 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                 <?php
                 if (isset($_SESSION['HoTenNV']) || isset($_SESSION['HoTenKH'])) {
                     ?>
-                    <li style="color: white">
-                        <?php if (isset($_SESSION['HoTenNV']))
-                            echo $_SESSION['HoTenNV'];
-                        else
-                            echo $_SESSION['HoTenKH']; ?>
-                    </li>
-                    <li>
-                        <form action="index.php" method="post">
-                            <input type="hidden" name="log_out">
-                            <button>Đăng Xuất</button>
-                        </form>
+                    <li onclick="showOptionsUser()" style="color: white; cursor: pointer;">
+                        <span>
+                            <?php if (isset($_SESSION['HoTenNV']))
+                                echo $_SESSION['HoTenNV'];
+                            else
+                                echo $_SESSION['HoTenKH']; ?>
+                        </span>
+                        <ul id="menuOptionsUser" style="display: none;">
+                            <li style="margin-bottom: 5%;"><a href="User_detail.php">Thông tin cá nhân</a></li>
+                            <hr style="margin-bottom: 5%; height: 2px; background-color: black; border: 1px;">
+                            <li>
+                                <form action="index.php" method="post">
+                                    <input type="hidden" name="log_out">
+                                    <button style="padding: 3% 5%; background-color: transparent; border: none; width: 100px; cursor: pointer; font-size: 16px;">Đăng Xuất</button>
+                                </form>
+                            </li>
+                        </ul>
                     </li>
                     <?php
                 } else {
@@ -117,8 +123,6 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                     <?php
                 }
                 ?>
-
-
                 <li>
                     <div class="filter-menu">
                         <a href="#" class="filter-button">Lọc </a>

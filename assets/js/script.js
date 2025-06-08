@@ -32,7 +32,17 @@ function signin() {
     y.style.left = "500px";
 }
 
-// -------------------------Home Page--------------------------------------
+// ------------------------------------User Detail------------------------------------------------
+function showOptionsUser(){
+    const options = document.getElementById('menuOptionsUser');
+
+    if(options.style.display == 'none')
+        options.style.display = 'block';
+    else
+        options.style.display = 'none';
+}
+
+// ------------------------------------Home Page--------------------------------------
 const slides = document.querySelectorAll('.slide');
 const totalSlides = slides.length;
 let currentIndex = 0;
