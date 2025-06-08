@@ -11,6 +11,4 @@
         echo "Lỗi kết nối: " . $e->getMessage();
         die();
     }
-
-
 ?>

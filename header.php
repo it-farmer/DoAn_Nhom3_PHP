@@ -1,29 +1,71 @@
+<?php
+session_start();
+
+include('ConnectDatabase_PDO.php');
+
+if (isset($_POST['log_out'])) {
+    session_destroy();
+    header("Location: index.php");
+    exit();
+}
+
+if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
+    $sta = $pdo->prepare("SELECT * FROM nhanvien WHERE TaiKhoan = ? AND MatKhau =?");
+    $sta->execute([$_POST['username_log'], $_POST['password_log']]);
+    if ($sta->rowCount() > 0) {
+        $nhanvien = $sta->fetch(PDO::FETCH_OBJ);
+        $_SESSION['HoTenNV'] = $nhanvien->HoTenNV;
+        $_SESSION['MaNV'] = $nhanvien->MaNV;
+        $_SESSION['QueQuan'] = $nhanvien->QueQuan;
+        $_SESSION['NgaySinhNV'] = $nhanvien->NgaySinhNV;
+        $_SESSION['SoDienThoaiNV'] = $nhanvien->SoDienThoaiNV;
+        $_SESSION['GioiTinh'] = $nhanvien->GioiTinh;
+        $_SESSION['EmailNV'] = $nhanvien->EmailNV;
+        $_SESSION['QuyenID'] = $nhanvien->QuyenID;
+    }
+
+    $sta = $pdo->prepare("SELECT * FROM khachhang WHERE TenDangNhap = ? AND MatKhau =?");
+    $sta->execute([$_POST['username_log'], $_POST['password_log']]);
+    if ($sta->rowCount() > 0) {
+        $khachhang = $sta->fetch(PDO::FETCH_OBJ);
+        $_SESSION['HoTenKH'] = $khachhang->HoTenKH;
+        $_SESSION['MaKH'] = $khachhang->MaKH;
+        $_SESSION['NgaySinhKH'] = $khachhang->NgaySinhKH;
+        $_SESSION['SoDienThoaiKH'] = $khachhang->SoDienThoaiKH;
+        $_SESSION['DiaChi'] = $khachhang->DiaChi;
+        $_SESSION['EmailKH'] = $khachhang->EmailKH;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($title) ? $title : 'Error'; ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <script src="https://kit.fontawesome.com/cdbcf8b89b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/css/styles.css?v=<?php echo time(); ?>">
-    <script src="./assets/js/script.js"></script>
 
     <!-- thêm cho dropdown -->
     <script>
-            $(document).ready(function(){
-        $('.dropdown-menu li').hover(function(){
-            $(this).children('.sub-menu').slideToggle();
+        $(document).ready(function () {
+            $('.dropdown-menu li').hover(function () {
+                $(this).children('.sub-menu').slideToggle();
+            });
         });
-    });
     </script>
 </head>
+
 <body>
     <header class="header">
         <a name="header"></a>
-        <div class="nav"> 
+        <div class="nav">
             <ul>
                 <li><a href="index.php">Logo</a></li>
                 <li><a href="./index.php">Trang chủ</a></li>
@@ -46,22 +88,43 @@
                 </li>
                 <li>
                     <form action="TimKiem.php" method="get">
-                        <input style="width: 250px; height: 30px; border-radius: 10px; padding-left: 10px"
-                            type="text"
-                            placeholder="Tìm kiếm"
-                            name="keyword">
+                        <input style="width: 250px; height: 30px; border-radius: 2px; padding-left: 10px" type="text"
+                            placeholder="Tìm kiếm" name="keyword">
                     </form>
                 </li>
                 <li><a href="services.php">Dịch vụ</a></li>
                 <li><a href="contact.php">Liên hệ</a></li>
                 <li><a href="about_us.php">Về chúng tôi</a></li>
-                <li><a onclick="showLogin()" href="#">Đăng nhập / Đăng ký</a></li>
+                <?php
+                if (isset($_SESSION['HoTenNV']) || isset($_SESSION['HoTenKH'])) {
+                    ?>
+                    <li style="color: white">
+                        <?php if (isset($_SESSION['HoTenNV']))
+                            echo $_SESSION['HoTenNV'];
+                        else
+                            echo $_SESSION['HoTenKH']; ?>
+                    </li>
+                    <li>
+                        <form action="index.php" method="post">
+                            <input type="hidden" name="log_out">
+                            <button>Đăng Xuất</button>
+                        </form>
+                    </li>
+                    <?php
+                } else {
+                    ?>
+                    <li><a onclick="showLogin()" href="#">Đăng nhập / Đăng ký</a></li>
+                    <?php
+                }
+                ?>
+
 
                 <li>
                     <div class="filter-menu">
                         <a href="#" class="filter-button">Lọc </a>
                         <div class="filter-dropdown">
-                            <div class="filter-option" onmouseover="showSubMenu('price-submenu')" onmouseout="hideSubMenu('price-submenu')">
+                            <div class="filter-option" onmouseover="showSubMenu('price-submenu')"
+                                onmouseout="hideSubMenu('price-submenu')">
                                 Lọc Theo Giá
                                 <div class="submenu" id="price-submenu">
                                     <a href="XuLyLoc.php?price=duoi_200">Dưới 200 triệu</a>
@@ -71,7 +134,8 @@
                                     <a href="XuLyLoc.php?price=tren_3ty">Trên 3 tỷ</a>
                                 </div>
                             </div>
-                            <div class="filter-option" onmouseover="showSubMenu('color-submenu')" onmouseout="hideSubMenu('color-submenu')">
+                            <div class="filter-option" onmouseover="showSubMenu('color-submenu')"
+                                onmouseout="hideSubMenu('color-submenu')">
                                 Lọc Theo Màu
                                 <div class="submenu" id="color-submenu">
                                     <a href="XuLyLoc.php?color=den">Đen</a>
@@ -83,7 +147,8 @@
                                     <a href="XuLyLoc.php?color=vang">Vàng</a>
                                 </div>
                             </div>
-                            <div class="filter-option" onmouseover="showSubMenu('year-submenu')" onmouseout="hideSubMenu('year-submenu')">
+                            <div class="filter-option" onmouseover="showSubMenu('year-submenu')"
+                                onmouseout="hideSubMenu('year-submenu')">
                                 Lọc Theo Năm Sản Xuất
                                 <div class="submenu" id="year-submenu">
                                     <a href="XuLyLoc.php?year=duoi_2021">Dưới 2021</a>
@@ -91,7 +156,8 @@
                                     <a href="XuLyLoc.php?year=2023">Năm 2023</a>
                                 </div>
                             </div>
-                            <div class="filter-option" onmouseover="showSubMenu('speed-submenu')" onmouseout="hideSubMenu('speed-submenu')">
+                            <div class="filter-option" onmouseover="showSubMenu('speed-submenu')"
+                                onmouseout="hideSubMenu('speed-submenu')">
                                 Lọc Theo Tốc Độ
                                 <div class="submenu" id="speed-submenu">
                                     <a href="XuLyLoc.php?speed=duoi_250">Dưới 250 km/h</a>
@@ -99,7 +165,8 @@
                                     <a href="XuLyLoc.php?speed=tren_300">Trên 300 km/h</a>
                                 </div>
                             </div>
-                            <div class="filter-option" onmouseover="showSubMenu('engine-submenu')" onmouseout="hideSubMenu('engine-submenu')">
+                            <div class="filter-option" onmouseover="showSubMenu('engine-submenu')"
+                                onmouseout="hideSubMenu('engine-submenu')">
                                 Lọc Theo Động Cơ
                                 <div class="submenu" id="engine-submenu">
                                     <a href="XuLyLoc.php?engine=xang">Xăng</a>
@@ -121,18 +188,21 @@
         <div id="login" class="login-container">
             <div class="slide_s_login">
                 <img src="assets/img/Xe/A6_3.avif" alt="assets/img/Xe/A6_3.avif">
-                <button onclick="closeLogin()" class="montserrat"><span>Trang chủ</span>  <i class="fa-solid fa-angle-right"></i></button>
+                <button onclick="closeLogin()" class="montserrat"><span>Trang chủ</span> <i
+                        class="fa-solid fa-angle-right"></i></button>
             </div>
             <div class="form_control">
                 <div id="log_form" class="login_main">
                     <h2>Đăng nhập</h2>
-                    <input id="form-log-username" type="text" placeholder="Tên đăng nhập">
-                    <input id="form-log-password" type="password" placeholder="Mật khẩu">
-                    <div style="display: flex; align-items: center; margin: 10px 0"> 
-                        <input type="checkbox" id="cbox"> 
-                        <label for="cbox" style="font-size: 13px; margin-left: 5px">Nhớ tài khoản</label>
-                    </div>
-                    <button>Đăng Nhập</button>
+                    <form action="index.php" method="post">
+                        <input id="form-log-username" name="username_log" type="text" placeholder="Tên đăng nhập">
+                        <input id="form-log-password" name="password_log" type="password" placeholder="Mật khẩu">
+                        <div style="display: flex; align-items: center; margin: 10px 0">
+                            <input type="checkbox" id="cbox">
+                            <label for="cbox" style="font-size: 13px; margin-left: 5px">Nhớ tài khoản</label>
+                        </div>
+                        <button>Đăng Nhập</button>
+                    </form>
                     <p>Chưa có tài khoản? <span onclick="signup()">Đăng ký</span></p>
                     <div class="or_login">
                         <hr>
@@ -144,16 +214,21 @@
                         <button><img src="assets/img/icons/github-logo.png" alt="git_logo">Github</button>
                     </div>
                 </div>
-                <div id="reg_form"  class="login_main">
+                <div id="reg_form" class="login_main">
                     <h2>Đăng ký</h2>
-                    <input id="form-reg-username" type="text" placeholder="Tên đăng nhập">
-                    <input id="form-reg-password" type="password" placeholder="Mật khẩu">
-                    <input id="form-reg-cfpassword" type="password" placeholder="Xác nhận lại Mật khẩu">
-                    <div style="display: flex; align-items: center; margin: 10px 0"> 
-                        <input type="checkbox" id="cbox2"> 
-                        <label for="cbox2" style="font-size: 13px; margin-left: 5px">Đồng ý với <span>điều khoản</span> & <span>điều kiện</span></label>
-                    </div>
-                    <button>Đăng Ký</button>
+                    <form action="index.php" method="post">
+                        <input id="form-reg-username" name="username_regis" type="text" placeholder="Tên đăng nhập">
+                        <input id="form-reg-password" name="password_regis" type="password" placeholder="Mật khẩu">
+                        <input id="form-reg-cfpassword" name="re_password_regis" type="password"
+                            placeholder="Xác nhận lại Mật khẩu">
+                        <div style="display: flex; align-items: center; margin: 10px 0">
+                            <input type="checkbox" id="cbox2">
+                            <label for="cbox2" style="font-size: 13px; margin-left: 5px">Đồng ý với <span>điều
+                                    khoản</span>
+                                & <span>điều kiện</span></label>
+                        </div>
+                        <button>Đăng Ký</button>
+                    </form>
                     <p>Đã có tài khoản? <span onclick="signin()">Đăng nhập</span></p>
                     <div class="or_login">
                         <hr>
@@ -167,31 +242,31 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
     </header>
 
-<script>
-    document.querySelector('.filter-button').addEventListener('click', function() {
-        const dropdown = document.querySelector('.filter-dropdown');
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    });
-
-    function showSubMenu(submenuId) {
-        const submenu = document.getElementById(submenuId);
-        submenu.style.display = 'block';
-    }
-
-    function hideSubMenu(submenuId) {
-        const submenu = document.getElementById(submenuId);
-        submenu.style.display = 'none';
-    }
-
-    // Đóng dropdown khi nhấn ra ngoài
-    window.onclick = function(event) {
-        if (!event.target.matches('.filter-button')) {
+    <script>
+        document.querySelector('.filter-button').addEventListener('click', function () {
             const dropdown = document.querySelector('.filter-dropdown');
-            dropdown.style.display = 'none';
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        function showSubMenu(submenuId) {
+            const submenu = document.getElementById(submenuId);
+            submenu.style.display = 'block';
         }
-    }
-</script>
+
+        function hideSubMenu(submenuId) {
+            const submenu = document.getElementById(submenuId);
+            submenu.style.display = 'none';
+        }
+
+        // Đóng dropdown khi nhấn ra ngoài
+        window.onclick = function (event) {
+            if (!event.target.matches('.filter-button')) {
+                const dropdown = document.querySelector('.filter-dropdown');
+                dropdown.style.display = 'none';
+            }
+        }
+    </script>
