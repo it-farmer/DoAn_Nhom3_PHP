@@ -24,6 +24,17 @@ class GioHangModel {
         $sql = "DELETE FROM GioHang WHERE MaKH = ? AND MaXe = ?";
         return $this->dtb->M_excute($sql, [$maKH, $maXe]);
     }
+    // Thêm sản phẩm mới vào giỏ hàng
+    public function addToCart($maKH, $maXe, $soLuong = 1) {
+        $sql = "INSERT INTO GioHang (MaKH, MaXe, SoLuong) VALUES (?, ?, ?)";
+        return $this->dtb->M_excute($sql, [$maKH, $maXe, $soLuong]);
+    }
+
+    // Tăng số lượng sản phẩm đã có trong giỏ hàng
+    public function increaseQuantity($maKH, $maXe) {
+        $sql = "UPDATE GioHang SET SoLuong = SoLuong + 1 WHERE MaKH = ? AND MaXe = ?";
+        return $this->dtb->M_excute($sql, [$maKH, $maXe]);
+    }
     //Quản Lý Hóa Đơn Khách Hàng
     // public function getHoaDonByMaKH($maKH) 
     // {

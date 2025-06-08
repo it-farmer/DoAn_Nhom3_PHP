@@ -1,15 +1,15 @@
 <?php
-session_start();
-require_once 'models/M_GioHang.php';
-require_once 'models/M_database.php';
+    $title = "Chi tiết giỏ hàng";
+    include("header.php");
+    require_once 'models/M_GioHang.php';
+    require_once 'models/M_database.php';
 
-$maKH = isset($_SESSION['MaKH']) ? $_SESSION['MaKH'] : null;
-$maKH='KH01';//Đăng nhập lấy mã khách hàng
-if (!$maKH) {
-    header('Location: index.php?showLogin=1');
-    echo "<script>alert('Bạn cần đăng nhập để xem giỏ hàng!');</script>";
-    exit;
-}
+    $maKH = isset($_SESSION['MaKH']) ? $_SESSION['MaKH'] : null;
+    if (!$maKH) {
+        header('Location: index.php?showLogin=1');
+        echo "<script>alert('Bạn cần đăng nhập để xem giỏ hàng!');</script>";
+        exit;
+    }
 
 $gioHangModel = new GioHangModel();
 $cart = $gioHangModel->getCartByMaKH($maKH);
@@ -20,7 +20,17 @@ if (isset($_POST['checkout'])) {
     foreach ($cart as $item) {
         $tongTien += $item->Gia * $item->SoLuong;
     }
-    $maHD = 'HD' . time(); // Tạo mã hóa đơn đơn giản
+    $db = new Database();
+    $db->M_connect();
+    // Tạo mã hóa đơn tăng dần
+    $sqlMax = "SELECT MaHD FROM HoaDon ORDER BY MaHD DESC LIMIT 1";
+    $result = $db->M_getOne($sqlMax);
+    if ($result && preg_match('/HD(\d+)/', $result->MaHD, $matches)) {
+        $nextNumber = intval($matches[1]) + 1;
+        $maHD = 'HD' . str_pad($nextNumber, 2, '0', STR_PAD_LEFT);
+    } else {
+        $maHD = 'HD01';
+    }
     $maNV = 'NV01'; // Gán cứng hoặc lấy từ session nếu có đăng nhập nhân viên
     $ngayLap = date('Y-m-d H:i:s');
 
@@ -34,6 +44,9 @@ if (isset($_POST['checkout'])) {
     foreach ($cart as $item) {
         $sqlCT = "INSERT INTO ChiTietHoaDon (MaHD, MaXe, SoLuong, GiaBan) VALUES (?, ?, ?, ?)";
         $db->M_excute($sqlCT, [$maHD, $item->MaXe, $item->SoLuong, $item->Gia]);
+        // Giảm số lượng tồn kho xe
+        $sqlUpdate = "UPDATE XeHoi SET SoLuongTonKho = SoLuongTonKho - ? WHERE MaXe = ?";
+        $db->M_excute($sqlUpdate, [$item->SoLuong, $item->MaXe]);
     }
 
     // Xóa giỏ hàng
@@ -43,8 +56,8 @@ if (isset($_POST['checkout'])) {
 }
 ?>
 
-<h2>Chi tiết giỏ hàng</h2>
-<table border="1">
+<h2 class="cart-detail-title">Chi tiết giỏ hàng</h2>
+<table class="table-cart" border="1">
     <tr>
         <th>Ảnh</th>
         <th>Tên xe</th>
@@ -61,11 +74,19 @@ if (isset($_POST['checkout'])) {
         <td><?php echo number_format($item->Gia * $item->SoLuong, 0, ",", "."); ?> VNĐ</td>
     </tr>
     <?php endforeach; ?>
-    <tr>
+    <tr class="cart-total-row">
         <td colspan="4"><b>Tổng cộng</b></td>
         <td><b><?php echo number_format($tong, 0, ",", "."); ?> VNĐ</b></td>
     </tr>
 </table>
 <form method="post">
-    <button type="submit" name="checkout">Thanh toán</button>
+    <button class="btn-checkout" type="submit" name="checkout">Thanh toán</button>
 </form>
+
+<br>
+<br>
+<br>
+<br>
+<?php
+    include("footer.php");
+?>

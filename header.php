@@ -97,7 +97,7 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                 <li><a href="services.php">Dịch vụ</a></li>
                 <li><a href="contact.php">Liên hệ</a></li>
                 <li><a href="about_us.php">Về chúng tôi</a></li>
-                <li><a onclick="showLogin()" href="#">Đăng nhập / Đăng ký</a></li>
+                <!-- <li><a onclick="showLogin()" href="#">Đăng nhập / Đăng ký</a></li> -->
                 <!-- Giỏ hàng -->
 
                 <?php
@@ -105,10 +105,10 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                 require_once __DIR__ . '/models/M_database.php';
                 require_once __DIR__ . '/models/M_GioHang.php';
                 // Hiển thị giỏ hàng theo Khách Hàng
-                session_start();
+                
                 $maKH = isset($_SESSION['MaKH']) ? $_SESSION['MaKH'] : null;
                 $cart = [];
-                $maKH='KH01';
+                
 
                 if ($maKH) {
                     $gioHangModel = new GioHangModel();
@@ -226,6 +226,8 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                         </div>
                     </div>
                 </li>
+                <li><a href="admin.php">Admin</a></li>
+
 
             </ul>
         </div>
