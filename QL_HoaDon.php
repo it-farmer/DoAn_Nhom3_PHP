@@ -122,7 +122,7 @@ if (isset($_GET['mahd'])) {
         <?php endforeach; ?>
     </table>
 
-    <h3>Thêm hóa đơn mới</h3>
+    <h3 style="margin-left: 520px;">Thêm hóa đơn mới</h3>
     <form method="post" class="admin-form">
         <input type="text" name="mahd" placeholder="Mã HĐ" required>
         <input type="text" name="makh" placeholder="Mã KH" required>
