@@ -74,7 +74,7 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                         <li style="width: 100px;">
                             <a href="#">Hãng xe <i class="fa-solid fa-angle-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="TatCaHangXe.php">Tất cả hãng</a></li>
+                                <li><a href="Loc.php">Tất cả hãng</a></li>
                                 <li><a href="TungHangXe.php?hangxe=HX01">BMW</a></li>
                                 <li><a href="TungHangXe.php?hangxe=HX02">Porsche</a></li>
                                 <li><a href="TungHangXe.php?hangxe=HX03">Lamborghini</a></li>
