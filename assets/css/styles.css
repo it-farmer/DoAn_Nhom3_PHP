@@ -1303,6 +1303,214 @@ footer {
 }
 
 /* ================= ADMIN (admin.php) ================= */
+/* ----------------------Sidebar---------------------- */
+.sidebar {
+    min-height: 100vh;
+    width: 250px;
+    background-color: #2c3e50;
+    color: white;
+    padding-top: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sidebar li i {
+    width: 35px;
+}
+
+.sidebar li:hover,
+.sidebar li.active {
+    background-color: #34495e;
+}
+
+/* ----------------------Main Content---------------------- */
+.main-content {
+    padding: 20px;
+    flex: 1;
+    position: relative;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.content-section {
+    position: relative;
+    display: none;
+    z-index: 10;
+}
+
+.content-section.active , .reports-not-hidden.active {
+    display: block;
+}
+
+.reports-not-hidden{
+    display: none;
+    position: absolute;
+    width: 97%;
+    top: 20px;
+    left: 20px;
+    z-index: 1;
+}
+
+/* ----------------------Table------------------------ */
+.table-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #d1d5db;
+}
+
+th {
+    background-color: #ebe9e1;
+    color: #e43d12;
+}
+
+tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* ----------------------Form Box------------------------ */
+.form-box {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1500px;
+}
+
+.form-box h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#handle-form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    width: 49%;
+}
+
+.input-group label {
+    display: block;
+    color: #374151;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.input-group select,
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+}
+
+.input-group select:focus,
+.input-group input:focus,
+.input-group textarea:focus {
+    border-color: #1a3c6e;
+    box-shadow: 0 0 5px rgba(26, 60, 110, 0.2);
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #D32F2F;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #15325b;
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.CRUD-form{
+    display: inline;
+}
+
+.CRUD-form button{
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.CRUD-form button:hover{
+    scale: 104%;
+}
+
+.selectBtn{
+    background-color: red;
+    height: fit-content;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 10px;
+}
+
+.selectBtn:hover{
+    scale: 105%;
+}
+
 .admin-title {
     text-align: center;
     font-size: 2rem;
@@ -1428,3 +1636,4 @@ footer {
     width: 0 !important;
     content: none !important;
 }
+

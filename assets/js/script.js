@@ -42,6 +42,56 @@ function showOptionsUser(){
         options.style.display = 'none';
 }
 
+function showContent(sectionId) {
+    const sections = document.querySelectorAll('.content-section');
+    const navItems = document.querySelectorAll('.sidebar li');
+    const report_hidden = document.querySelector('.reports-not-hidden');
+
+    sections.forEach(section => {
+        section.classList.remove('active');
+        if (section.id === sectionId) {
+            if(sectionId === 'reports'){
+                report_hidden.classList.add('active');
+            }
+            section.classList.add('active');
+        }
+    });
+
+    navItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.dataset.section === sectionId) {
+            if(sectionId !== 'reports'){
+                report_hidden.classList.remove('active');
+            }
+            item.classList.add('active');
+        }
+    });
+}
+
+function resetUserForm() {
+    const form = document.getElementById('handle-form');
+    form.reset();
+    document.getElementById('action').value = 'add_user';
+    document.getElementById('form-title').textContent = 'Thêm Nhân Viên';
+    document.getElementById('form-btn').textContent = 'Thêm Nhân Viên';
+}
+
+function editUser(user) {
+    showContent('add_user');
+    document.getElementById('form-title').textContent = 'Sửa Nhân Viên';
+    document.getElementById('form-btn').textContent = 'Cập Nhật Thông Tin Nhân Viên';
+    document.getElementById('action').value = 'edit_user';
+    document.getElementById('user_id').value = user.user_id;
+    document.getElementById('fullname').value = user.fullname;
+    document.getElementById('born').value = user.born;
+    document.getElementById('gender').value = user.gender;
+    document.getElementById('address').value = user.address;
+    document.getElementById('phone').value = user.phone;
+    document.getElementById('role_id').value = user.role_id;
+    document.getElementById('username').value = user.username;
+    document.getElementById('password').value = user.password;
+}
+
 // ------------------------------------Home Page--------------------------------------
 const slides = document.querySelectorAll('.slide');
 const totalSlides = slides.length;

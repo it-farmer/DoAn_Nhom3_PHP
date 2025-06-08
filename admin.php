@@ -1,3 +1,20 @@
+<?php
+include('ConnectDatabase_PDO.php');
+
+$sta = $pdo->prepare("SELECT * FROM xehoi WHERE SoLuongTonKho = 1");
+$sta->execute();
+
+if ($sta->rowCount() > 0) {
+    $notis = $sta->rowCount();
+}
+
+$sta = $pdo->prepare("SELECT * FROM nhanvien, quyentruycap WHERE nhanvien.QuyenID = quyentruycap.QuyenID");
+$sta->execute();
+
+if ($sta->rowCount() > 0) {
+    $users = $sta->fetchAll(PDO::FETCH_OBJ);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,25 +35,16 @@
     <div style="display: flex; height: 100%;">
         <div class="sidebar">
             <ul>
-                <?php if ($roleId == 1): // Quản trị viên ?>
-                    <li data-section="personnel" class="active"><i class="fa-solid fa-people-roof"></i> Quản Lý Nhân Sự</li>
-                    <li data-section="equipment"><i class="fa-solid fa-list-ul"></i> Quản Lý Thiết Bị</li>
-                    <li data-section="reports"><i class="fa-solid fa-flag"></i> Báo Cáo</li>
-                    <li data-section="history"><i class="fa-solid fa-clock-rotate-left"></i> Lịch Sử Hoạt Động</li>
-                    <li data-section="notifications"><i class="fa-solid fa-bell"></i> Thông Báo
-                        (<?php if ($notis)
-                            echo count($notis);
-                        else
-                            echo "0"; ?>)</li>
-                <?php elseif ($roleId == 2): // Kỹ thuật viên ?>
-                    <li data-section="usage-log" class="active" onclick="resetLog()"><i class="fa-solid fa-file-pen"></i>
-                        Ghi Lịch Sử Sử Dụng</li>
-                    <li data-section="history"><i class="fa-solid fa-clock-rotate-left"></i> Các Bản Ghi</li>
-                    <li data-section="maintenance"><i class="fa-solid fa-screwdriver-wrench"></i> Quản Lý Bảo Trì</li>
-                <?php elseif ($roleId == 3): // Người xem ?>
-                    <li data-section="equipment-view" class="active"><i class="fa-solid fa-eye"></i> Xem Thiết Bị</li>
-                    <li data-section="edit-profile"><i class="fa-solid fa-clipboard-list"></i> Thông Tin Cá Nhân</li>
-                <?php endif; ?>
+                <li data-section="personnel" class="active"><i class="fa-solid fa-people-roof"></i> Quản Lý Nhân Viên
+                </li>
+                <li data-section="invoice"><i class="fa-solid fa-list-ul"></i> Quản Lý Hóa Đơn</li>
+                <li data-section="reports"><i class="fa-solid fa-flag"></i> Báo Cáo</li>
+                <li data-section="notifications"><i class="fa-solid fa-bell"></i> Thông Báo
+                    (<?php if ($notis)
+                        echo $notis;
+                    else
+                        echo "0"; ?>)
+                </li>
             </ul>
         </div>
         <div class="main-content">
@@ -51,12 +59,13 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Mã NV</th>
                                 <th>Họ Tên</th>
-                                <th>Ngày Sinh</th>
                                 <th>Giới Tính</th>
-                                <th>Địa Chỉ</th>
+                                <th>Ngày Sinh</th>
+                                <th>Quê Quán</th>
                                 <th>Điện Thoại</th>
+                                <th>Email</th>
                                 <th>Vai Trò</th>
                                 <th>Hành Động</th>
                             </tr>
@@ -64,13 +73,14 @@
                         <tbody>
                             <?php foreach ($users as $user) { ?>
                                 <tr>
-                                    <td><?php echo $user->user_id ?></td>
-                                    <td><?php echo $user->fullname ?></td>
-                                    <td><?php echo $user->born ?></td>
-                                    <td><?php echo $user->gender ?></td>
-                                    <td><?php echo $user->address ?></td>
-                                    <td><?php echo $user->phone ?></td>
-                                    <td><?php echo $user->role_name ?></td>
+                                    <td><?php echo $user->MaNV ?></td>
+                                    <td><?php echo $user->HoTenNV ?></td>
+                                    <td><?php echo $user->GioiTinh ?></td>
+                                    <td><?php echo $user->NgaySinhNV ?></td>
+                                    <td><?php echo $user->QueQuan ?></td>
+                                    <td><?php echo $user->SoDienThoaiNV ?></td>
+                                    <td><?php echo $user->EmailNV ?></td>
+                                    <td><?php echo $user->TenQuyen ?></td>
                                     <td>
                                         <div class="CRUD-form">
                                             <button style="background-color: #EFB11D;"
@@ -89,35 +99,11 @@
                             <?php } ?>
                         </tbody>
                     </table>
-                    <div class="pagination">
-                        <?php if ($totalPageUser > 1) { ?>
-                            <a href="index.php?pageUser=1">Trang Đầu</a>
-                            <a href="index.php?pageUser=<?php echo $currentPageUser - 1 ?>">Trước</a>
-                            <?php
-                            for ($i = $start_link_user; $i <= $end_link_user; $i++) {
-                                if ($i == $currentPageUser) {
-                                    ?>
-                                    <a style="background-color: #E43D13;"
-                                        href="index.php?pageUser=<?php echo $currentPageUser ?>"><?php echo $currentPageUser ?></a>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <a href="index.php?pageUser=<?php echo $i ?>"><?php echo $i ?></a>
-                                    <?php
-                                }
-                            }
-                            ?>
-                            <a href="index.php?pageUser=<?php echo $currentPageUser + 1 ?>">Sau</a>
-                            <a href="index.php?pageUser=<?php echo $totalPageUser ?>">Trang Cuối</a>
-                            <?php
-                        }
-                        ?>
-                    </div>
                 </div>
             </div>
 
             <!-- Quản Lý Thiết Bị -->
-            <div id="equipment" class="content-section">
+            <div id="invoice" class="content-section">
                 <div class="table-container">
                     <div style="display: flex; justify-content: space-between;">
                         <h2>Quản Lý Thiết Bị</h2>
@@ -164,30 +150,6 @@
                             <?php } ?>
                         </tbody>
                     </table>
-                    <div class="pagination">
-                        <?php if ($totalPageEquipments > 1) { ?>
-                            <a href="index.php?pageEquip=1">Trang Đầu</a>
-                            <a href="index.php?pageEquip=<?php echo $currentPageEquipments - 1 ?>">Trước</a>
-                            <?php
-                            for ($i = $start_link_equip; $i <= $end_link_equip; $i++) {
-                                if ($i == $currentPageEquipments) {
-                                    ?>
-                                    <a style="background-color: #E43D13;"
-                                        href="index.php?pageEquip=<?php echo $currentPageEquipments ?>"><?php echo $currentPageEquipments ?></a>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <a href="index.php?pageEquip=<?php echo $i ?>"><?php echo $i ?></a>
-                                    <?php
-                                }
-                            }
-                            ?>
-                            <a href="index.php?pageEquip=<?php echo $currentPageEquipments + 1 ?>">Sau</a>
-                            <a href="index.php?pageEquip=<?php echo $totalPageEquipments ?>">Trang Cuối</a>
-                            <?php
-                        }
-                        ?>
-                    </div>
                 </div>
             </div>
 
@@ -221,30 +183,6 @@
                             <?php } ?>
                         </tbody>
                     </table>
-                    <div class="pagination">
-                        <?php if ($totalPageEquipments > 1) { ?>
-                            <a href="index.php?pageReport=1">Trang Đầu</a>
-                            <a href="index.php?pageReport=<?php echo $currentPageEquipments - 1 ?>">Trước</a>
-                            <?php
-                            for ($i = $start_link_equip; $i <= $end_link_equip; $i++) {
-                                if ($i == $currentPageEquipments) {
-                                    ?>
-                                    <a style="background-color: #E43D13;"
-                                        href="index.php?pageReport=<?php echo $currentPageEquipments ?>"><?php echo $currentPageEquipments ?></a>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <a href="index.php?pageReport=<?php echo $i ?>"><?php echo $i ?></a>
-                                    <?php
-                                }
-                            }
-                            ?>
-                            <a href="index.php?pageReport=<?php echo $currentPageEquipments + 1 ?>">Sau</a>
-                            <a href="index.php?pageReport=<?php echo $totalPageEquipments ?>">Trang Cuối</a>
-                            <?php
-                        }
-                        ?>
-                    </div>
                 </div>
             </div>
             <div id="reports-not-hidden" class="reports-not-hidden">
@@ -303,43 +241,6 @@
                 </div>
             </div>
 
-            <!-- Lịch Sử Hoạt Động -->
-            <div id="history" class="content-section">
-                <div class="table-container">
-                    <h2>Lịch Sử Hoạt Động</h2>
-                    <!-- [Backend] Lấy danh sách lịch sử từ bảng usage_logs -->
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Thiết Bị</th>
-                                <th>Người Thực Hiện</th>
-                                <th>Thời Gian Bắt Đầu</th>
-                                <th>Thời Gian Kết Thúc</th>
-                                <th>Thời gian hoạt động (giờ)</th>
-                                <th>Trạng Thái</th>
-                                <th>Ghi Chú</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($logs as $log) { ?>
-                                <tr>
-                                    <td><?php echo $log->log_id ?></td>
-                                    <td><?php echo $log->equip_name ?></td>
-                                    <td><?php echo $log->fullname ?></td>
-                                    <td><?php echo $log->start_time ?></td>
-                                    <td><?php echo $log->end_time ?></td>
-                                    <td><?php echo $log->duration ?></td>
-                                    <td><?php echo $log->status ?></td>
-                                    <td><?php echo $log->notes ?></td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Thông báo bảo trì -->
             <div id="notifications" class="content-section">
                 <div class="table-container">
                     <div style="display: flex; justify-content: space-between;">
@@ -443,56 +344,6 @@
                             <div class="error-message" id="username-error">Mật khẩu không được để trống</div>
                         </div>
                         <button type="submit" id="form-btn" class="submit-btn">Thêm Nhân Viên</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Thêm và Sửa Thiết Bị -->
-            <div id="add_equipment" class="content-section">
-                <div class="form-box">
-                    <div style="display: flex; justify-content: space-between;">
-                        <h2 id="equipment-form-title">Thêm Thiết Bị</h2>
-                        <button class="selectBtn" data-section="equipment">Quay lại</button>
-                    </div>
-                    <form style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between;"
-                        id="equipment-form" method="post" action="index.php">
-                        <input type="hidden" name="action" id="equipment-action" value="add_equip">
-                        <!-- <input type="hidden" name="action2" id="action2" value="view/admin.php"> -->
-                        <input type="hidden" name="equipment_id" id="equipment_id">
-                        <div class="input-group">
-                            <label for="equip_name">Tên Thiết Bị</label>
-                            <input type="text" name="equip_name" id="equip_name" required>
-                            <div class="error-message" id="equip_name-error">Tên thiết bị không được để trống</div>
-                        </div>
-                        <div class="input-group">
-                            <label for="equip_type">Loại Thiết Bị</label>
-                            <input type="text" name="equip_type" id="equip_type" required>
-                            <div class="error-message" id="equip_type-error">Loại thiết bị không được để trống</div>
-                        </div>
-                        <div class="input-group">
-                            <label for="equip_description">Mô Tả</label>
-                            <textarea name="equip_description" id="equip_description"
-                                placeholder="Nhập mô tả (nếu có)"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="equip_status">Trạng Thái</label>
-                            <select name="equip_status" id="equip_status" required>
-                                <option value="" disabled selected>Chọn trạng thái</option>
-                                <option value="Hoạt động">Hoạt động</option>
-                                <option value="Ngưng hoạt động">Ngưng hoạt động</option>
-                                <option value="Đang bảo trì">Đang bảo trì</option>
-                                <option value="Hư hỏng">Hư hỏng</option>
-                            </select>
-                            <div class="error-message" id="equip_status-error">Vui lòng chọn trạng thái</div>
-                        </div>
-                        <div class="input-group">
-                            <label for="total_operating_hours">Tổng Giờ Hoạt Động</label>
-                            <input type="number" name="total_operating_hours" id="total_operating_hours" step="0.01"
-                                required>
-                            <div class="error-message" id="total_operating_hours-error">Tổng giờ hoạt động không hợp lệ
-                            </div>
-                        </div>
-                        <button id="equipment-form-btn" type="submit" class="submit-btn">Thêm Thiết Bị</button>
                     </form>
                 </div>
             </div>
