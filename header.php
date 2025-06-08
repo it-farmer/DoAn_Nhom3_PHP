@@ -230,8 +230,6 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                         </div>
                     </div>
                 </li>
-
-                ?>           
                 <li><a href="admin.php">Admin</a></li>
             </ul>
         </div>
