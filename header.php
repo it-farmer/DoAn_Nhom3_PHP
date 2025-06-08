@@ -116,7 +116,7 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                 }
                 ?>
                 <li class="cart-container">
-                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a style="text-decoration: none; color: white;" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
                     <div id="empty_cart" class="cart-dropdown">
                         <?php if (empty($cart)): ?>
                             <div>
