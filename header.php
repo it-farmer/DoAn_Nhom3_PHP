@@ -59,6 +59,8 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                 $(this).children('.sub-menu').slideToggle();
             });
         });
+    
+
     </script>
 </head>
 
@@ -74,7 +76,7 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                         <li style="width: 100px;">
                             <a href="#">Hãng xe <i class="fa-solid fa-angle-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="TatCaHangXe.php">Tất cả hãng</a></li>
+                                <li><a href="Loc.php">Tất cả hãng</a></li>
                                 <li><a href="TungHangXe.php?hangxe=HX01">BMW</a></li>
                                 <li><a href="TungHangXe.php?hangxe=HX02">Porsche</a></li>
                                 <li><a href="TungHangXe.php?hangxe=HX03">Lamborghini</a></li>
@@ -95,6 +97,53 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                 <li><a href="services.php">Dịch vụ</a></li>
                 <li><a href="contact.php">Liên hệ</a></li>
                 <li><a href="about_us.php">Về chúng tôi</a></li>
+                <!-- <li><a onclick="showLogin()" href="#">Đăng nhập / Đăng ký</a></li> -->
+                <!-- Giỏ hàng -->
+
+                <?php
+                require_once __DIR__ . '/models/M_XeHoi.php';
+                require_once __DIR__ . '/models/M_database.php';
+                require_once __DIR__ . '/models/M_GioHang.php';
+                // Hiển thị giỏ hàng theo Khách Hàng
+                
+                $maKH = isset($_SESSION['MaKH']) ? $_SESSION['MaKH'] : null;
+                $cart = [];
+                
+
+                if ($maKH) {
+                    $gioHangModel = new GioHangModel();
+                    $cart = $gioHangModel->getCartByMaKH($maKH);
+                }
+                ?>
+                <li class="cart-container">
+                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <div id="empty_cart" class="cart-dropdown">
+                        <?php if (empty($cart)): ?>
+                            <div>
+                                <img id="empty_cart_img" src="assets/img/anothers/empty_cart.png" alt="Giỏ hàng">
+                            </div>
+                            <div><span>Chưa có sản phẩm</span></div>
+                            <span>
+                                <a href="TatCaHangXe.php"><button>Mua Ngay</button></a>
+                            </span>
+                        <?php else: ?>
+                            <?php foreach ($cart as $item): ?>
+                                <div class="cart-item">
+                                    <img src="assets/img/Xe/<?php echo htmlspecialchars($item->AnhXe); ?>" width="120px" height="60px" alt="<?php echo htmlspecialchars($item->TenXe); ?>">
+                                    <span><?php echo htmlspecialchars($item->TenXe); ?></span>
+                                    <span><?php echo number_format($item->Gia, 0, ",", "."); ?> VNĐ</span>
+                                    <span>x<?php echo $item->SoLuong; ?></span>
+                                    <a href="controllers/Controller_Cart.php?action=delete&maXe=<?php echo $item->MaXe; ?>" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">
+                                        <button>Xóa</button>
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+                            <span>
+                                <a href="cart_detail.php"><button>Chi Tiết Giỏ Hàng</button></a>
+                            </span>
+                        <?php endif; ?>
+                    </div>
+                </li>
                 <?php
                 if (isset($_SESSION['HoTenNV']) || isset($_SESSION['HoTenKH'])) {
                     ?>
@@ -182,6 +231,8 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                     </div>
                 </li>
 
+                ?>           
+                <li><a href="admin.php">Admin</a></li>
             </ul>
         </div>
         <!-- Nút quay trở lại đầu trang -->
@@ -260,6 +311,17 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
             const submenu = document.getElementById(submenuId);
             submenu.style.display = 'block';
         }
+    
+
+    //Kiểm tra đăng nhập khi thêm giỏ hàng
+     window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('showLogin') === '1') {
+            alert("Hãy đăng nhập để thêm sản phẩm vào giỏ hàng.");
+            showLogin();
+        }
+    }
+
 
         function hideSubMenu(submenuId) {
             const submenu = document.getElementById(submenuId);
@@ -273,4 +335,4 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                 dropdown.style.display = 'none';
             }
         }
-    </script>
+</script>
