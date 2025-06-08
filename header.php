@@ -18,6 +18,7 @@
             $(this).children('.sub-menu').slideToggle();
         });
     });
+
     </script>
 </head>
 <body>
@@ -56,18 +57,52 @@
                 <li><a href="contact.php">Liên hệ</a></li>
                 <li><a href="about_us.php">Về chúng tôi</a></li>
                 <li><a onclick="showLogin()" href="#">Đăng nhập / Đăng ký</a></li>
-                <li>
-                    <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
-                    <div id="empty_cart">
-                        <div>
-                            <img src="assets/img/anothers/empty_cart.png" alt="Giỏ hàng">
-                        </div>
-                        <div>
-                            <span>Chưa có sản phẩm</span>
-                        </div>
-                        <span><a href=""><button>Mua Ngay</button></a></span>
+                <!-- Giỏ hàng -->
+
+                <?php
+                require_once __DIR__ . '/models/M_XeHoi.php';
+                require_once __DIR__ . '/models/M_database.php';
+                require_once __DIR__ . '/models/M_GioHang.php';
+                // Hiển thị giỏ hàng theo Khách Hàng
+                session_start();
+                $maKH = isset($_SESSION['MaKH']) ? $_SESSION['MaKH'] : null;
+                $cart = [];
+                $maKH='KH01';
+
+                if ($maKH) {
+                    $gioHangModel = new GioHangModel();
+                    $cart = $gioHangModel->getCartByMaKH($maKH);
+                }
+                ?>
+                <li class="cart-container">
+                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <div id="empty_cart" class="cart-dropdown">
+                        <?php if (empty($cart)): ?>
+                            <div>
+                                <img id="empty_cart_img" src="assets/img/anothers/empty_cart.png" alt="Giỏ hàng">
+                            </div>
+                            <div><span>Chưa có sản phẩm</span></div>
+                            <span>
+                                <a href="TatCaHangXe.php"><button>Mua Ngay</button></a>
+                            </span>
+                        <?php else: ?>
+                            <?php foreach ($cart as $item): ?>
+                                <div class="cart-item">
+                                    <img src="assets/img/Xe/<?php echo htmlspecialchars($item->AnhXe); ?>" width="120px" height="60px" alt="<?php echo htmlspecialchars($item->TenXe); ?>">
+                                    <span><?php echo htmlspecialchars($item->TenXe); ?></span>
+                                    <span><?php echo number_format($item->Gia, 0, ",", "."); ?> VNĐ</span>
+                                    <span>x<?php echo $item->SoLuong; ?></span>
+                                    <a href="controllers/Controller_Cart.php?action=delete&maXe=<?php echo $item->MaXe; ?>" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">
+                                        <button>Xóa</button>
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+                            <span>
+                                <a href="cart_detail.php"><button>Chi Tiết Giỏ Hàng</button></a>
+                            </span>
+                        <?php endif; ?>
                     </div>
-            
+                </li>
 
                 <li>
                     <div class="filter-menu">
@@ -204,6 +239,15 @@
         if (!event.target.matches('.filter-button')) {
             const dropdown = document.querySelector('.filter-dropdown');
             dropdown.style.display = 'none';
+        }
+    }
+
+    //Kiểm tra đăng nhập khi thêm giỏ hàng
+     window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('showLogin') === '1') {
+            alert("Hãy đăng nhập để thêm sản phẩm vào giỏ hàng.");
+            showLogin();
         }
     }
 </script>

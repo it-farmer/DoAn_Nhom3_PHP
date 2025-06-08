@@ -760,6 +760,44 @@ footer{
   border-radius: 50px;
 }
 /* Giỏ hàng */
-#empty_cart{
-  margin-top: 50px;
+.cart-container {
+    position: relative;
+}
+
+.cart-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 400px;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 999;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+
+.cart-container:hover .cart-dropdown {
+    display: block;
+}
+
+#empty_cart_img {
+    width: 200px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.cart-dropdown button {
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.cart-dropdown button:hover {
+    background-color: #0056b3;
 }
