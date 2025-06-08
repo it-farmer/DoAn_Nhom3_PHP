@@ -36,6 +36,11 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
         $_SESSION['EmailKH'] = $khachhang->EmailKH;
     }
 }
+
+if(isset($_SESSION['QuyenID']) && $_SESSION['QuyenID'] == 2){
+    header("Location: admin.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -230,7 +235,6 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
                         </div>
                     </div>
                 </li>
-                <li><a href="admin.php">Admin</a></li>
             </ul>
         </div>
         <!-- Nút quay trở lại đầu trang -->
