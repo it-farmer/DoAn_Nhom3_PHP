@@ -431,3 +431,60 @@ VALUES
 ('HD05', 'XE09', 2, 260000000),
 ('HD06', 'XE10', 1, 175000000),
 ('HD07', 'XE09', 1, 260000000);
+
+CREATE TABLE `voucher` (
+  `MaVC` varchar(20) NOT NULL,
+  `TenVC` varchar(50) NOT NULL,
+  `GiamGia` int(100) NOT NULL,
+  `SoLuong` int(11) NOT NULL,
+  `NgayHetHan` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `voucher`
+--
+
+INSERT INTO `voucher` (`MaVC`, `TenVC`, `GiamGia`, `SoLuong`, `NgayHetHan`) VALUES
+('VC0001', 'GIAMGIA 10%', 10, 100, '2026-01-01'),
+('VC0002', 'Chào Bạn Mới', 5, 10, '2024-01-01');
+COMMIT;
+
+-- Cấu trúc bảng cho bảng `thongtingiaohang`
+--
+
+CREATE TABLE `thongtingiaohang` (
+  `MaHD` varchar(10) NOT NULL,
+  `TenKH` varchar(100) NOT NULL,
+  `SDT` varchar(13) NOT NULL,
+  `DiaChi` varchar(200) NOT NULL,
+  `TongTien` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `thongtingiaohang`
+--
+
+INSERT INTO `thongtingiaohang` (`MaHD`, `TenKH`, `SDT`, `DiaChi`, `TongTien`) VALUES
+('HD18', 'theanh', '086863912', '140 Le trong Tan', 675000000),
+('HD19', 'theanh', '2', '140 Le trong Tan', 150000000);
+
+--
+-- Chỉ mục cho các bảng đã đổ
+--
+
+--
+-- Chỉ mục cho bảng `thongtingiaohang`
+--
+ALTER TABLE `thongtingiaohang`
+  ADD KEY `ttgh_fk` (`MaHD`);
+
+--
+-- Các ràng buộc cho các bảng đã đổ
+--
+
+--
+-- Các ràng buộc cho bảng `thongtingiaohang`
+--
+ALTER TABLE `thongtingiaohang`
+  ADD CONSTRAINT `ttgh_fk` FOREIGN KEY (`MaHD`) REFERENCES `hoadon` (`MaHD`) ON DELETE CASCADE;
+COMMIT;

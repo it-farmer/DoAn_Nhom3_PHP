@@ -46,10 +46,15 @@
 
     // Lấy chi tiết hóa đơn nếu có chọn
     $cthd = [];
+    $thongtin_giaohang = null;
     if (isset($_GET['mahd'])) {
         $cthd = $db->M_getAll("SELECT * FROM ChiTietHoaDon WHERE MaHD = ?", [$_GET['mahd']]);
+        // Lấy thông tin giao hàng
+        $thongtin_giaohang = $db->M_getOne("SELECT * FROM ThongTinGiaoHang WHERE MaHD = ?", [$_GET['mahd']]);
     }
     ?>
+
+    
 
     <!DOCTYPE html>
     <html>
@@ -98,7 +103,7 @@
             <?php endforeach; ?>
         </table>
 
-        <h3>Thêm hóa đơn mới</h3>
+        <h3 style="margin-left: 520px;">Thêm hóa đơn mới</h3>
         <form method="post" class="admin-form">
             <input type="text" name="mahd" placeholder="Mã HĐ" required>
             <input type="text" name="makh" placeholder="Mã KH" required>
@@ -121,21 +126,35 @@
         <?php endif; ?>
 
         <?php if (!empty($cthd)): ?>
+    <div style="margin-left: 80px;">
         <h3>Chi tiết hóa đơn: <?php echo htmlspecialchars($_GET['mahd']); ?></h3>
-        <table>
-            <tr>
-                <th>Mã xe</th>
-                <th>Số lượng</th>
-                <th>Giá bán</th>
-            </tr>
-            <?php foreach ($cthd as $ct): ?>
-            <tr style="text-align: center;">
-                <td><?php echo htmlspecialchars($ct->MaXe); ?></td>
-                <td><?php echo $ct->SoLuong; ?></td>
-                <td><?php echo number_format($ct->GiaBan, 0, ",", "."); ?> VNĐ</td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
+    <?php if ($thongtin_giaohang): ?>
+        <div style="margin-bottom:15px;">
+            <b>Tên khách hàng:</b> <?php echo htmlspecialchars($thongtin_giaohang->TenKH); ?><br>
+            <b>Số điện thoại:</b> <?php echo htmlspecialchars($thongtin_giaohang->SDT); ?><br>
+            <b>Địa chỉ:</b> <?php echo htmlspecialchars($thongtin_giaohang->DiaChi); ?><br>
+        </div>
+    <?php endif; ?>
+    </div>
+    <table>
+        <tr>
+            <th>Mã xe</th>
+            <th>Số lượng</th>
+            <th>Giá bán</th>
+        </tr>
+        <?php foreach ($cthd as $ct): ?>
+        <tr style="text-align: center;">
+            <td><?php echo htmlspecialchars($ct->MaXe); ?></td>
+            <td><?php echo $ct->SoLuong; ?></td>
+            <td><?php echo number_format($ct->GiaBan, 0, ",", "."); ?> VNĐ</td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+    <?php endif; ?>
     </body>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 </html>
