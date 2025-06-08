@@ -129,7 +129,7 @@
                 <th>Giá bán</th>
             </tr>
             <?php foreach ($cthd as $ct): ?>
-            <tr>
+            <tr style="text-align: center;">
                 <td><?php echo htmlspecialchars($ct->MaXe); ?></td>
                 <td><?php echo $ct->SoLuong; ?></td>
                 <td><?php echo number_format($ct->GiaBan, 0, ",", "."); ?> VNĐ</td>
