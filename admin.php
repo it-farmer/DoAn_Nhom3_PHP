@@ -24,10 +24,15 @@ if ($sta->rowCount() > 0) {
     $users = $sta->fetchAll(PDO::FETCH_OBJ);
 }
 
-$sta = $pdo->prepare("SELECT * FROM hoadon, nhanvien, khachhang, xehoi, chitiethoadon
-                            WHERE hoadon.MaKH = khachhang.MaKH AND hoadon.MaNV = nhanvien.MaNV
-                            AND hoadon.MaHD = chitiethoadon.MaHD AND chitiethoadon.MaXe = xehoi.MaXe
-                            ORDER BY hoadon.MaHD ASC ");
+$sta = $pdo->prepare("
+    SELECT hoadon.*, nhanvien.HoTenNV, khachhang.HoTenKH, xehoi.TenXe, chitiethoadon.SoLuong, chitiethoadon.GiaBan
+    FROM hoadon
+    LEFT JOIN nhanvien ON hoadon.MaNV = nhanvien.MaNV
+    LEFT JOIN khachhang ON hoadon.MaKH = khachhang.MaKH
+    LEFT JOIN chitiethoadon ON hoadon.MaHD = chitiethoadon.MaHD
+    LEFT JOIN xehoi ON chitiethoadon.MaXe = xehoi.MaXe
+    ORDER BY hoadon.MaHD ASC
+");
 $sta->execute();
 if ($sta->rowCount() > 0)
     $invoices = $sta->fetchAll(PDO::FETCH_OBJ);
