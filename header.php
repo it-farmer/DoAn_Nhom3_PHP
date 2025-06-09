@@ -9,7 +9,10 @@ if (isset($_POST['log_out'])) {
     exit();
 }
 
+$_SESSION['KetQuaDangNhap'] = false;
+
 if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
+
     $sta = $pdo->prepare("SELECT * FROM nhanvien WHERE TaiKhoan = ? AND MatKhau =?");
     $sta->execute([$_POST['username_log'], $_POST['password_log']]);
     if ($sta->rowCount() > 0) {
@@ -21,24 +24,37 @@ if (isset($_POST['username_log']) && isset($_POST['password_log'])) {
         $_SESSION['SoDienThoaiNV'] = $nhanvien->SoDienThoaiNV;
         $_SESSION['GioiTinh'] = $nhanvien->GioiTinh;
         $_SESSION['EmailNV'] = $nhanvien->EmailNV;
+        $_SESSION['HinhAnhKH'] = $nhanvien->HinhAnhKH;
         $_SESSION['QuyenID'] = $nhanvien->QuyenID;
+        $_SESSION['KetQuaDangNhap'] = true;
     }
 
     $sta = $pdo->prepare("SELECT * FROM khachhang WHERE TenDangNhap = ? AND MatKhau =?");
     $sta->execute([$_POST['username_log'], $_POST['password_log']]);
     if ($sta->rowCount() > 0) {
         $khachhang = $sta->fetch(PDO::FETCH_OBJ);
-        $_SESSION['HoTenKH'] = $khachhang->HoTenKH;
+        if ($khachhang->HoTenKH != null)
+            $_SESSION['HoTenKH'] = $khachhang->HoTenKH;
+        else
+            $_SESSION['HoTenKH'] = "Chưa xác định";
         $_SESSION['MaKH'] = $khachhang->MaKH;
         $_SESSION['NgaySinhKH'] = $khachhang->NgaySinhKH;
         $_SESSION['SoDienThoaiKH'] = $khachhang->SoDienThoaiKH;
         $_SESSION['DiaChi'] = $khachhang->DiaChi;
         $_SESSION['EmailKH'] = $khachhang->EmailKH;
+        $_SESSION['TenDangNhap'] = $khachhang->TenDangNhap;
+        $_SESSION['MatKhau'] = $khachhang->MatKhau;
+        $_SESSION['HinhAnhKH'] = $khachhang->HinhAnhKH;
+        $_SESSION['KetQuaDangNhap'] = true;
     }
 }
 
-if(isset($_SESSION['QuyenID']) && $_SESSION['QuyenID'] == 2){
+if (isset($_SESSION['QuyenID']) && $_SESSION['QuyenID'] == 1) {
     header("Location: admin.php");
+    exit();
+}
+if (isset($_SESSION['QuyenID']) && $_SESSION['QuyenID'] == 2) {
+    header("Location: QL_HoaDon.php");
     exit();
 }
 ?>
@@ -56,17 +72,7 @@ if(isset($_SESSION['QuyenID']) && $_SESSION['QuyenID'] == 2){
         rel="stylesheet">
     <script src="https://kit.fontawesome.com/cdbcf8b89b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/css/styles.css?v=<?php echo time(); ?>">
-
-    <!-- thêm cho dropdown -->
-    <script>
-        $(document).ready(function () {
-            $('.dropdown-menu li').hover(function () {
-                $(this).children('.sub-menu').slideToggle();
-            });
-        });
-    
-
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -113,7 +119,7 @@ if(isset($_SESSION['QuyenID']) && $_SESSION['QuyenID'] == 2){
                 
                 $maKH = isset($_SESSION['MaKH']) ? $_SESSION['MaKH'] : null;
                 $cart = [];
-                
+
 
                 if ($maKH) {
                     $gioHangModel = new GioHangModel();
@@ -121,7 +127,8 @@ if(isset($_SESSION['QuyenID']) && $_SESSION['QuyenID'] == 2){
                 }
                 ?>
                 <li class="cart-container">
-                    <a style="text-decoration: none; color: white;" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a style="text-decoration: none; color: white; margin: 0;" href="#"><i
+                            class="fa-solid fa-cart-shopping"></i></a>
                     <div id="empty_cart" class="cart-dropdown">
                         <?php if (empty($cart)): ?>
                             <div>
@@ -134,11 +141,13 @@ if(isset($_SESSION['QuyenID']) && $_SESSION['QuyenID'] == 2){
                         <?php else: ?>
                             <?php foreach ($cart as $item): ?>
                                 <div class="cart-item">
-                                    <img src="assets/img/Xe/<?php echo htmlspecialchars($item->AnhXe); ?>" width="120px" height="60px" alt="<?php echo htmlspecialchars($item->TenXe); ?>">
+                                    <img src="assets/img/Xe/<?php echo htmlspecialchars($item->AnhXe); ?>" width="120px"
+                                        height="60px" alt="<?php echo htmlspecialchars($item->TenXe); ?>">
                                     <span><?php echo htmlspecialchars($item->TenXe); ?></span>
                                     <span><?php echo number_format($item->Gia, 0, ",", "."); ?> VNĐ</span>
                                     <span>x<?php echo $item->SoLuong; ?></span>
-                                    <a href="controllers/Controller_Cart.php?action=delete&maXe=<?php echo $item->MaXe; ?>" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">
+                                    <a href="controllers/Controller_Cart.php?action=delete&maXe=<?php echo $item->MaXe; ?>"
+                                        onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">
                                         <button>Xóa</button>
                                     </a>
                                 </div>
@@ -153,19 +162,24 @@ if(isset($_SESSION['QuyenID']) && $_SESSION['QuyenID'] == 2){
                 if (isset($_SESSION['HoTenNV']) || isset($_SESSION['HoTenKH'])) {
                     ?>
                     <li onclick="showOptionsUser()" style="color: white; cursor: pointer;">
-                        <span>
+                        <a href="#">
                             <?php if (isset($_SESSION['HoTenNV']))
                                 echo $_SESSION['HoTenNV'];
-                            else
-                                echo $_SESSION['HoTenKH']; ?>
-                        </span>
+                            else {
+                                if (isset($_SESSION['HoTenKH']))
+                                    echo $_SESSION['HoTenKH'];
+                            }
+                            ?>
+                        </a>
                         <ul id="menuOptionsUser" style="display: none;">
-                            <li style="margin-bottom: 5%;"><a href="User_detail.php">Thông tin cá nhân</a></li>
-                            <hr style="margin-bottom: 5%; height: 2px; background-color: black; border: 1px;">
+                            <li style="margin: 5% auto;"><a href="user_detail.php">Thông tin cá nhân</a></li>
+                            <hr style="height: 2px; background-color: black; border: 1px;">
                             <li>
                                 <form action="index.php" method="post">
                                     <input type="hidden" name="log_out">
-                                    <button style="padding: 3% 5%; background-color: transparent; border: none; width: 100px; cursor: pointer; font-size: 16px;">Đăng Xuất</button>
+                                    <button
+                                        style="padding: 3% 5%; background-color: transparent; border: none; width: 100px; cursor: pointer; font-size: 16px;">Đăng
+                                        Xuất</button>
                                 </form>
                             </li>
                         </ul>
@@ -177,64 +191,6 @@ if(isset($_SESSION['QuyenID']) && $_SESSION['QuyenID'] == 2){
                     <?php
                 }
                 ?>
-                <li>
-                    <div class="filter-menu">
-                        <a href="#" class="filter-button">Lọc </a>
-                        <div class="filter-dropdown">
-                            <div class="filter-option" onmouseover="showSubMenu('price-submenu')"
-                                onmouseout="hideSubMenu('price-submenu')">
-                                Lọc Theo Giá
-                                <div class="submenu" id="price-submenu">
-                                    <a href="XuLyLoc.php?price=duoi_200">Dưới 200 triệu</a>
-                                    <a href="XuLyLoc.php?price=200_500">200 - 500 triệu</a>
-                                    <a href="XuLyLoc.php?price=500_1ty">500 triệu - 1 tỷ</a>
-                                    <a href="XuLyLoc.php?price=1ty_3ty">1 tỷ - 3 tỷ</a>
-                                    <a href="XuLyLoc.php?price=tren_3ty">Trên 3 tỷ</a>
-                                </div>
-                            </div>
-                            <div class="filter-option" onmouseover="showSubMenu('color-submenu')"
-                                onmouseout="hideSubMenu('color-submenu')">
-                                Lọc Theo Màu
-                                <div class="submenu" id="color-submenu">
-                                    <a href="XuLyLoc.php?color=den">Đen</a>
-                                    <a href="XuLyLoc.php?color=trang">Trắng</a>
-                                    <a href="XuLyLoc.php?color=bac">Bạc</a>
-                                    <a href="XuLyLoc.php?color=xam">Xám</a>
-                                    <a href="XuLyLoc.php?color=do">Đỏ</a>
-                                    <a href="XuLyLoc.php?color=xanh">Xanh</a>
-                                    <a href="XuLyLoc.php?color=vang">Vàng</a>
-                                </div>
-                            </div>
-                            <div class="filter-option" onmouseover="showSubMenu('year-submenu')"
-                                onmouseout="hideSubMenu('year-submenu')">
-                                Lọc Theo Năm Sản Xuất
-                                <div class="submenu" id="year-submenu">
-                                    <a href="XuLyLoc.php?year=duoi_2021">Dưới 2021</a>
-                                    <a href="XuLyLoc.php?year=2022">Năm 2022</a>
-                                    <a href="XuLyLoc.php?year=2023">Năm 2023</a>
-                                </div>
-                            </div>
-                            <div class="filter-option" onmouseover="showSubMenu('speed-submenu')"
-                                onmouseout="hideSubMenu('speed-submenu')">
-                                Lọc Theo Tốc Độ
-                                <div class="submenu" id="speed-submenu">
-                                    <a href="XuLyLoc.php?speed=duoi_250">Dưới 250 km/h</a>
-                                    <a href="XuLyLoc.php?speed=250_300">250 - 300 km/h</a>
-                                    <a href="XuLyLoc.php?speed=tren_300">Trên 300 km/h</a>
-                                </div>
-                            </div>
-                            <div class="filter-option" onmouseover="showSubMenu('engine-submenu')"
-                                onmouseout="hideSubMenu('engine-submenu')">
-                                Lọc Theo Động Cơ
-                                <div class="submenu" id="engine-submenu">
-                                    <a href="XuLyLoc.php?engine=xang">Xăng</a>
-                                    <a href="XuLyLoc.php?engine=hybrid">Hybrid</a>
-                                    <a href="XuLyLoc.php?engine=khac">Khác</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
             </ul>
         </div>
         <!-- Nút quay trở lại đầu trang -->
@@ -273,7 +229,7 @@ if(isset($_SESSION['QuyenID']) && $_SESSION['QuyenID'] == 2){
                 </div>
                 <div id="reg_form" class="login_main">
                     <h2>Đăng ký</h2>
-                    <form action="index.php" method="post">
+                    <form action="index.php" method="post" onsubmit="return check_repass()">
                         <input id="form-reg-username" name="username_regis" type="text" placeholder="Tên đăng nhập">
                         <input id="form-reg-password" name="password_regis" type="password" placeholder="Mật khẩu">
                         <input id="form-reg-cfpassword" name="re_password_regis" type="password"
@@ -284,7 +240,7 @@ if(isset($_SESSION['QuyenID']) && $_SESSION['QuyenID'] == 2){
                                     khoản</span>
                                 & <span>điều kiện</span></label>
                         </div>
-                        <button>Đăng Ký</button>
+                        <button type="submit">Đăng Ký</button>
                     </form>
                     <p>Đã có tài khoản? <span onclick="signin()">Đăng nhập</span></p>
                     <div class="or_login">
@@ -299,42 +255,101 @@ if(isset($_SESSION['QuyenID']) && $_SESSION['QuyenID'] == 2){
                 </div>
             </div>
         </div>
+        <?php
+        if ($_SESSION['KetQuaDangNhap'] != true && isset($_POST['username_log']) && isset($_POST['password_log'])) {
+            echo "
+                <script>
+                Swal.fire({
+                    title: 'Đăng nhập thất bại!',
+                    text: 'Vui lòng kiểm tra lại thông tin đăng nhập',
+                    icon: 'error'
+                }).then((result) => {
+                        if (result.isConfirmed) {
+                            showLogin();
+                            signin();
+                        }
+                });
+                </script>";
+        }
+        if ($_SESSION['KetQuaDangNhap'] == true && isset($_POST['username_log']) && isset($_POST['password_log'])) {
+            echo "
+                <script>
+                Swal.fire({
+                    title: 'Đăng nhập thành công!',
+                    icon: 'success'
+                });
+                </script>";
+        }
+        if (isset($_POST['username_regis']) && isset($_POST['password_regis']) && isset($_POST['re_password_regis'])) {
+            $sta = $pdo->prepare("SELECT * FROM khachhang WHERE TenDangNhap = ?");
+            $sta->execute([$_POST['username_regis']]);
+            if ($sta->rowCount() > 0) {
+                echo "
+                <script>
+                Swal.fire({
+                    title: 'Đăng ký thất bại!',
+                    text: 'Username này đã được sử dụng.',
+                    icon: 'error'
+                }).then((result) => {
+                        if (result.isConfirmed) {
+                            showLogin();
+                            signup();
+                        }
+                });
+                </script>";
+                return;
+            }
 
+            $result = $pdo->prepare("SELECT MAX(MaKH) AS maxMaKH FROM khachhang");
+            $result->execute();
+            $row = $result->fetch(PDO::FETCH_OBJ);
+            $maxMaKH = $row->maxMaKH;
+
+            if ($maxMaKH) {
+                $num = (int) substr($maxMaKH, 2);
+                $num++;
+            } else {
+                $num = 1; // Bắt đầu từ 1 nếu chưa có mã nào
+            }
+
+            $newMaKH = 'KH' . str_pad($num, 2, '0', STR_PAD_LEFT); // Tạo mã khách hàng mới
+            $sta = $pdo->prepare("INSERT INTO khachhang (MaKH, TenDangNhap, MatKhau) VALUES (?, ?, ?)");
+            $sta->execute([$newMaKH, $_POST['username_regis'], $_POST['password_regis']]);
+            if ($sta) {
+                echo "
+                <script>
+                Swal.fire({
+                    title: 'Đăng ký thành công!',
+                    text: 'Vui lòng đăng nhập.',
+                    icon: 'success'
+                }).then((result) => {
+                        if (result.isConfirmed) {
+                            showLogin();
+                        }
+                });
+                </script>";
+            } else {
+                echo "<script>
+            Swal.fire({
+                title: 'Lỗi!',
+                text: 'Đăng ký thất bại. Vui lòng thử lại!',
+                icon: 'error'
+            });
+          </script>";
+            }
+        }
+        ?>
 
     </header>
 
     <script>
-        document.querySelector('.filter-button').addEventListener('click', function () {
-            const dropdown = document.querySelector('.filter-dropdown');
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        });
 
-        function showSubMenu(submenuId) {
-            const submenu = document.getElementById(submenuId);
-            submenu.style.display = 'block';
-        }
-    
-
-    //Kiểm tra đăng nhập khi thêm giỏ hàng
-     window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('showLogin') === '1') {
-            alert("Hãy đăng nhập để thêm sản phẩm vào giỏ hàng.");
-            showLogin();
-        }
-    }
-
-
-        function hideSubMenu(submenuId) {
-            const submenu = document.getElementById(submenuId);
-            submenu.style.display = 'none';
-        }
-
-        // Đóng dropdown khi nhấn ra ngoài
-        window.onclick = function (event) {
-            if (!event.target.matches('.filter-button')) {
-                const dropdown = document.querySelector('.filter-dropdown');
-                dropdown.style.display = 'none';
+        //Kiểm tra đăng nhập khi thêm giỏ hàng
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('showLogin') === '1') {
+                alert("Hãy đăng nhập để thêm sản phẩm vào giỏ hàng.");
+                showLogin();
             }
         }
-</script>
+    </script>

@@ -1,4 +1,5 @@
 <?php
+$title="Tất cả sản phẩm";
 include("ConnectDatabase.php"); // Đảm bảo file này chứa kết nối $conn
 include("Header.php"); // Bao gồm header để có tiêu đề trang
 

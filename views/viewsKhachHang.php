@@ -104,6 +104,7 @@
 
 <div class="container">
     <h2>Quản lý Khách Hàng</h2>
+    <a href="../admin.php"><button class="btn" style="margin-bottom: 3%;">Quay lại</button></a>
 
     <?php if (!empty($message)): ?>
         <div class="alert" style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 20px;">

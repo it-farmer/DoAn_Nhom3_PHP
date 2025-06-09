@@ -191,7 +191,7 @@ a {
 /* ----------------------Header--------------------------- */
 header {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   position: relative;
 }
 
@@ -233,7 +233,7 @@ header {
   position: relative;
 }
 
-.nav a::before {
+.nav a::beforeìn {
   content: '';
   display: block;
   height: 2px;
@@ -261,7 +261,7 @@ header {
   margin-top: 5%;
   background-color: white;
   position: absolute;
-  left: -20%;
+  left: -10%;
   height: fit-content;
   width: 150px;
   overflow: hidden;
@@ -296,6 +296,42 @@ header video {
   border-radius: 10px;
   z-index: 1;
   transition: all 0.5s;
+}
+
+/* ----------------------Header Admin---------------------------- */
+/* ----------------------Header---------------------- */
+.header_ad {
+    background-color: #1a3c6e;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header_ad h1 {
+    font-size: 20px;
+}
+
+.logout-btn {
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-btn:hover {
+    background-color: #b91c1c;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 /* ----------------------Footer------------------ */
@@ -363,22 +399,32 @@ footer {
 .about-us {
   position: relative;
   height: 90vh;
-  padding: 100px;
-  padding-top: 150px;
+  padding-top: 5%;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   color: white;
-  background-color: white;
   text-align: center;
-  background-image: url('../img/Xe/banner_01.jpg');
+  /* background-image: url('../img/Xe/banner_01.jpg');
   background-position: center;
-  background-size: cover;
+  background-size: cover; */
+}
+
+.about-us video{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* overflow: hidden; */
+  z-index: -1;
+  object-fit: cover;
 }
 
 .about-us div {
   z-index: 10;
   background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.6);
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 1);
   /* opacity: 0.8; */
 }
@@ -507,7 +553,7 @@ footer {
 }
 
 .login_main input[type="text"],
-[type="password"],
+.login_main input[type="password"],
 .login_main button {
   width: 100%;
   height: 40px;
@@ -672,7 +718,7 @@ footer {
 
 .info_product table {
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin: 0;
 }
 
 .info_product table th {
@@ -687,9 +733,8 @@ footer {
 .info_product table td,
 .info_product table th {
   font-weight: 100;
-  margin-right: 5%;
-  padding-bottom: 5%;
-  margin-bottom: 5%;
+  background-color: transparent;
+  color: white;
 }
 
 .specifications-product {
@@ -918,7 +963,7 @@ footer {
   font-weight: bold;
 }
 
-.slide.active {
+.slide.active2 {
   opacity: 1;
 }
 
@@ -942,7 +987,7 @@ footer {
   transform: translateX(400%);
 }
 
-.slide.hidden {
+.slide.hidden2 {
   transform: translateX(-100%);
   opacity: 0;
 }
@@ -1390,9 +1435,9 @@ th {
     color: #e43d12;
 }
 
-tr:hover {
+/* tr:hover {
     background-color: #f1f5f9;
-}
+} */
 
 /* ----------------------Form Box------------------------ */
 .form-box {
@@ -1498,7 +1543,7 @@ tr:hover {
 }
 
 .selectBtn{
-    background-color: red;
+    background-color: #dc2626;
     height: fit-content;
     color: white;
     padding: 10px;
@@ -1628,7 +1673,7 @@ tr:hover {
     vertical-align: middle;
 }
 .pro_table_count {
-  width: 400px;
+  width: 500px;
 }
 .cart-dropdown a::before,
 .cart-dropdown a:hover::before {
@@ -1718,4 +1763,8 @@ tr:hover {
 }
 .checkout-form button[type="submit"]:hover {
     background: #1565c0;
+}
+
+.content-section-2{
+  margin-top: 5%;
 }

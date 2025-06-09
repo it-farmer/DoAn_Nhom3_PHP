@@ -3,6 +3,10 @@ $title = "About us";
 include("header.php");
 ?>
 <section class="about-us">
+    <video autoplay loop muted playsinline>
+        <source src="assets/background-video/bmw2.mp4" type="video/mp4">
+        Trình duyệt không hỗ trợ Video.
+    </video>
     <div style="padding: 5%;">
         <h1>Nhóm 3</h1>
     </div>

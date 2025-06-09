@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS NhanVien (
     SoDienThoaiNV VARCHAR(20),
     GioiTinh VARCHAR(10),
     EmailNV VARCHAR(100),
+    HinhAnhNV VARCHAR(20),
     TaiKhoan VARCHAR(100),
     MatKhau VARCHAR(100),
     QuyenID INT NOT NULL,
@@ -28,6 +29,7 @@ CREATE TABLE IF NOT EXISTS KhachHang (
     SoDienThoaiKH VARCHAR(20),
     EmailKH VARCHAR(100),
     DiaChi VARCHAR(250),
+    HinhAnhKH VARCHAR(20),
     TenDangNhap VARCHAR(100),
     MatKhau VARCHAR(100)
 );
@@ -126,23 +128,23 @@ VALUES
 ('Quản lý'),
 ('Nhân viên bán hàng');
 
-INSERT INTO NhanVien (MaNV, HoTenNV, QueQuan, NgaySinhNV, SoDienThoaiNV, GioiTinh, EmailNV, TaiKhoan, MatKhau, QuyenID)
+INSERT INTO NhanVien (MaNV, HoTenNV, QueQuan, NgaySinhNV, SoDienThoaiNV, GioiTinh, EmailNV, HinhAnhNV, TaiKhoan, MatKhau, QuyenID)
 VALUES 
-('NV01', 'Lê Hà Ngọc Thy', 'TP HCM', '2004-11-24', '0912345678', 'Nam', 'nv1@gmail.com', 'nv01', '123', 1),
-('NV02', 'Đỗ Trung Dũng', 'Hà Nội', '2004-06-20', '0987654321', 'Nữ', 'nv2@gmail.com', 'nv02', '123', 2),
-('NV03', 'Nguyễn Thế Anh', 'Long An', '2004-03-10', '0934567890', 'Nữ', 'nv3@gmail.com', 'nv03', '123', 1),
-('NV04', 'Hồ Quế Trân', 'Yên Bái', '2003-03-10', '0934567890', 'Nữ', 'nv4@gmail.com', 'nv04', '123', 2);
+('NV01', 'Lê Hà Ngọc Thy', 'TP HCM', '2004-11-24', '0912345678', 'Nam', 'nv1@gmail.com', 'NV01.jpg', 'nv01', '123', 1),
+('NV02', 'Đỗ Trung Dũng', 'Hà Nội', '2004-06-20', '0987654321', 'Nữ', 'nv2@gmail.com', 'NV02.jpg', 'nv02', '123', 2),
+('NV03', 'Nguyễn Thế Anh', 'Long An', '2004-03-10', '0934567890', 'Nữ', 'nv3@gmail.com', 'NV03.jpg', 'nv03', '123', 1),
+('NV04', 'Hồ Quế Trân', 'Yên Bái', '2003-03-10', '0934567890', 'Nữ', 'nv4@gmail.com', 'NV04.jpg', 'nv04', '123', 2);
 
 -- Sửa INSERT cho bảng KhachHang, bổ sung TenDangNhap và MatKhau
-INSERT INTO KhachHang (MaKH, HoTenKH, NgaySinhKH, SoDienThoaiKH, EmailKH, DiaChi, TenDangNhap, MatKhau)
+INSERT INTO KhachHang (MaKH, HoTenKH, NgaySinhKH, SoDienThoaiKH, EmailKH, DiaChi, HinhAnhKH, TenDangNhap, MatKhau)
 VALUES 
-('KH01', 'Nguyễn Thị Giang', '1999-05-12', '0909876543', 'ntg@gmail.com', 'TP.HCM', 'kh01', '123'),
-('KH02', 'Trần Văn Hiệp', '2005-02-25', '0912345679', 'tvh@gmail.com', 'Bến Tre', 'kh02', '123'),
-('KH03', 'Lê Thị Ái Quyên', '2005-08-30', '0923456780', 'lti@gmail.com', 'TP.HCM', 'kh03', '123'),
-('KH04', 'Ngô Văn Phú', '2001-10-15', '0934567891', 'nvj@gmail.com', 'TP.HCM', 'kh04', '123'),
-('KH05', 'Phạm Thị Khánh Huyền', '2002-12-05', '0945678902', 'ptk@gmail.com', 'TP.HCM', 'kh05', '123'),
-('KH06', 'Vũ Văn Linh', '2003-03-20', '0956789013', 'vvl@gmail.com', 'TP.HCM', 'kh06', '123'),
-('KH07', 'Lê Văn Phụng', '2004-06-30', '0990123457', 'lvp@gmail.com', 'TP.HCM', 'kh07', '123');
+('KH01', 'Nguyễn Thị Giang', '1999-05-12', '0909876543', 'ntg@gmail.com', 'TP.HCM', 'KH01.jpg', 'kh01', '123'),
+('KH02', 'Trần Văn Hiệp', '2005-02-25', '0912345679', 'tvh@gmail.com', 'Bến Tre', 'KH02.jpg', 'kh02', '123'),
+('KH03', 'Lê Thị Ái Quyên', '2005-08-30', '0923456780', 'lti@gmail.com', 'TP.HCM', 'KH03.jpg', 'kh03', '123'),
+('KH04', 'Ngô Văn Phú', '2001-10-15', '0934567891', 'nvj@gmail.com', 'TP.HCM', 'KH04.jpg', 'kh04', '123'),
+('KH05', 'Phạm Thị Khánh Huyền', '2002-12-05', '0945678902', 'ptk@gmail.com', 'TP.HCM', 'KH05.jpg', 'kh05', '123'),
+('KH06', 'Vũ Văn Linh', '2003-03-20', '0956789013', 'vvl@gmail.com', 'TP.HCM', 'KH06.jpg', 'kh06', '123'),
+('KH07', 'Lê Văn Phụng', '2004-06-30', '0990123457', 'lvp@gmail.com', 'TP.HCM', 'KH07.jpg', 'kh07', '123');
 
 INSERT INTO HangXe (MaHX, TenHX, DiaChiHX, SoDienThoaiHX, EmailHX) VALUES
 ('HX01', 'BMW', 'BMW AG, Petuelring 130, 80788 München, Đức', '+49 89 1250 1600', 'contact@bmw.com'),
@@ -415,10 +417,10 @@ INSERT INTO HoaDon (MaHD, MaKH, MaNV, NgayLap, TongTien)
 VALUES 
 ('HD01', 'KH01', 'NV02', '2024-09-15', 150000000),
 ('HD02', 'KH02', 'NV02', '2024-09-16', 300000000),
-('HD03', 'KH03', 'NV03', '2024-09-17', 250000000),
+('HD03', 'KH03', 'NV04', '2024-09-17', 250000000),
 ('HD04', 'KH04', 'NV04', '2024-05-18', 440000000),
-('HD05', 'KH05', 'NV03', '2024-09-01', 520000000),
-('HD06', 'KH06', 'NV02', '2024-02-18', 175000000),
+('HD05', 'KH05', 'NV02', '2024-09-01', 660000000),
+('HD06', 'KH06', 'NV04', '2024-02-18', 175000000),
 ('HD07', 'KH07', 'NV02', '2024-09-12', 260000000);
 
 INSERT INTO ChiTietHoaDon (MaHD, MaXe, SoLuong, GiaBan)
@@ -465,8 +467,8 @@ CREATE TABLE `thongtingiaohang` (
 --
 
 INSERT INTO `thongtingiaohang` (`MaHD`, `TenKH`, `SDT`, `DiaChi`, `TongTien`) VALUES
-('HD18', 'theanh', '086863912', '140 Le trong Tan', 675000000),
-('HD19', 'theanh', '2', '140 Le trong Tan', 150000000);
+('HD01', 'theanh', '086863912', '140 Le trong Tan', 675000000),
+('HD06', 'theanh', '2', '140 Le trong Tan', 150000000);
 
 --
 -- Chỉ mục cho các bảng đã đổ

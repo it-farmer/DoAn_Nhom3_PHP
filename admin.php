@@ -1,11 +1,20 @@
 <?php
+session_start();
 include('ConnectDatabase_PDO.php');
+require('phpmailer/src/PHPMailer.php');
+require('phpmailer/src/Exception.php');
+require('phpmailer/src/SMTP.php');
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+$showLogout = true;
 
 $sta = $pdo->prepare("SELECT * FROM xehoi WHERE SoLuongTonKho = 1");
 $sta->execute();
 
 if ($sta->rowCount() > 0) {
-    $notis = $sta->rowCount();
+    $notis = $sta->fetchAll(PDO::FETCH_OBJ);
 }
 
 $sta = $pdo->prepare("SELECT * FROM nhanvien, quyentruycap WHERE nhanvien.QuyenID = quyentruycap.QuyenID");
@@ -13,6 +22,23 @@ $sta->execute();
 
 if ($sta->rowCount() > 0) {
     $users = $sta->fetchAll(PDO::FETCH_OBJ);
+}
+
+$sta = $pdo->prepare("SELECT * FROM hoadon, nhanvien, khachhang, xehoi, chitiethoadon
+                            WHERE hoadon.MaKH = khachhang.MaKH AND hoadon.MaNV = nhanvien.MaNV
+                            AND hoadon.MaHD = chitiethoadon.MaHD AND chitiethoadon.MaXe = xehoi.MaXe
+                            ORDER BY hoadon.MaHD ASC ");
+$sta->execute();
+if ($sta->rowCount() > 0)
+    $invoices = $sta->fetchAll(PDO::FETCH_OBJ);
+
+$sta = $pdo->prepare("SELECT * FROM xehoi ");
+$sta->execute();
+if ($sta->rowCount() > 0)
+    $cars = $sta->fetchAll(PDO::FETCH_OBJ);
+
+if (isset($_POST['action']) && $_POST['action'] == 'export_report') {
+    include('export_report.php');
 }
 ?>
 <!DOCTYPE html>
@@ -32,16 +58,40 @@ if ($sta->rowCount() > 0) {
 </head>
 
 <body>
+    <div class="header_ad">
+        <h1 style="display: flex; align-items: center;">
+            Trang Quản Lý
+        </h1>
+        <div class="header-right">
+            <i class="fa-solid fa-user"></i>
+            <?php if (isset($showLogout) && $showLogout): ?>
+                <span>
+                    <?php
+                    echo $_SESSION['HoTenNV'];
+                    ?>
+                </span>
+                <form id="logout-id" action="index.php" method="post" onsubmit="return handleLogout()">
+                    <input type="hidden" name="log_out">
+                    <button class="logout-btn">Đăng Xuất</button>
+                </form>
+            <?php endif; ?>
+        </div>
+    </div>
     <div style="display: flex; height: 100%;">
         <div class="sidebar">
             <ul>
                 <li data-section="personnel" class="active"><i class="fa-solid fa-people-roof"></i> Quản Lý Nhân Viên
                 </li>
-                <li data-section="invoice"><i class="fa-solid fa-list-ul"></i> Quản Lý Hóa Đơn</li>
+                <li><a href="controllers/controllerKhachHang.php"><i class="fa-solid fa-people-roof"></i> Quản Lý Khách
+                        Hàng</a>
+                </li>
+                <li><a href="QL_Xe.php"><i class="fa-solid fa-car"></i> Quản Lý Xe</a>
+                </li>
+                <li data-section="invoice"><i class="fa-solid fa-list-ul"></i> Hóa Đơn</li>
                 <li data-section="reports"><i class="fa-solid fa-flag"></i> Báo Cáo</li>
                 <li data-section="notifications"><i class="fa-solid fa-bell"></i> Thông Báo
                     (<?php if ($notis)
-                        echo $notis;
+                        echo count($notis);
                     else
                         echo "0"; ?>)
                 </li>
@@ -53,8 +103,9 @@ if ($sta->rowCount() > 0) {
                 <div class="table-container">
                     <div style="display: flex; justify-content: space-between;">
                         <h2>Quản Lý Nhân Sự</h2>
-                        <button class="selectBtn" data-section="add_user" onclick="resetUserForm()">Thêm Nhân
-                            Viên</button>
+                        <a href="QL_NhanVien.php"><button class="selectBtn" data-section="add_user"
+                                onclick="resetUserForm()">Thêm Nhân
+                                Viên</button></a>
                     </div>
                     <table>
                         <thead>
@@ -83,12 +134,12 @@ if ($sta->rowCount() > 0) {
                                     <td><?php echo $user->TenQuyen ?></td>
                                     <td>
                                         <div class="CRUD-form">
-                                            <button style="background-color: #EFB11D;"
-                                                onclick="editUser(<?php echo htmlspecialchars(json_encode($user)); ?>)">
-                                                Sửa
-                                            </button>
+                                            <a href="QL_NhanVien.php"><button style="background-color: #EFB11D;"
+                                                    onclick="editUser(<?php echo htmlspecialchars(json_encode($user)); ?>)">
+                                                    Sửa
+                                                </button></a>
                                         </div>
-                                        <form class="CRUD-form" action="index.php" method="post"
+                                        <form class="CRUD-form" action="QL_NhanVien.php" method="post"
                                             onsubmit="return handleDelete(event)">
                                             <input type="hidden" name="action" value="delete_user">
                                             <input type="hidden" name="user_id" value="<?php echo $user->user_id ?>">
@@ -102,50 +153,36 @@ if ($sta->rowCount() > 0) {
                 </div>
             </div>
 
-            <!-- Quản Lý Thiết Bị -->
+            <!-- Quản Lý Hóa Đơn -->
             <div id="invoice" class="content-section">
                 <div class="table-container">
                     <div style="display: flex; justify-content: space-between;">
-                        <h2>Quản Lý Thiết Bị</h2>
-                        <button class="selectBtn" data-section="add_equipment" onclick="resetEquipmentForm()">Thêm Thiết
-                            Bị</button>
+                        <h2>Hóa Đơn</h2>
                     </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Tên Thiết Bị</th>
-                                <th>Loại</th>
-                                <th>Mô Tả</th>
-                                <th>Trạng Thái</th>
-                                <th>Tổng Giờ Hoạt Động</th>
-                                <th>Hành Động</th>
+                                <th>Mã Hóa Đơn</th>
+                                <th>Người Thực Hiện</th>
+                                <th>Khách Hàng</th>
+                                <th>Ngày Lập</th>
+                                <th>Tên Xe</th>
+                                <th>Số Lượng</th>
+                                <th>Giá</th>
+                                <th>Tổng Tiền</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($equipments as $equipment) { ?>
+                            <?php foreach ($invoices as $invoice) { ?>
                                 <tr>
-                                    <td><?php echo $equipment->equipment_id ?></td>
-                                    <td><?php echo $equipment->equip_name ?></td>
-                                    <td><?php echo $equipment->equip_type ?></td>
-                                    <td><?php echo $equipment->equip_description ?></td>
-                                    <td><?php echo $equipment->equip_status ?></td>
-                                    <td><?php echo $equipment->total_operating_hours ?></td>
-                                    <td>
-                                        <div class="CRUD-form">
-                                            <button style="background-color: #EFB11D;"
-                                                onclick="editEquipment(<?php echo htmlspecialchars(json_encode($equipment)); ?>)">
-                                                Sửa
-                                            </button>
-                                        </div>
-                                        <form class="CRUD-form" action="index.php" method="post"
-                                            onsubmit="return handleDelete_Equip(event)">
-                                            <input type="hidden" name="action" value="delete_equip">
-                                            <input type="hidden" name="equipment_id"
-                                                value="<?php echo $equipment->equipment_id ?>">
-                                            <button style="background-color: #E43D12;" type="submit">Xóa</button>
-                                        </form>
-                                    </td>
+                                    <td><?php echo $invoice->MaHD ?></td>
+                                    <td><?php echo $invoice->HoTenNV ?></td>
+                                    <td><?php echo $invoice->HoTenKH ?></td>
+                                    <td><?php echo $invoice->NgayLap ?></td>
+                                    <td><?php echo $invoice->TenXe ?></td>
+                                    <td><?php echo $invoice->SoLuong ?></td>
+                                    <td><?php echo $invoice->GiaBan ?></td>
+                                    <td><?php echo $invoice->TongTien ?></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -157,8 +194,8 @@ if ($sta->rowCount() > 0) {
             <div id="reports" class="content-section">
                 <div class="table-container">
                     <div style="display: flex; justify-content: space-between;">
-                        <h2>Tình Trạng Thiết Bị</h2>
-                        <form action="index.php" method="post">
+                        <h2>Tình Trạng Tồn Kho</h2>
+                        <form method="post">
                             <input type="hidden" name="action" value="export_report">
                             <button class="selectBtn">Xuất Báo Cáo (.pdf)</button>
                         </form>
@@ -166,19 +203,23 @@ if ($sta->rowCount() > 0) {
                     <table>
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Thiết Bị</th>
-                                <th>Trạng Thái</th>
-                                <th>Tổng Giờ Hoạt Động</th>
+                                <th>Mã Xe</th>
+                                <th>Mã Hãng Xe</th>
+                                <th>Tên Xe</th>
+                                <th>Màu Xe</th>
+                                <th>Giá</th>
+                                <th>Số Lượng Tồn Kho</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($equipments as $equipment) { ?>
+                            <?php foreach ($cars as $car) { ?>
                                 <tr>
-                                    <td><?php echo $equipment->equipment_id ?></td>
-                                    <td><?php echo $equipment->equip_name ?></td>
-                                    <td><?php echo $equipment->equip_status ?></td>
-                                    <td><?php echo $equipment->total_operating_hours ?></td>
+                                    <td><?php echo $car->MaXe ?></td>
+                                    <td><?php echo $car->MaHX ?></td>
+                                    <td><?php echo $car->TenXe ?></td>
+                                    <td><?php echo $car->MauXe ?></td>
+                                    <td><?php echo $car->Gia ?></td>
+                                    <td><?php echo $car->SoLuongTonKho ?></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -189,7 +230,7 @@ if ($sta->rowCount() > 0) {
                 <div class="table-container">
                     <div style="display: flex; justify-content: space-between;">
                         <h2>Tình Trạng Thiết Bị</h2>
-                        <form action="index.php" method="post">
+                        <form action="admin.php" method="post">
                             <input type="hidden" name="action" value="export_report">
                             <button class="selectBtn">Xuất Báo Cáo (.pdf)</button>
                         </form>
@@ -197,47 +238,27 @@ if ($sta->rowCount() > 0) {
                     <table>
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Thiết Bị</th>
-                                <th>Trạng Thái</th>
-                                <th>Tổng Giờ Hoạt Động</th>
+                                <th>Mã Xe</th>
+                                <th>Mã Hãng Xe</th>
+                                <th>Tên Xe</th>
+                                <th>Màu Xe</th>
+                                <th>Giá</th>
+                                <th>Số Lượng Tồn Kho</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($equipments as $equipment) { ?>
+                            <?php foreach ($cars as $car) { ?>
                                 <tr>
-                                    <td><?php echo $equipment->equipment_id ?></td>
-                                    <td><?php echo $equipment->equip_name ?></td>
-                                    <td><?php echo $equipment->equip_status ?></td>
-                                    <td><?php echo $equipment->total_operating_hours ?></td>
+                                    <td><?php echo $car->MaXe ?></td>
+                                    <td><?php echo $car->MaHX ?></td>
+                                    <td><?php echo $car->TenXe ?></td>
+                                    <td><?php echo $car->MauXe ?></td>
+                                    <td><?php echo $car->Gia ?></td>
+                                    <td><?php echo $car->SoLuongTonKho ?></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
                     </table>
-                    <div class="pagination">
-                        <?php if ($totalPageEquipments > 1) { ?>
-                            <a href="index.php?pageReport=1">Trang Đầu</a>
-                            <a href="index.php?pageReport=<?php echo $currentPageEquipments - 1 ?>">Trước</a>
-                            <?php
-                            for ($i = $start_link_equip; $i <= $end_link_equip; $i++) {
-                                if ($i == $currentPageEquipments) {
-                                    ?>
-                                    <a style="background-color: #E43D13;"
-                                        href="index.php?pageReport=<?php echo $currentPageEquipments ?>"><?php echo $currentPageEquipments ?></a>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <a href="index.php?pageReport=<?php echo $i ?>"><?php echo $i ?></a>
-                                    <?php
-                                }
-                            }
-                            ?>
-                            <a href="index.php?pageReport=<?php echo $currentPageEquipments + 1 ?>">Sau</a>
-                            <a href="index.php?pageReport=<?php echo $totalPageEquipments ?>">Trang Cuối</a>
-                            <?php
-                        }
-                        ?>
-                    </div>
                 </div>
             </div>
 
@@ -245,15 +266,15 @@ if ($sta->rowCount() > 0) {
                 <div class="table-container">
                     <div style="display: flex; justify-content: space-between;">
                         <h2>Thông Báo</h2>
-                        <form action="index.php" method="post">
+                        <form action="admin.php" method="post">
                             <input type="hidden" name="action" value="send_email">
-                            <button class="selectBtn">Nhắc nhở Bảo Trì</button>
+                            <button class="selectBtn">Gửi Mail nhắc nhở</button>
                         </form>
                     </div>
                     <table>
                         <thead>
                             <tr>
-                                <th style="text-align: center;">Thông Báo Số</th>
+                                <th style="text-align: center;">Thông Báo</th>
                                 <th style="text-align: center;">Nội Dung</th>
                             </tr>
                         </thead>
@@ -264,12 +285,12 @@ if ($sta->rowCount() > 0) {
                                     <tr>
                                         <td style="text-align: center; width: 20%;"><?php echo $num_noti++; ?></td>
                                         <td>
-                                            <h4 style="color: #E43D12;"><i class="fa-solid fa-hammer"></i> Bảo trì vào ngày mai!
+                                            <h4 style="color: #E43D12;"><i class="fa-solid fa-truck-ramp-box"></i> Nhập thêm xe!
                                             </h4>
                                             <br>
-                                            <p>Thiết bị: <?php echo $noti->equip_name ?> <br> Ngày bảo trì:
-                                                <?php echo $noti->maintenance_date ?> <br> Ngày bảo trì tiếp theo:
-                                                <?php echo $noti->next_maintenance_date ?>
+                                            <p>Xe: <?php echo $noti->TenXe ?> <br> Màu:
+                                                <?php echo $noti->MauXe ?><br> Trong kho còn:
+                                                <?php echo $noti->SoLuongTonKho ?> chiếc
                                             </p>
                                         </td>
                                     </tr>
@@ -349,7 +370,99 @@ if ($sta->rowCount() > 0) {
             </div>
         </div>
     </div>
-    <script src="./assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/script.js?v=<?php echo time(); ?>"></script>
+    <?php
+    if (isset($_POST['action']) && $_POST['action'] == "send_email") {
+        // Lấy email của các kỹ thuật viên (role_id = 2)
+        $sta = $pdo->prepare("SELECT HoTenNV, EmailNV FROM nhanvien WHERE QuyenID = 2");
+        $sta->execute();
+
+        if ($sta->rowCount() > 0)
+            $operators = $sta->fetchAll(PDO::FETCH_OBJ);
+
+        if ($operators && count($operators) > 0) {
+            $mail = new PHPMailer(true);
+
+            try {
+                // Cấu hình SMTP
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com'; // SMTP server của Gmail
+                $mail->SMTPAuth = true;
+                $mail->Username = 'dotrungdung.lop12a1@gmail.com'; // Email của bạn
+                $mail->Password = 'qmbc nbza robx zvqp'; // Mật khẩu ứng dụng Gmail
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+
+                // Thiết lập thông tin email
+                foreach ($operators as $operator) {
+                    $mail->setFrom('dotrungdung.lop12a1@gmail.com', 'Hệ Thống Bán Ô Tô');
+                    $mail->addAddress($operator->EmailNV); // Thêm email của Nhân viên bán hàng
+    
+                    // Tạo danh sách xe cần nhập thêm
+                    $car_list = "<ul>";
+                    if ($notis && count($notis) > 0) {
+                        foreach ($notis as $noti) {
+                            $car_list .= "<li>" . htmlspecialchars($noti->MaXe) . " - " . $noti->TenXe . ": Chỉ còn: " . $noti->SoLuongTonKho . " chiếc.</li>";
+                        }
+                    }
+                    $car_list .= "</ul>";
+
+                    $mail->Subject = 'Thông Báo Từ Hệ Thống Bán Ô Tô';
+                    $mail->Body = "
+                        <h2>Thông Báo</h2>
+                        <p>Xin chào <strong>" . $operator->HoTenNV . "</strong>,</p>
+                        <p>Đây là một thông báo từ hệ thống bán ô tô.</p>
+                        <p>Có một số xe cần được kiểm tra và nhập thêm trong thời gian tới:</p>
+                        " . $car_list . "
+                        <p>Vui lòng kiểm tra và thực hiện các công việc cần thiết.</p>
+                        <p>Trân trọng,</p>
+                        <p>" . $_SESSION['HoTenNV'] . " - Quản trị viên</p>
+                    ";
+                    $mail->CharSet = 'UTF-8';
+                    $mail->isHTML(true);
+
+                    // Gửi email
+                    $mail->send();
+                    $mail->clearAddresses(); // Xóa địa chỉ để gửi email tiếp theo
+                }
+
+                // Hiển thị thông báo thành công
+                echo "<script>
+                        Swal.fire({
+                            title: 'Gửi nhắc nhở thành công!',
+                            text: 'Email đã được gửi đến các nhân viên.',
+                            icon: 'success'
+                        }).then(() => {
+                            showContent('notifications');
+                        });
+                    </script>";
+            } catch (Exception $e) {
+                // Hiển thị thông báo lỗi
+                echo "<script>
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: 'Không thể gửi email: " . addslashes($mail->ErrorInfo) . "',
+                            icon: 'error'
+                        }).then(() => {
+                            showContent('notifications');
+                        });
+                    </script>";
+            }
+        } else {
+            // Không tìm thấy kỹ thuật viên
+            echo "<script>
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'Không tìm thấy kỹ thuật viên nào để gửi email.',
+                        icon: 'error'
+                    }).then(() => {
+                        showContent('notifications');
+                    });
+                </script>";
+        }
+    }
+    ?>
 </body>
 
 </html>

@@ -1,6 +1,9 @@
 <?php
+session_start();
 $title = "Quản lý hóa đơn";
 require_once 'models/M_database.php';
+
+$showLogout = true;
 
 $db = new Database();
 $db->M_connect();
@@ -12,7 +15,7 @@ if (isset($_GET['delete']) && $_GET['mahd']) {
     $db->M_excute("DELETE FROM ChiTietHoaDon WHERE MaHD = ?", [$mahd]);
     // Xóa hóa đơn
     $db->M_excute("DELETE FROM HoaDon WHERE MaHD = ?", [$mahd]);
-    header("Location: admin.php");
+    header("Location: QL_HoaDon.php");
     exit;
 }
 
@@ -24,7 +27,7 @@ if (isset($_POST['add'])) {
     $ngaylap = $_POST['ngaylap'];
     $tongtien = $_POST['tongtien'];
     $db->M_excute("INSERT INTO HoaDon (MaHD, MaKH, MaNV, NgayLap, TongTien) VALUES (?, ?, ?, ?, ?)", [$mahd, $makh, $manv, $ngaylap, $tongtien]);
-    header("Location: admin.php");
+    header("Location: QL_HoaDon.php");
     exit;
 }
 
@@ -36,7 +39,7 @@ if (isset($_POST['edit'])) {
     $ngaylap = $_POST['ngaylap'];
     $tongtien = $_POST['tongtien'];
     $db->M_excute("UPDATE HoaDon SET MaKH=?, MaNV=?, NgayLap=?, TongTien=? WHERE MaHD=?", [$makh, $manv, $ngaylap, $tongtien, $mahd]);
-    header("Location: admin.php");
+    header("Location: QL_HoaDon.php");
     exit;
 }
 
@@ -86,6 +89,25 @@ if (isset($_GET['mahd'])) {
 </head>
 
 <body>
+    <div class="header_ad">
+        <h1 style="display: flex; align-items: center;">
+            Trang Quản Lý
+        </h1>
+        <div class="header-right">
+            <i class="fa-solid fa-user"></i>
+            <?php if (isset($showLogout) && $showLogout): ?>
+                <span>
+                    <?php
+                    echo $_SESSION['HoTenNV'];
+                    ?>
+                </span>
+                <form style="margin: 0;" id="logout-id" action="index.php" method="post" onsubmit="return handleLogout()">
+                    <input type="hidden" name="log_out">
+                    <button class="logout-btn">Đăng Xuất</button>
+                </form>
+            <?php endif; ?>
+        </div>
+    </div>
     <h2 class="admin-title">Danh sách hóa đơn</h2>
     <table class="table-admin">
         <tr>
@@ -105,7 +127,7 @@ if (isset($_GET['mahd'])) {
                 <td><?php echo htmlspecialchars($hd->MaNV); ?></td>
                 <td><?php echo htmlspecialchars($hd->NgayLap); ?></td>
                 <td><?php echo number_format($hd->TongTien, 0, ",", "."); ?> VNĐ</td>
-                <td><a href="admin.php?mahd=<?php echo $hd->MaHD; ?>">Xem</a></td>
+                <td><a href="QL_HoaDon.php?mahd=<?php echo $hd->MaHD; ?>">Xem</a></td>
                 <td>
                     <form method="post" style="display:inline;">
                         <input type="hidden" name="mahd" value="<?php echo $hd->MaHD; ?>">
@@ -116,7 +138,7 @@ if (isset($_GET['mahd'])) {
                         <button type="submit" name="showedit">Sửa</button>
                     </form>
                 </td>
-                <td><a href="admin.php?delete=1&mahd=<?php echo $hd->MaHD; ?>"
+                <td><a href="QL_HoaDon.php?delete=1&mahd=<?php echo $hd->MaHD; ?>"
                         onclick="return confirm('Xóa hóa đơn này?')">Xóa</a></td>
             </tr>
         <?php endforeach; ?>
@@ -162,6 +184,8 @@ if (isset($_GET['mahd'])) {
             <?php endforeach; ?>
         </table>
     <?php endif; ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/script.js?v=<?php echo time(); ?>"></script>
 </body>
 
 </html>

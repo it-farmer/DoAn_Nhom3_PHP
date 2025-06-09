@@ -180,7 +180,7 @@ $result = $conn->query("SELECT * FROM NhanVien WHERE HoTenNV LIKE '%$search%' LI
 
 <div class="container">
     <h2>Quản lý Nhân viên</h2>
-    
+    <a href="admin.php"><button class="btn" style="margin-bottom: 3%;">Quay lại</button></a>
     <?php if (!empty($message)): ?>
         <div class="alert" style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 20px;">
             <?php echo htmlspecialchars($message); ?>
